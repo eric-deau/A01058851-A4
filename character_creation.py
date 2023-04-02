@@ -9,7 +9,7 @@ def make_character() -> dict:
     >>> test_character_one
     {'X-coordinates': 0, 'Y-coordinates': 0, 'HP': 2}
     """
-    create_char = {'name': choose_name(), 'class': choose_class(), "X-coordinates": 0, "Y-coordinates": 0,
+    create_char = {'name': choose_name(), 'class': choose_class(), "X-coord": 0, "Y-coord": 0, 'Z-coord': 0,
                    "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1}
     return create_char
 
