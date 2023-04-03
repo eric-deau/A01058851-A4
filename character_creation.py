@@ -9,8 +9,9 @@ def make_character() -> dict:
     >>> test_character_one
     {'X-coordinates': 0, 'Y-coordinates': 0, 'HP': 2}
     """
-    create_char = {'name': choose_name(), 'class': choose_class(), "X-coord": 0, "Y-coord": 0, 'Z-coord': 0,
-                   "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1}
+    create_char = {'name': choose_name(), 'class': choose_class(), 'Attack': 50, 'Spell': None,
+                   "X-coord": 0, "Y-coord": 0, 'Z-coord': 0, "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
+    create_char['spell'] = get_skill(create_char['class'])
     return create_char
 
 
@@ -45,6 +46,15 @@ def choose_class():
         char_class = valid_selection(char_class, classes)
         confirm_class = input("Are you sure? Enter \'Y\' to confirm: ")
     return char_class
+
+
+def get_skill(char_class):
+    if char_class == 'Warrior':
+        return 'Earthquake Chain'
+    elif char_class == 'Mage':
+        return 'Doomsday'
+    else:
+        return 'Sucker Punch'
 
 
 def valid_selection(selection, classes):
