@@ -3,23 +3,25 @@ import time
 
 
 def character_attack(character, creep):
-    print(character)
-    print(creep)
     choices = {'1': 'Attack', '2': 'Spell', '3': 'Run away'}
     attack_choice = get_attack_choice()
     print(f'You decide to use: {choices[attack_choice]}')
+    time.sleep(2)
     if choices[attack_choice] != 'Run away':
         modify_health(character, creep, choices[attack_choice])
     else:
         return
-    print(character)
-    print(creep)
+    creep['Turn'] = True
+    character['Turn'] = False
+    print(f"Opponent health is now at: {creep['HP']}")
 
 
 def creep_attack(character, creep):
     print(f"{creep['Name']} is about to attack!")
     time.sleep(2)
     character['HP'] -= creep['ATK']
+    creep['Turn'] = False
+    character['Turn'] = True
     print(f"Your health is now at: {character['HP']}")
 
 

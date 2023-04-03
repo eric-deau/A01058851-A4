@@ -38,12 +38,12 @@ def engage_combat(character, creep):
         character['Turn'] = True
     else:
         creep['Turn'] = True
-    while character['HP'] != 0 or creep['HP'] != 0:
+    while character['HP'] > 0 and creep['HP'] > 0:
         if character['Turn']:
             combat.character_attack(character, creep)
         else:
             combat.creep_attack(character, creep)
-
+    print(f"{creep['Name']} has been slain.")
 
 def spawn_monster():
     slime = {'Name': 'Slime', 'HP': 50, 'ATK': 10, 'Affliction': None, 'EXP': 5}
@@ -70,7 +70,10 @@ def spawn_boss(character):
 
 
 def main():
-    print(spawn_monster())
+    """
+
+    :return:
+    """
 
 
 if __name__ == "__main__":
