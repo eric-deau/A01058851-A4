@@ -1,4 +1,11 @@
 from combat import DOOMSDAY_MP_COST, EARTHQUAKE_CHAIN_MP_COST, STAB_MP_COST
+import time
+from encounters import guessing_game
+
+
+def run_away(character):
+    character['Affliction'] = 'Coward'
+    guessing_game(character)
 
 
 def doomsday(character, creep):
@@ -18,11 +25,13 @@ def earthquake_chain(character, creep):
     creep['Affliction'] = 'Stunned'
     character['MP'] -= EARTHQUAKE_CHAIN_MP_COST
     print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
+    time.sleep(2)
 
 
 def regular_attack(character, creep):
     creep['HP'] -= character['Attack']
     print(f"{creep['Name']} has been hit!")
+    time.sleep(2)
 
 
 def cast_spell(character, creep):

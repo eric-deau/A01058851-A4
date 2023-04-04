@@ -1,6 +1,7 @@
 import random
 from combat import combat
 from combat import afflictions
+import time
 
 
 def guessing_game(current_character: dict) -> None:
@@ -35,7 +36,17 @@ def engage_combat(character, creep):
             combat.character_attack(character=character, creep=creep)
         else:
             combat.creep_attack(character=character, creep=creep)
-    print(f"{creep['Name']} has been slain.")
+    if check_for_victory(character, creep):
+        encounter_victory(character, creep)
+
+
+
+    # while character['HP'] > 0 and creep['HP'] > 0:
+    #     afflictions.check_for_creep_afflictions(creep=creep, character=character)
+    #     if character['Turn']:
+    #         combat.character_attack(character=character, creep=creep)
+    #     else:
+    #         combat.creep_attack(character=character, creep=creep)
 
 
 def spawn_monster():
@@ -56,6 +67,31 @@ def decide_encounter(character):
         return engage_combat(character, spawn_monster())
     else:
         return guessing_game(character)
+
+
+def check_for_victory(character, creep):
+    if character['HP'] > 0 >= creep['HP']:
+        return True
+    else:
+        return False
+
+
+def encounter_victory(character, creep):
+    if character['HP'] > 0 >= creep['HP']:
+        character['HP'] += 20
+        character['HP'] += creep['EXP']
+        character['MP'] += 30
+    print(f"{creep['Name']} has been slain.")
+    time.sleep(3)
+    print(f"You have healed for 20 HP.")
+    print(f"You have regenerated 30 mana.")
+    print(f"You have gained {creep['EXP']} EXP!")
+    print(f"You have slain {creep['Name']}!")
+    time.sleep(3)
+
+
+def defeat():
+    pass
 
 
 def spawn_boss(character):

@@ -10,10 +10,13 @@ def character_attack(character, creep):
     time.sleep(2)
     if choices[attack_choice] != 'Run away':
         determine_attack(attack_choice=choices[attack_choice], character=character, creep=creep)
+        creep['Turn'] = True
+        character['Turn'] = False
+        print(f"Opponent health is now at: {creep['HP']}")
+        time.sleep(3)
+    else:
+        run_away(character)
         # modify_health_combat(character, creep, choices[attack_choice])
-    creep['Turn'] = True
-    character['Turn'] = False
-    print(f"Opponent health is now at: {creep['HP']}")
 
 
 def determine_attack(attack_choice, character, creep):
@@ -61,6 +64,7 @@ def creep_attack(character, creep):
     creep['Turn'] = False
     character['Turn'] = True
     print(f"Your health is now at: {character['HP']}")
+    time.sleep(2)
 
 
 def get_attack_choice(character):
@@ -105,14 +109,6 @@ def validate_attack_choice(attack_choice, choices, character):
 #     elif choice_of_attack == 'Spell':
 #         creep['HP'] -= 30
 #         creep['Affliction'] = character['Spell']
-
-
-def victory():
-    pass
-
-
-def defeat():
-    pass
 
 
 def main():
