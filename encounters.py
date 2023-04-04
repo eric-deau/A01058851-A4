@@ -35,7 +35,6 @@ def engage_combat(character, creep):
             combat.character_attack(character=character, creep=creep)
         else:
             combat.creep_attack(character=character, creep=creep)
-        afflictions.check_for_creep_afflictions(creep=creep, character=character)
     print(f"{creep['Name']} has been slain.")
 
 

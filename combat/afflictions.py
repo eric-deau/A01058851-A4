@@ -11,12 +11,12 @@ def check_for_creep_afflictions(creep, character):
 
 
 def burning(creep):
-    creep['HP'] -= 2
+    creep['HP'] -= BURNING_DMG
     print(f"{creep['Name']} is afflicted with {creep['Affliction']}! They have taken {BURNING_DMG} damage.")
 
 
 def bleed(creep):
-    creep['HP'] -= 7
+    creep['HP'] -= BLEED_DMG
     print(f"{creep['Name']} is afflicted with {creep['Affliction']}! They have taken {BLEED_DMG} damage.")
 
 

@@ -17,13 +17,19 @@ def character_attack(character, creep):
 
 
 def determine_attack(attack_choice, character, creep):
-    if check_for_mana(character):
-        if attack_choice == "Attack":
-            abilities.regular_attack(character, creep)
-        else:
-            abilities.cast_spell(character, creep)
+    print('determine attack', attack_choice)
+    if attack_choice == "Attack":
+        abilities.regular_attack(character, creep)
     else:
-        print(f"Not enough mana to cast {character['Spell']}.")
+        abilities.cast_spell(character, creep)
+
+    # if check_for_mana(character):
+    #     if attack_choice == "Attack":
+    #         abilities.regular_attack(character, creep)
+    #     else:
+    #         abilities.cast_spell(character, creep)
+    # else:
+    #     print(f"Not enough mana to cast {character['Spell']}.")
 
 
 def check_for_mana(character):
@@ -80,37 +86,17 @@ def get_attack_choice(character):
 
 
 def validate_attack_choice(attack_choice, choices, character):
-    # user_choice = attack_choice
-    # good_choice = False
     if attack_choice not in choices:
+        print(f"That is not a choice.")
         return False
     if attack_choice == '2':
         sufficient_mana = check_for_mana(character)
         if sufficient_mana:
             return True
         else:
+            print(f"Not enough mana for {character['Spell']}.")
             return False
     return True
-    # while not good_choice:
-    #     while user_choice not in choices:
-    #         user_choice = input("Hey bozo, you will die if you don't select a choice. Do it now: ")
-    #     if user_choice == '2':
-    #         if check_for_mana(character):
-    #             good_choice = True
-
-            # if character['MP'] < DOOMSDAY_MP_COST and character['Class'] == 'Mage':
-            #     print(f"Not enough mana for {character['Spell']}.")
-            # elif character['MP'] < STAB_MP_COST and character['Class'] == 'Thief':
-            #     print(f"Not enough mana for {character['Spell']}.")
-            # elif character['MP'] < EARTHQUAKE_CHAIN_MP_COST and character['Class'] == 'Warrior':
-            #     print(f"Not enough mana for {character['Spell']}.")
-            # else:
-            #     good_choice = True
-    # return True
-
-
-
-
 
 
 # def modify_health_combat(character, creep, choice_of_attack):
