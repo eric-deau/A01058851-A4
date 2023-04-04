@@ -50,3 +50,12 @@ def check_character_level(character, creep):
         creep['ATK'] -= 10
 
 
+def main():
+    """
+
+    :return:
+    """
+
+
+if __name__ == "__main__":
+    main()
