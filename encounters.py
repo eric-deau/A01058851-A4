@@ -2,16 +2,6 @@ import random
 import combat
 
 
-def check_for_foes() -> int:
-    """
-    Determine if a character will have an encounter in the playing board 25% of the time.
-
-    :postcondition: determines if a mini-game will be initialized 25% of the time
-    :return: a boolean value representing if a foe is encountered 25% of the time
-    """
-    return random.randint(1, 4) == 1
-
-
 def guessing_game(current_character: dict) -> None:
     """
     Initialize a number guessing mini-game for the user to play.
@@ -45,6 +35,7 @@ def engage_combat(character, creep):
             combat.creep_attack(character, creep)
     print(f"{creep['Name']} has been slain.")
 
+
 def spawn_monster():
     slime = {'Name': 'Slime', 'HP': 50, 'ATK': 10, 'Affliction': None, 'EXP': 5}
     bigger_slime = {'Name': 'Slime\'s bigger brother', 'HP': 60, 'ATK': 15, 'Affliction': None, 'EXP': 10,
@@ -57,13 +48,23 @@ def spawn_monster():
     return mob_spawner[random.randint(0, len(mob_spawner)-1)]
 
 
+def decide_encounter(character):
+    encounter = random.choices([engage_combat, guessing_game])
+    print(encounter)
+    print(engage_combat)
+    if engage_combat in encounter:
+        return engage_combat(character, spawn_monster())
+    else:
+        return guessing_game(character)
+
+
 def spawn_boss(character):
     floor_one_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 200, 'ATK': 50, 'Affliction': None, 'Turn': False}
     floor_two_boss = {'Name': 'MIMIC', 'Level': 3, 'HP': 300, 'ATK': 100, 'Affliction': None, 'Turn': False}
     floor_three_boss = {'Name': 'ZAKUM', 'Level': 4, 'HP': 500, 'ATK': 200, 'Affliction': None, 'Turn': False}
-    if character['X-coords'] == 4 and character['Y-coords'] == 4 and character['Z-coords'] == 0:
+    if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 0:
         return floor_one_boss
-    elif character['X-coords'] == 4 and character['Y-coords'] == 4 and character['Z-coords'] == 1:
+    elif character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 1:
         return floor_two_boss
     else:
         return floor_three_boss
@@ -74,6 +75,8 @@ def main():
 
     :return:
     """
+    print(decide_encounter({'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, 'Y-coord': 0,
+                 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}))
 
 
 if __name__ == "__main__":

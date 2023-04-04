@@ -1,4 +1,3 @@
-import character_creation
 import time
 
 
@@ -8,7 +7,7 @@ def character_attack(character, creep):
     print(f'You decide to use: {choices[attack_choice]}')
     time.sleep(2)
     if choices[attack_choice] != 'Run away':
-        modify_health(character, creep, choices[attack_choice])
+        modify_health_combat(character, creep, choices[attack_choice])
     else:
         return
     creep['Turn'] = True
@@ -35,12 +34,18 @@ def get_attack_choice():
     return user_choice
 
 
-def modify_health(character, creep, choice_of_attack):
+def modify_health_combat(character, creep, choice_of_attack):
     if choice_of_attack == 'Attack':
         creep['HP'] -= character[choice_of_attack]
     elif choice_of_attack == 'Spell':
         creep['HP'] -= 30
         creep['Affliction'] = character['Spell']
+
+def victory():
+    pass
+
+def defeat():
+    pass
 
 
 def main():

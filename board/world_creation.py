@@ -17,7 +17,6 @@ def make_board(rows, columns, floors):
     first_floor_descriptions(board)
     second_floor_descriptions(board)
     third_floor_descriptions(board)
-    print(board)
     return board
 
 

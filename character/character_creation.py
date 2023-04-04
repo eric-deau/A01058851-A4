@@ -60,7 +60,7 @@ def get_skill(char_class):
 def valid_selection(selection, classes):
     user_input = selection
     while user_input not in classes:
-        print("\"Is that even a class? Let's try again.")
+        print("\"Is that even a class? Let's try again.\"")
         user_input = input("Type in a number from 1-3 to pick a class: ")
     return classes[user_input]
 

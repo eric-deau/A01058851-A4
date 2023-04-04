@@ -28,11 +28,18 @@ def describe_current_location(current_board: dict, current_character: dict) -> N
     >>> describe_current_location(board_two, char_two)
     "A non-empty room. This room also has a door on each side."
     """
-    if (current_character['X-coordinates'], current_character['Y-coordinates']) not in current_board:
+    if (current_character['X-coord'], current_character['Y-coord'], current_character['Z-coord']) \
+            not in current_board:
         raise KeyError("Coordinates do not exist within the board.")
     else:
-        current_location = (current_character['X-coordinates'], current_character['Y-coordinates'])
+        current_location = (current_character['X-coord'], current_character['Y-coord'],
+                            current_character['Z-coord'])
         print(current_board[current_location])
+
+
+# def change_floor(character, board):
+#     if (character['X-coord'], character['Y-coord'], character['Z-coord']) in board:
+#         character['Z-coord'] -= 1
 
 
 def get_user_choice() -> str:
@@ -88,13 +95,14 @@ def validate_move(current_board: dict, current_character: dict, current_directio
     True
     """
     choices = {"North Door": -1, "South Door": 1, "West Door": -1, "East Door": 1}
-    valid_y_coordinate = current_character['Y-coordinates']
-    valid_x_coordinate = current_character['X-coordinates']
+    valid_y_coordinate = current_character['Y-coord']
+    valid_x_coordinate = current_character['X-coord']
+    valid_z_coordinate = current_character['Z-coord']
     if current_direction == "North Door" or current_direction == "South Door":
         valid_y_coordinate += choices[current_direction]
     if current_direction == "East Door" or current_direction == "West Door":
         valid_x_coordinate += choices[current_direction]
-    if (valid_x_coordinate, valid_y_coordinate) in current_board and current_direction in choices:
+    if (valid_x_coordinate, valid_y_coordinate, valid_z_coordinate) in current_board and current_direction in choices:
         return True
     return False
 
@@ -125,9 +133,9 @@ def move_character(current_character: dict, current_direction: str) -> None:
     """
     choices = {"North Door": -1, "South Door": 1, "West Door": -1, "East Door": 1}
     if current_direction == "North Door" or current_direction == "South Door":
-        current_character['Y-coordinates'] += choices[current_direction]
+        current_character['Y-coord'] += choices[current_direction]
     if current_direction == "East Door" or current_direction == "West Door":
-        current_character['X-coordinates'] += choices[current_direction]
+        current_character['X-coord'] += choices[current_direction]
 
 
 def main():
