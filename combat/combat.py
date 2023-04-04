@@ -8,7 +8,7 @@ def character_attack(character, creep):
     print(f'You decide to use: {choices[attack_choice]}')
     time.sleep(2)
     if choices[attack_choice] != 'Run away':
-        determine_attack(attack_choice=attack_choice, character=character, creep=creep)
+        determine_attack(attack_choice=choices[attack_choice], character=character, creep=creep)
         # modify_health_combat(character, creep, choices[attack_choice])
     creep['Turn'] = True
     character['Turn'] = False

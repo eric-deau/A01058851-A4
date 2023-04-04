@@ -19,6 +19,7 @@ def earthquake_chain(character, creep):
 
 def regular_attack(character, creep):
     creep['HP'] -= character['Attack']
+    print(f"{creep['Name']} has been hit!")
 
 
 def cast_spell(character, creep):

@@ -31,10 +31,10 @@ def engage_combat(character, creep):
         creep['Turn'] = True
     while character['HP'] > 0 and creep['HP'] > 0:
         if character['Turn']:
-            combat.character_attack(character, creep)
+            combat.character_attack(character=character, creep=creep)
         else:
-            combat.creep_attack(character, creep)
-        afflictions.check_for_creep_afflictions(creep)
+            combat.creep_attack(character=character, creep=creep)
+        afflictions.check_for_creep_afflictions(creep=creep, character=character)
     print(f"{creep['Name']} has been slain.")
 
 
