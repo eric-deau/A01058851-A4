@@ -94,8 +94,9 @@ def valid_selection(selection, classes):
 
 
 def main():
-    print("Hello World!")
-    print(make_character())
+    """
+    Drive the program
+    """
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 import encounters
-import board
 import movement
 from board import world_creation
 from movement import movement
@@ -21,15 +20,15 @@ def game():
         if valid_move:
             movement.move_character(character, direction)
             print(character['X-coord'], character['Y-coord'])
-            boss_check = game_checks.check_for_boss(character)
-            print(boss_check)
-            if boss_check:
-                boss = encounters.spawn_boss(character)
-                print(f"You have encountered {boss['Name']}.")
-                encounters.engage_combat(character, encounters.spawn_boss(character))
+            # boss_check = game_checks.check_for_boss(character)
+            # print(boss_check)
+            # if boss_check:
+            #     boss = encounters.spawn_boss(character)
+            #     print(f"You have encountered {boss['Name']}.")
+            #     encounters.engage_combat(character, encounters.spawn_boss(character))
 
-            # if game_checks.check_for_random_foes():
-            #     encounters.decide_encounter(character)
+            if game_checks.check_for_random_foes():
+                encounters.decide_encounter(character)
 
         # creep = encounters.spawn_monster()
         # while character['HP'] > 0 and creep['HP'] > 0:

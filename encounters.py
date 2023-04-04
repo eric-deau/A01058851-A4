@@ -1,5 +1,6 @@
 import random
-import combat
+from combat import combat
+from combat import afflictions
 
 
 def guessing_game(current_character: dict) -> None:
@@ -11,10 +12,10 @@ def guessing_game(current_character: dict) -> None:
     :postcondition: modifies 'HP' key value in current_character and print a prompt as a side effect
     """
     secret_number = str(random.randint(1, 5))
-    print("AN ENEMY! TIME TO FIGHT FOR YOUR LIFE")
+    print("AHAHAHAHAHHAHA CAN'T ESCAPE RNG.")
     guess = input("Enter a number between 1 and 5 inclusive: ")
     if guess == secret_number:
-        print("ENEMY IS DEFEATED")
+        print("THAT WAS A LUCKY GUESS PUNK")
     elif not guess.isdigit():
         current_character['HP'] -= 1
         print(f"Seriously, that isn't even a number. Take some damage. HP is now at {current_character['HP']}")
@@ -33,6 +34,7 @@ def engage_combat(character, creep):
             combat.character_attack(character, creep)
         else:
             combat.creep_attack(character, creep)
+        afflictions.check_for_creep_afflictions(creep)
     print(f"{creep['Name']} has been slain.")
 
 
@@ -50,8 +52,6 @@ def spawn_monster():
 
 def decide_encounter(character):
     encounter = random.choices([engage_combat, guessing_game])
-    print(encounter)
-    print(engage_combat)
     if engage_combat in encounter:
         return engage_combat(character, spawn_monster())
     else:

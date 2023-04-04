@@ -1,4 +1,5 @@
 import time
+from combat import abilities
 
 
 def character_attack(character, creep):
@@ -7,12 +8,18 @@ def character_attack(character, creep):
     print(f'You decide to use: {choices[attack_choice]}')
     time.sleep(2)
     if choices[attack_choice] != 'Run away':
-        modify_health_combat(character, creep, choices[attack_choice])
-    else:
-        return
+        determine_attack(attack_choice=attack_choice, character=character, creep=creep)
+        # modify_health_combat(character, creep, choices[attack_choice])
     creep['Turn'] = True
     character['Turn'] = False
     print(f"Opponent health is now at: {creep['HP']}")
+
+
+def determine_attack(attack_choice, character, creep):
+    if attack_choice == "Attack":
+        abilities.regular_attack(character, creep)
+    else:
+        abilities.cast_spell(character, creep)
 
 
 def creep_attack(character, creep):
@@ -34,12 +41,12 @@ def get_attack_choice():
     return user_choice
 
 
-def modify_health_combat(character, creep, choice_of_attack):
-    if choice_of_attack == 'Attack':
-        creep['HP'] -= character[choice_of_attack]
-    elif choice_of_attack == 'Spell':
-        creep['HP'] -= 30
-        creep['Affliction'] = character['Spell']
+# def modify_health_combat(character, creep, choice_of_attack):
+#     if choice_of_attack == 'Attack':
+#         creep['HP'] -= character[choice_of_attack]
+#     elif choice_of_attack == 'Spell':
+#         creep['HP'] -= 30
+#         creep['Affliction'] = character['Spell']
 
 
 def victory():

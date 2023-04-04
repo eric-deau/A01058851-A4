@@ -1,0 +1,2 @@
+BURNING_DMG = 2
+BLEED_DMG = 7
