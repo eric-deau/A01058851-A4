@@ -9,9 +9,10 @@ def make_character() -> dict:
     >>> test_character_one
     {'X-coordinates': 0, 'Y-coordinates': 0, 'HP': 2}
     """
-    create_char = {'name': choose_name(), 'class': choose_class(), 'Attack': 50, 'Spell': None,
+    create_char = {'Name': choose_name(), 'Class': choose_class(), 'Attack': None, 'Spell': None,
                    "X-coord": 0, "Y-coord": 0, 'Z-coord': 0, "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
-    create_char['spell'] = get_skill(create_char['class'])
+    determine_stats(create_char)
+    create_char['Spell'] = get_skill(create_char['Class'])
     return create_char
 
 
@@ -55,6 +56,33 @@ def get_skill(char_class):
         return 'Doomsday'
     else:
         return 'Sucker Punch'
+
+
+def determine_stats(character):
+    if character['Class'] == 'Warrior':
+        warrior_stats(character)
+    elif character['Class'] == 'Mage':
+        mage_stats(character)
+    else:
+        thief_stats(character)
+
+
+def warrior_stats(character):
+    character['Attack'] = 50
+    character['HP'] = 110
+    character['MP'] = 50
+
+
+def thief_stats(character):
+    character['Attack'] = 40
+    character['HP'] = 90
+    character['MP'] = 100
+
+
+def mage_stats(character):
+    character['Attack'] = 30
+    character['HP'] = 80
+    character['MP'] = 150
 
 
 def valid_selection(selection, classes):
