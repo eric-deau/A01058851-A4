@@ -41,8 +41,10 @@ def modify_health_combat(character, creep, choice_of_attack):
         creep['HP'] -= 30
         creep['Affliction'] = character['Spell']
 
+
 def victory():
     pass
+
 
 def defeat():
     pass
