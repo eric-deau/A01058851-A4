@@ -9,8 +9,10 @@ from utilities import game_checks
 def game():
     world = world_creation.make_board(5, 5, 3)
     print(world)
-    character = {'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, 'Y-coord': 0,
-                 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
+    # character = character_creation.make_character()
+    # print(character)
+    character = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None, 'X-coord': 0,
+                 'Y-coord': 0, 'Z-coord': 0, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, 'Turn': False}
     achieved_goal = False
     while character['HP'] > 0 and not achieved_goal:
         movement.describe_current_location(world, character)

@@ -30,6 +30,7 @@ def engage_combat(character, creep):
     else:
         creep['Turn'] = True
     while character['HP'] > 0 and creep['HP'] > 0:
+        afflictions.check_for_creep_afflictions(creep=creep, character=character)
         if character['Turn']:
             combat.character_attack(character=character, creep=creep)
         else:
