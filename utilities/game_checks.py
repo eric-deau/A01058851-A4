@@ -1,28 +1,30 @@
 import random
+import board
 
 
-def check_if_goal_attained(current_character: dict) -> bool:
+def check_if_goal_attained(current_char: dict) -> bool:
     """
     Check if a character meets the win condition of the game.
 
-    :param current_character: a dictionary containing keys 'X-coordinates', 'Y-coordinates', and 'HP'
-    :precondition: current_character must contain keys 'X-coordinates' and 'Y-coordinates' and 'HP'
-    :precondition: current_character key 'HP' value must be a positive integer more than 0
-    :precondition: current_character keys 'X-coordinates' value must be a positive integer more than 0
-    :precondition: current_character keys 'Y-coordinates' value must be a positive integer more than 0
+    :param current_char: a dictionary containing keys 'X-coord', 'Y-coord', 'Z-coord' and 'HP'
+    :precondition: current_char must contain keys 'X-coord','Y-coord', 'Z-coord' and 'HP'
+    :precondition: current_char key 'HP' value must be a positive integer more than 0
+    :precondition: current_char keys 'X-coord' value must be a positive integer more than 0
+    :precondition: current_char keys 'Y-coord' value must be a positive integer more than 0
+    :precondition: current_char keys 'Z-coord' value must be a positive integer more than 0
     :postcondition: determines if current_character meets the win condition of the game
     :return: a boolean value representing the win condition of the character
 
-    >>> test_char_one = {'X-coordinates': 1, 'Y-coordinates': 1, 'HP': 2}
+    >>> test_char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'HP': 2}
     >>> check_if_goal_attained(test_char_one)
     False
 
-    >>> test_char_two = {'X-coordinates': 2, 'Y-coordinates': 2, 'HP': 2}
+    >>> test_char_two = {'X-coord': 4, 'Y-coord': 4, 'Z-coord': 2, 'HP': 2}
     >>> check_if_goal_attained(test_char_two)
     True
     """
-    if current_character["X-coord"] and current_character["Y-coord"] == 4 and \
-            current_character['Z-coord'] == 2 and current_character['HP'] > 0:
+    if current_char["X-coord"] == board.ROWS-1 and current_char["Y-coord"] == board.COLUMNS-1 and \
+            current_char['Z-coord'] == board.FLOORS-1 and current_char['HP'] > 0:
         return True
     return False
 
@@ -37,17 +39,105 @@ def check_for_random_foes() -> int:
     return random.randint(1, 4) == 1
 
 
-def check_for_boss(character, board):
-    if character['X-coord'] == 4 and character['Y-coord'] == 4:
-        if board[(4, 4, 0)] or board[(4, 4, 1)] or board[(4, 4, 2)] == "BOSS HERE":
-            return True
+def check_for_boss(current_char, current_board):
+    """
+    Determine if a character will have an encounter with a boss on the playing board.
+
+    :param current_char: a dictionary containing keys 'X-coord', 'Y-coord', 'Z-coord' and 'HP'
+    :param current_board: a dictionary containing tuples of length 3 with positive integers as keys
+    :precondition: current_char must contain keys 'X-coord','Y-coord', 'Z-coord' and 'HP'
+    :precondition: current_char key 'HP' value must be a positive integer more than 0
+    :precondition: current_char keys 'X-coord' value must be a positive integer more than 0
+    :precondition: current_char keys 'Y-coord' value must be a positive integer more than 0
+    :precondition: current_char keys 'Z-coord' value must be a positive integer more than 0
+    :precondition: current_board tuple keys must contain three positive integers more than or equal to 0
+
+
+    >>> char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'HP': 2}
+    >>> board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Test', (0, 0, 2): 'Test',\
+     (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
+      (0, 2, 2): 'Test', (0, 3, 0): 'Test', (0, 3, 1): 'Test', (0, 3, 2): 'Test', (0, 4, 0): 'Test', \
+      (0, 4, 1): 'Test', (0, 4, 2): 'Test', (1, 0, 0): 'Test', (1, 0, 1): 'Test', (1, 0, 2): 'Test', \
+      (1, 1, 0): 'Test', (1, 1, 1): 'Test', (1, 1, 2): 'Test', (1, 2, 0): 'Test', (1, 2, 1): 'Test', \
+      (1, 2, 2): 'Test', (1, 3, 0): 'Test', (1, 3, 1): 'Test', (1, 3, 2): 'Test', (1, 4, 0): 'Test', \
+      (1, 4, 1): 'Test', (1, 4, 2): 'Test', (2, 0, 0): 'Test', (2, 0, 1): 'Test', (2, 0, 2): 'Test', \
+      (2, 1, 0): 'Test', (2, 1, 1): 'Test', (2, 1, 2): 'Test', (2, 2, 0): 'Test', (2, 2, 1): 'Test', \
+      (2, 2, 2): 'Test', (2, 3, 0): 'Test', (2, 3, 1): 'Test', (2, 3, 2): 'Test', (2, 4, 0): 'Test', \
+      (2, 4, 1): 'Test', (2, 4, 2): 'Test', (3, 0, 0): 'Test', (3, 0, 1): 'Test', (3, 0, 2): 'Test', \
+      (3, 1, 0): 'Test', (3, 1, 1): 'Test', (3, 1, 2): 'Test', (3, 2, 0): 'Test', (3, 2, 1): 'Test', \
+      (3, 2, 2): 'Test', (3, 3, 0): 'Test', (3, 3, 1): 'Test', (3, 3, 2): 'Test', (3, 4, 0): 'Test', \
+      (3, 4, 1): 'Test', (3, 4, 2): 'Test', (4, 0, 0): 'Test', (4, 0, 1): 'Test', (4, 0, 2): 'Test', \
+      (4, 1, 0): 'Test', (4, 1, 1): 'Test', (4, 1, 2): 'Test', (4, 2, 0): 'Test', (4, 2, 1): 'Test', \
+      (4, 2, 2): 'Test', (4, 3, 0): 'Test', (4, 3, 1): 'Test', (4, 3, 2): 'Test', (4, 4, 0): 'BOSS HERE', \
+      (4, 4, 1): 'BOSS HERE', (4, 4, 2): 'BOSS HERE'}
+    >>> check_for_boss(char_one, board_one)
+    False
+
+    >>> char_two = {'X-coord': 4, 'Y-coord': 4, 'Z-coord': 0, 'HP': 2}
+    >>> board_two = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Test', (0, 0, 2): 'Test',\
+     (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
+      (0, 2, 2): 'Test', (0, 3, 0): 'Test', (0, 3, 1): 'Test', (0, 3, 2): 'Test', (0, 4, 0): 'Test', \
+      (0, 4, 1): 'Test', (0, 4, 2): 'Test', (1, 0, 0): 'Test', (1, 0, 1): 'Test', (1, 0, 2): 'Test', \
+      (1, 1, 0): 'Test', (1, 1, 1): 'Test', (1, 1, 2): 'Test', (1, 2, 0): 'Test', (1, 2, 1): 'Test', \
+      (1, 2, 2): 'Test', (1, 3, 0): 'Test', (1, 3, 1): 'Test', (1, 3, 2): 'Test', (1, 4, 0): 'Test', \
+      (1, 4, 1): 'Test', (1, 4, 2): 'Test', (2, 0, 0): 'Test', (2, 0, 1): 'Test', (2, 0, 2): 'Test', \
+      (2, 1, 0): 'Test', (2, 1, 1): 'Test', (2, 1, 2): 'Test', (2, 2, 0): 'Test', (2, 2, 1): 'Test', \
+      (2, 2, 2): 'Test', (2, 3, 0): 'Test', (2, 3, 1): 'Test', (2, 3, 2): 'Test', (2, 4, 0): 'Test', \
+      (2, 4, 1): 'Test', (2, 4, 2): 'Test', (3, 0, 0): 'Test', (3, 0, 1): 'Test', (3, 0, 2): 'Test', \
+      (3, 1, 0): 'Test', (3, 1, 1): 'Test', (3, 1, 2): 'Test', (3, 2, 0): 'Test', (3, 2, 1): 'Test', \
+      (3, 2, 2): 'Test', (3, 3, 0): 'Test', (3, 3, 1): 'Test', (3, 3, 2): 'Test', (3, 4, 0): 'Test', \
+      (3, 4, 1): 'Test', (3, 4, 2): 'Test', (4, 0, 0): 'Test', (4, 0, 1): 'Test', (4, 0, 2): 'Test', \
+      (4, 1, 0): 'Test', (4, 1, 1): 'Test', (4, 1, 2): 'Test', (4, 2, 0): 'Test', (4, 2, 1): 'Test', \
+      (4, 2, 2): 'Test', (4, 3, 0): 'Test', (4, 3, 1): 'Test', (4, 3, 2): 'Test', (4, 4, 0): 'BOSS HERE', \
+      (4, 4, 1): 'BOSS HERE', (4, 4, 2): 'BOSS HERE'}
+    >>> check_for_boss(char_two, board_two)
+    True
+
+    >>> char_three = {'X-coord': 4, 'Y-coord': 4, 'Z-coord': 1, 'HP': 2}
+    >>> board_three = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Test', (0, 0, 2): 'Test',\
+      (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
+      (0, 2, 2): 'Test', (0, 3, 0): 'Test', (0, 3, 1): 'Test', (0, 3, 2): 'Test', (0, 4, 0): 'Test', \
+      (0, 4, 1): 'Test', (0, 4, 2): 'Test', (1, 0, 0): 'Test', (1, 0, 1): 'Test', (1, 0, 2): 'Test', \
+      (1, 1, 0): 'Test', (1, 1, 1): 'Test', (1, 1, 2): 'Test', (1, 2, 0): 'Test', (1, 2, 1): 'Test', \
+      (1, 2, 2): 'Test', (1, 3, 0): 'Test', (1, 3, 1): 'Test', (1, 3, 2): 'Test', (1, 4, 0): 'Test', \
+      (1, 4, 1): 'Test', (1, 4, 2): 'Test', (2, 0, 0): 'Test', (2, 0, 1): 'Test', (2, 0, 2): 'Test', \
+      (2, 1, 0): 'Test', (2, 1, 1): 'Test', (2, 1, 2): 'Test', (2, 2, 0): 'Test', (2, 2, 1): 'Test', \
+      (2, 2, 2): 'Test', (2, 3, 0): 'Test', (2, 3, 1): 'Test', (2, 3, 2): 'Test', (2, 4, 0): 'Test', \
+      (2, 4, 1): 'Test', (2, 4, 2): 'Test', (3, 0, 0): 'Test', (3, 0, 1): 'Test', (3, 0, 2): 'Test', \
+      (3, 1, 0): 'Test', (3, 1, 1): 'Test', (3, 1, 2): 'Test', (3, 2, 0): 'Test', (3, 2, 1): 'Test', \
+      (3, 2, 2): 'Test', (3, 3, 0): 'Test', (3, 3, 1): 'Test', (3, 3, 2): 'Test', (3, 4, 0): 'Test', \
+      (3, 4, 1): 'Test', (3, 4, 2): 'Test', (4, 0, 0): 'Test', (4, 0, 1): 'Test', (4, 0, 2): 'Test', \
+      (4, 1, 0): 'Test', (4, 1, 1): 'Test', (4, 1, 2): 'Test', (4, 2, 0): 'Test', (4, 2, 1): 'Test', \
+      (4, 2, 2): 'Test', (4, 3, 0): 'Test', (4, 3, 1): 'Test', (4, 3, 2): 'Test', (4, 4, 0): 'BOSS HERE', \
+      (4, 4, 1): 'BOSS HERE', (4, 4, 2): 'BOSS HERE'}
+    >>> check_for_boss(char_three, board_three)
+    True
+    """
+    if current_char['X-coord'] == board.ROWS-1 and current_char['Y-coord'] == board.COLUMNS-1:
+        for floors in range(board.FLOORS):
+            if current_board[(board.ROWS-1, board.COLUMNS-1, floors)] == "BOSS HERE":
+                return True
+            else:
+                return False
     else:
         return False
 
 
-def reset_affliction(character):
-    if character['Affliction']:
-        character['Affliction'] = None
+def reset_affliction(current_char):
+    """
+    Reset the affliction on current_char after an encounter is over.
+
+    :param current_char: a dictionary containing 'Affliction' as a key
+    :precondition: current_char must be a dictionary containing a key named 'Affliction'
+    :postcondition: modifies current_char key 'Affliction' value to be None
+
+    >>> char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'Affliction': 'Run Away', 'HP': 2}
+    >>> reset_affliction(char_one)
+    >>> char_one
+    {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'Affliction': None, 'HP': 2}
+    """
+    if current_char['Affliction']:
+        current_char['Affliction'] = None
         # character['Affliction'] = None
 
 
@@ -66,7 +156,6 @@ def main():
 
     :return:
     """
-
 
 
 if __name__ == "__main__":

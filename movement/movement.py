@@ -141,24 +141,24 @@ def move_character(current_character: dict, current_direction: str) -> None:
         current_character['X-coord'] += choices[current_direction]
 
 
-# def check_for_floor_change(character):
-#     if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] < 2:
-#         character['X-coord'] = 0
-#         character['Y-coord'] = 0
-#         character['Z-coord'] += 1
-#         print(f"Changed floors")
-#     # if character['X-coord'] and character['Y-coord'] == 4:
-#     #     character['X-coord'] = 1
-#     #     character['Y-coord'] = 0
-#     #     character['Z-coord'] += 1
-#     #     print("went upstairs")
-#     # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
-#     #     character['X-coord'] = 3
-#     #     character['Y-coord'] = 4
-#     #     character['Z-coord'] -= 1
-#     #     print("went downstairs")
-#     # else:
-#     #     pass
+def check_for_floor_change(character):
+    if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] < 2:
+        character['X-coord'] = 0
+        character['Y-coord'] = 0
+        character['Z-coord'] += 1
+        print(f"Changed floors")
+    # if character['X-coord'] and character['Y-coord'] == 4:
+    #     character['X-coord'] = 1
+    #     character['Y-coord'] = 0
+    #     character['Z-coord'] += 1
+    #     print("went upstairs")
+    # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
+    #     character['X-coord'] = 3
+    #     character['Y-coord'] = 4
+    #     character['Z-coord'] -= 1
+    #     print("went downstairs")
+    # else:
+    #     pass
 
 
 # def change_floor(character, board):
