@@ -10,7 +10,8 @@ def make_character() -> dict:
     {'X-coordinates': 0, 'Y-coordinates': 0, 'HP': 2}
     """
     create_char = {'Name': choose_name(), 'Class': choose_class(), 'Attack': None, 'Spell': None, 'MP Cost': None,
-                   "X-coord": 0, "Y-coord": 0, 'Z-coord': 0, "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False,}
+                   "X-coord": 0, "Y-coord": 0, 'Z-coord': 0, "HP": 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False,
+                   'Affliction': None}
     determine_stats(create_char)
     create_char['Spell'] = get_skill(create_char['Class'])
     return create_char
@@ -71,7 +72,6 @@ def warrior_stats(character):
     character['Attack'] = 50
     character['HP'] = 110
     character['MP'] = 50
-    character['MP Cost']
 
 
 def thief_stats(character):

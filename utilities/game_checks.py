@@ -21,7 +21,8 @@ def check_if_goal_attained(current_character: dict) -> bool:
     >>> check_if_goal_attained(test_char_two)
     True
     """
-    if current_character["X-coordinates"] and current_character["Y-coordinates"] == 4 and current_character['HP'] > 0:
+    if current_character["X-coord"] and current_character["Y-coord"] == 4 and \
+            current_character['Z-coord'] == 2 and current_character['HP'] > 0:
         return True
     return False
 
@@ -36,18 +37,28 @@ def check_for_random_foes() -> int:
     return random.randint(1, 4) == 1
 
 
-def check_for_boss(character):
+def check_for_boss(character, board):
     if character['X-coord'] == 4 and character['Y-coord'] == 4:
-        return True
+        if board[(4, 4, 0)] or board[(4, 4, 1)] or board[(4, 4, 2)] == "BOSS HERE":
+            return True
     else:
         return False
 
 
-def check_character_level(character, creep):
-    if character['Level'] < creep['Level']:
-        creep['ATK'] += 30
-    else:
-        creep['ATK'] -= 10
+def reset_affliction(character):
+    if character['Affliction']:
+        character['Affliction'] = None
+        # character['Affliction'] = None
+
+
+# def check_character_under_level(character, creep):
+#     if character['Level'] < creep['Level']:
+#         creep['ATK'] += 30
+#     else:
+#         creep['ATK'] -= 10
+
+def victory():
+    pass
 
 
 def main():
@@ -55,6 +66,7 @@ def main():
 
     :return:
     """
+
 
 
 if __name__ == "__main__":

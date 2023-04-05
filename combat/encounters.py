@@ -1,6 +1,7 @@
 import random
-from combat import combat
-from combat import afflictions
+import utilities.game_checks
+from character import leveling
+from combat import combat, afflictions
 import time
 
 
@@ -26,19 +27,21 @@ def guessing_game(current_character: dict) -> None:
 
 
 def engage_combat(character, creep):
+    # utilities.game_checks.check_character_under_level(character, creep)
     if random.randint(1, 2) == 1:
         character['Turn'] = True
     else:
         creep['Turn'] = True
-    while character['HP'] > 0 and creep['HP'] > 0:
+    while character['HP'] > 0 and creep['HP'] > 0 and character['Affliction'] != 'Coward':
         afflictions.check_for_creep_afflictions(creep=creep, character=character)
         if character['Turn']:
             combat.character_attack(character=character, creep=creep)
         else:
             combat.creep_attack(character=character, creep=creep)
+    if character['Affliction'] == 'Coward':
+        return
     if check_for_victory(character, creep):
         encounter_victory(character, creep)
-
 
 
     # while character['HP'] > 0 and creep['HP'] > 0:
@@ -78,8 +81,9 @@ def check_for_victory(character, creep):
 
 def encounter_victory(character, creep):
     if character['HP'] > 0 >= creep['HP']:
+        leveling.gain_experience(character, creep)
         character['HP'] += 20
-        character['HP'] += creep['EXP']
+        # character['HP'] += creep['EXP']
         character['MP'] += 30
     print(f"{creep['Name']} has been slain.")
     time.sleep(3)
@@ -95,9 +99,9 @@ def defeat():
 
 
 def spawn_boss(character):
-    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 200, 'ATK': 50, 'Affliction': None, 'Turn': False}
-    floor_two_boss = {'Name': 'MIMIC', 'Level': 3, 'HP': 300, 'ATK': 100, 'Affliction': None, 'Turn': False}
-    floor_three_boss = {'Name': 'ZAKUM', 'Level': 4, 'HP': 500, 'ATK': 200, 'Affliction': None, 'Turn': False}
+    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 2, 'ATK': 50, 'Affliction': None, 'Turn': False, 'EXP': 50}
+    floor_two_boss = {'Name': 'MIMIC', 'Level': 3, 'HP': 300, 'ATK': 100, 'Affliction': None, 'Turn': False, 'EXP': 100}
+    floor_three_boss = {'Name': 'ZAKUM', 'Level': 4, 'HP': 500, 'ATK': 200, 'Affliction': None, 'Turn': False, 'EXP': 200}
     if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 0:
         return floor_one_boss
     elif character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 1:

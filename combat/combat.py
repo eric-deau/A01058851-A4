@@ -1,6 +1,5 @@
 import time
-from combat import abilities
-from combat import DOOMSDAY_MP_COST, EARTHQUAKE_CHAIN_MP_COST, STAB_MP_COST
+from combat import DOOMSDAY_MP_COST, EARTHQUAKE_CHAIN_MP_COST, STAB_MP_COST, abilities
 
 
 def character_attack(character, creep):
@@ -15,7 +14,8 @@ def character_attack(character, creep):
         print(f"Opponent health is now at: {creep['HP']}")
         time.sleep(3)
     else:
-        run_away(character)
+        abilities.run_away(character)
+        return
         # modify_health_combat(character, creep, choices[attack_choice])
 
 

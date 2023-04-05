@@ -1,11 +1,12 @@
 from combat import DOOMSDAY_MP_COST, EARTHQUAKE_CHAIN_MP_COST, STAB_MP_COST
 import time
-from encounters import guessing_game
 
 
 def run_away(character):
     character['Affliction'] = 'Coward'
-    guessing_game(character)
+    character['X-coord'] = 0
+    character['Y-coord'] = 0
+    print("test", character)
 
 
 def doomsday(character, creep):

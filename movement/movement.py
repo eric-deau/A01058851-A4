@@ -35,6 +35,7 @@ def describe_current_location(current_board: dict, current_character: dict) -> N
         current_location = (current_character['X-coord'], current_character['Y-coord'],
                             current_character['Z-coord'])
         print(current_board[current_location])
+        print(f"You are currently on floor: {current_character['Z-coord']+1}")
 
 
 # def change_floor(character, board):
@@ -136,6 +137,26 @@ def move_character(current_character: dict, current_direction: str) -> None:
         current_character['Y-coord'] += choices[current_direction]
     if current_direction == "East Door" or current_direction == "West Door":
         current_character['X-coord'] += choices[current_direction]
+
+
+def check_for_floor_change(character):
+    if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord' != 0]:
+        character['X-coord'] = 0
+        character['Y-coord'] = 0
+        character['Z-coord'] += 1
+        print(f"Changed floors")
+    # if character['X-coord'] and character['Y-coord'] == 4:
+    #     character['X-coord'] = 1
+    #     character['Y-coord'] = 0
+    #     character['Z-coord'] += 1
+    #     print("went upstairs")
+    # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
+    #     character['X-coord'] = 3
+    #     character['Y-coord'] = 4
+    #     character['Z-coord'] -= 1
+    #     print("went downstairs")
+    # else:
+    #     pass
 
 
 def main():

@@ -21,21 +21,29 @@ def make_board(rows, columns, floors):
 
 
 def first_floor_descriptions(board):
+    board[(0, 0, 0)] = "Looks like this is my starting point."
     board[(3, 4, 0)] = "You feel an evil presence watching you.."
     board[(4, 3, 0)] = "The air is getting colder around you.."
-    board[(4, 4, 0)] = "Eye of Cthulhu blocks the staircase to another floor."
+    board[(4, 4, 0)] = "BOSS HERE"
 
 
 def second_floor_descriptions(board):
+    board[(1, 0, 1)] = "The starting point from the second floor. The door to the west leads back down."
     board[(3, 4, 1)] = "There is noise coming from the door to the east.."
     board[(4, 3, 1)] = "There is noise coming from the door to the south.."
-    board[(4, 4, 1)] = "A treasure chest, and a staircase to another floor."
+    board[(4, 4, 1)] = "BOSS HERE"
 
 
 def third_floor_descriptions(board):
     board[(3, 4, 2)] = "You feel an ominous presence coming from the door to the east.."
     board[(4, 3, 2)] = "You feel an ominous presence coming from the door to the south.."
-    board[(4, 4, 2)] = "Zakum, the evil spirit is blocking the exit to this place!"
+    board[(4, 4, 2)] = "BOSS HERE"
+
+
+def edit_floor_descriptions(character, board):
+    board[(4, 4, character['Z-coord'])] = "This room is empty now.."
+    board[(3, 4, character['Z-coord'])] = "I've been here before. The door to my east leads upstairs."
+    board[(4, 3, character['Z-coord'])] = "I've been here before. The door to my south leads upstairs."
 
 
 def main():
