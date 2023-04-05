@@ -1,46 +1,44 @@
-def describe_current_location(current_board: dict, current_character: dict) -> None:
+def describe_current_location(board: dict, current_char: dict) -> None:
     """
     Describe the current environment of a character.
 
-    :param current_board: a dictionary containing tuples of length 2 with positive integers as keys
-    :param current_character: a dictionary containing keys 'X-coordinates', 'Y-coordinates', and 'HP'
-    :precondition: current_board must contain at least four tuple keys with two positive integer elements
-    :precondition: current_board tuple keys must contain two positive integers
-    :precondition: current_character must have keys 'X-coordinates' and 'Y-coordinates'
-    :precondition: current_character keys 'X-coordinates' must be more than or equal to 0
-    :precondition: current_character keys 'Y-coordinates' must be more than or equal to 0
+    :param board: a dictionary containing tuples of length 3 with positive integers as keys
+    :param current_char: a dictionary containing keys 'X-coord', 'Y-coord', 'Z-coord' and 'HP'
+    :precondition: board must contain at least four tuple keys with two positive integer elements
+    :precondition: board tuple keys must contain three positive integers
+    :precondition: character must have keys 'X-coord', 'Y-coord' and 'Z-coord'
+    :precondition: character keys 'X-coord' must be more than or equal to 0
+    :precondition: character keys 'Y-coord' must be more than or equal to 0
+    :precondition: character keys 'Z-coord' must be more than or equal to 0
     :postcondition: prints a description of the current environment of the character
     :raises: KeyError: if current_character 'X-coordinates' and 'Y-coordinates' doesn't exist in playing_board
 
-    >>> char_one = {"X-coordinates": 0, "Y-coordinates": 0, "HP": 2}
-    >>> board_one = {(0, 0): '"A seemingly empty room. This room also has a door on each side."',\
-                     (0, 1): '"A somewhat empty room. This room also has a door on each side."',\
-                     (1, 0): '"A non-empty room. This room also has a door on each side."', \
-                     (1, 1): '"A room. This room also has a door on each side."'}
+    >>> char_one = {"X-coord": 0, "Y-coord": 0, "Z-coord": 0,"HP": 2}
+    >>> board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
+                     (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
+                     (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
     >>> describe_current_location(board_one, char_one)
-    "A seemingly empty room. This room also has a door on each side."
+    Looks like this is my starting point.
+    You are currently on floor: 1
 
-    >>> char_two = {"X-coordinates": 1, "Y-coordinates": 0, "HP": 2}
-    >>> board_two = {(0, 0): '"A seemingly empty room. This room also has a door on each side."',\
-                     (0, 1): '"A somewhat empty room. This room also has a door on each side."',\
-                     (1, 0): '"A non-empty room. This room also has a door on each side."', \
-                     (1, 1): '"A room. This room also has a door on each side."'}
+
+    >>> char_two = {"X-coord": 0, "Y-coord": 0, "Z-coord": 1,"HP": 2}
+    >>> board_two = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
+                     (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
+                     (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
+
     >>> describe_current_location(board_two, char_two)
-    "A non-empty room. This room also has a door on each side."
+    Description One
+    You are currently on floor: 2
     """
-    if (current_character['X-coord'], current_character['Y-coord'], current_character['Z-coord']) \
-            not in current_board:
+    if (current_char['X-coord'], current_char['Y-coord'], current_char['Z-coord']) \
+            not in board:
         raise KeyError("Coordinates do not exist within the board.")
     else:
-        current_location = (current_character['X-coord'], current_character['Y-coord'],
-                            current_character['Z-coord'])
-        print(current_board[current_location])
-        print(f"You are currently on floor: {current_character['Z-coord']+1}")
-
-
-# def change_floor(character, board):
-#     if (character['X-coord'], character['Y-coord'], character['Z-coord']) in board:
-#         character['Z-coord'] -= 1
+        current_location = (current_char['X-coord'], current_char['Y-coord'],
+                            current_char['Z-coord'])
+        print(board[current_location])
+        print(f"You are currently on floor: {current_char['Z-coord'] + 1}")
 
 
 def get_user_choice() -> str:
@@ -61,49 +59,52 @@ def get_user_choice() -> str:
     return choices[user_input]
 
 
-def validate_move(current_board: dict, current_character: dict, current_direction: str) -> bool:
+def validate_move(board: dict, current_char: dict, current_dir: str) -> bool:
     """
     Check if x-y coordinates are in the bounds of the playing board.
 
-    :param current_board: a dictionary containing tuples of length 2 with positive integers as keys
-    :param current_character: a dictionary containing keys 'X-coordinates', 'Y-coordinates', and 'HP'
-    :param current_direction: a string
-    :precondition: current_board must contain at least four tuple keys of length two with positive integers
-    :precondition: current_board tuple keys must contain two positive integers more than 0
-    :precondition: current_character must have keys 'X-coordinates' and 'Y-coordinates'
-    :precondition: current_character keys 'X-coordinates' must be more than 0
-    :precondition: current_character keys 'Y-coordinates' must be more than 0
-    :precondition: current_direction must be a string
-    :postcondition: determines if current_character's set of coordinates is valid in the playing board
+    :param board: a dictionary containing tuples of length 3 with positive integers as keys
+    :param current_char: a dictionary containing keys 'X-coord', 'Y-coord', 'Z-coord' and 'HP'
+    :param current_dir: a string
+    :precondition: board must contain at least four tuple keys of length three with positive integers
+    :precondition: board tuple keys must contain three positive integers more than or equal to 0
+    :precondition: current_char must have keys 'X-coord' and 'Y-coord'
+    :precondition: current_char keys 'X-coord' must be more than or equal to 0
+    :precondition: current_char keys 'Y-coord' must be more than or equal to 0
+    :precondition: current_dir must be a string
+    :postcondition: determines if current_character's set of coordinates is valid in board
     :return: a boolean value representing if a coordinate change is valid or not
 
-    >>> test_character_one = {"X-coordinates": 0, "Y-coordinates": 0, "HP": 2}
-    >>> test_board_one = {(0,0): "Test Room", (0,1): "Test Room", (0,2): "Test Room", (1,0): "Test Room",\
-     (1,1): "Test Room", (1,2) : "Test Room", (2,0): "Test Room", (2,1): "Test Room", (2,2): "Test Room"}
-    >>> validate_move(test_board_one, test_character_one, "North Door")
+    >>> char_one = {"X-coord": 0, "Y-coord": 0, "Z-coord": 1,"HP": 2}
+    >>> board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
+                     (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
+                     (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
+    >>> validate_move(board_one, char_one, "North Door")
     False
 
-    >>> test_character_two = {"X-coordinates": 0, "Y-coordinates": 0, "HP": 2}
-    >>> test_board_two = {(0,0): "Test Room", (0,1): "Test Room", (0,2): "Test Room", (1,0): "Test Room",\
-     (1,1): "Test Room", (1,2) : "Test Room", (2,0): "Test Room", (2,1): "Test Room", (2,2): "Test Room"}
-    >>> validate_move(test_board_two, test_character_two, "South Door")
+   >>> char_two = {"X-coord": 0, "Y-coord": 0, "Z-coord": 0,"HP": 2}
+    >>> board_two = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
+                     (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
+                     (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
+    >>> validate_move(board_two, char_two, "South Door")
     True
 
-    >>> test_character_three = {"X-coordinates": 0, "Y-coordinates": 0, "HP": 2}
-    >>> test_board_two = {(0,0): "Test Room", (0,1): "Test Room", (0,2): "Test Room", (1,0): "Test Room",\
-     (1,1): "Test Room", (1,2) : "Test Room", (2,0): "Test Room", (2,1): "Test Room", (2,2): "Test Room"}
-    >>> validate_move(test_board_two, test_character_two, "East Door")
+    >>> char_three = {"X-coord": 0, "Y-coord": 0, "Z-coord": 1,"HP": 2}
+    >>> board_three = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
+                     (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
+                     (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
+    >>> validate_move(board_three, char_three, "East Door")
     True
     """
     choices = {"North Door": -1, "South Door": 1, "West Door": -1, "East Door": 1}
-    valid_y_coordinate = current_character['Y-coord']
-    valid_x_coordinate = current_character['X-coord']
-    valid_z_coordinate = current_character['Z-coord']
-    if current_direction == "North Door" or current_direction == "South Door":
-        valid_y_coordinate += choices[current_direction]
-    if current_direction == "East Door" or current_direction == "West Door":
-        valid_x_coordinate += choices[current_direction]
-    if (valid_x_coordinate, valid_y_coordinate, valid_z_coordinate) in current_board and current_direction in choices:
+    valid_y_coordinate = current_char['Y-coord']
+    valid_x_coordinate = current_char['X-coord']
+    valid_z_coordinate = current_char['Z-coord']
+    if current_dir == "North Door" or current_dir == "South Door":
+        valid_y_coordinate += choices[current_dir]
+    if current_dir == "East Door" or current_dir == "West Door":
+        valid_x_coordinate += choices[current_dir]
+    if (valid_x_coordinate, valid_y_coordinate, valid_z_coordinate) in board and current_dir in choices:
         return True
     return False
 
@@ -120,17 +121,18 @@ def move_character(current_character: dict, current_direction: str) -> None:
     :precondition: current_direction must be "North Door", "South Door", "West Door", or "East Door"
     :postcondition: modifies character's key 'X-coordinates' or 'Y-coordinates' value
 
-    >>> test_char_one = {'X-coordinates': 0, 'Y-coordinates': 0, 'HP': 2}
+
+    >>> test_char_one = {'X-coord': 0, 'Y-coord': 0, 'Z-coord': 0, 'HP': 2}
     >>> test_dir_one = "South Door"
     >>> move_character(test_char_one, test_dir_one)
     >>> test_char_one
-    {'X-coordinates': 0, 'Y-coordinates': 1, 'HP': 2}
+    {'X-coord': 0, 'Y-coord': 1, 'Z-coord': 0, 'HP': 2}
 
-    >>> test_char_two = {'X-coordinates': 2, 'Y-coordinates': 1, 'HP': 2}
+    >>> test_char_two = {'X-coord': 2, 'Y-coord': 1, 'Z-coord': 1, 'HP': 2}
     >>> test_dir_two = "West Door"
     >>> move_character(test_char_two, test_dir_two)
     >>> test_char_two
-    {'X-coordinates': 1, 'Y-coordinates': 1, 'HP': 2}
+    {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'HP': 2}
     """
     choices = {"North Door": -1, "South Door": 1, "West Door": -1, "East Door": 1}
     if current_direction == "North Door" or current_direction == "South Door":
@@ -139,24 +141,29 @@ def move_character(current_character: dict, current_direction: str) -> None:
         current_character['X-coord'] += choices[current_direction]
 
 
-def check_for_floor_change(character):
-    if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] < 2:
-        character['X-coord'] = 0
-        character['Y-coord'] = 0
-        character['Z-coord'] += 1
-        print(f"Changed floors")
-    # if character['X-coord'] and character['Y-coord'] == 4:
-    #     character['X-coord'] = 1
-    #     character['Y-coord'] = 0
-    #     character['Z-coord'] += 1
-    #     print("went upstairs")
-    # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
-    #     character['X-coord'] = 3
-    #     character['Y-coord'] = 4
-    #     character['Z-coord'] -= 1
-    #     print("went downstairs")
-    # else:
-    #     pass
+# def check_for_floor_change(character):
+#     if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] < 2:
+#         character['X-coord'] = 0
+#         character['Y-coord'] = 0
+#         character['Z-coord'] += 1
+#         print(f"Changed floors")
+#     # if character['X-coord'] and character['Y-coord'] == 4:
+#     #     character['X-coord'] = 1
+#     #     character['Y-coord'] = 0
+#     #     character['Z-coord'] += 1
+#     #     print("went upstairs")
+#     # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
+#     #     character['X-coord'] = 3
+#     #     character['Y-coord'] = 4
+#     #     character['Z-coord'] -= 1
+#     #     print("went downstairs")
+#     # else:
+#     #     pass
+
+
+# def change_floor(character, board):
+#     if (character['X-coord'], character['Y-coord'], character['Z-coord']) in board:
+#         character['Z-coord'] -= 1
 
 
 def main():
