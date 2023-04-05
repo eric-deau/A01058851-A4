@@ -1,5 +1,4 @@
 import random
-from board import FLOORS
 
 
 def make_board(rows, columns, floors):
@@ -18,35 +17,56 @@ def make_board(rows, columns, floors):
     # board = {(row, column, floor): 'Test'
     #          for row in range(rows) for column in range(columns) for floor in range(floors)}
     add_bosses(board, rows, columns, floors)
-    first_floor_descriptions(board)
-    second_floor_descriptions(board)
-    third_floor_descriptions(board)
     return board
 
 
-def first_floor_descriptions(board):
-    board[(0, 0, 0)] = "Looks like this is my starting point."
-    board[(3, 4, 0)] = "You feel an evil presence watching you.."
-    board[(4, 3, 0)] = "The air is getting colder around you.."
-    # board[(4, 4, 0)] = "BOSS HERE"
-
-
-def second_floor_descriptions(board):
-    board[(1, 0, 1)] = "The starting point from the second floor. The door to the west leads back down."
-    board[(3, 4, 1)] = "There is noise coming from the door to the east.."
-    board[(4, 3, 1)] = "There is noise coming from the door to the south.."
-    # board[(4, 4, 1)] = "BOSS HERE"
-
-
-def third_floor_descriptions(board):
-    board[(3, 4, 2)] = "You feel an ominous presence coming from the door to the east.."
-    board[(4, 3, 2)] = "You feel an ominous presence coming from the door to the south.."
-    # board[(4, 4, 2)] = "BOSS HERE"
+# def first_floor_descriptions(board):
+#     board[(0, 0, 0)] = "Looks like this is my starting point."
+#     board[(3, 4, 0)] = "You feel an evil presence watching you.."
+#     board[(4, 3, 0)] = "The air is getting colder around you.."
+#
+#
+# def second_floor_descriptions(board):
+#     board[(1, 0, 1)] = "The starting point from the second floor. The door to the west leads back down."
+#     board[(3, 4, 1)] = "There is noise coming from the door to the east.."
+#     board[(4, 3, 1)] = "There is noise coming from the door to the south.."
+#
+#
+# def third_floor_descriptions(board):
+#     board[(3, 4, 2)] = "You feel an ominous presence coming from the door to the east.."
+#     board[(4, 3, 2)] = "You feel an ominous presence coming from the door to the south.."
 
 
 def add_bosses(board, rows, columns, floors):
-    for floor in range(floors):
-        board[(rows-1, columns-1, floor)] = "BOSS HERE"
+    """
+    Add bosses to the last room of each floor in board.
+
+    :param board: a dictionary containing tuples of length 3 with positive integers as keys
+    :param rows: a positive integer
+    :param columns: a positive integer
+    :param floors: a positive integer
+    :precondition: board must contain at least four tuple keys of length three with positive integers
+    :precondition: rows must be a positiver integer more than or equal to two
+    :precondition: columns must be a positiver integer more than or equal to two
+    :precondition: floors must be a positiver integer more than or equal to one
+    :postcondition: applies bosses to the last room of each floor in board
+    :raises: TypeError: if board is not a dictionary or rows, columns, and floors are not positive integers
+    :raises: ValueError: if rows or columns are not positive integers more than or equal to two
+    :raises: KeyError: if board does not contain a tuple with rows, columns, and floors as a key
+    """
+    if type(board) is not dict:
+        raise TypeError("Must pass board as a dictionary.")
+    elif type(rows) or type(columns) or type(floors) is not int:
+        raise TypeError("Must pass rows columns and floors as a positive integer.")
+    elif rows or columns < 2:
+        raise ValueError("Rows and columns must be more than or equal to 2.")
+    elif board[(board[rows]-1, board[columns]-1, floors)] not in board:
+        raise KeyError("Coordinates must exist within board.")
+    else:
+        for floor in range(floors):
+            board[(rows-1, columns-1, floor)] = "BOSS HERE"
+            board[(rows-2, columns-1, floor)] = "You feel an ominous presence coming from the door to the east.."
+            board[(rows-1, columns-2, floor)] = "You feel an ominous presence coming from the door to the south.."
 
 
 def edit_floor_descriptions(character, board):
@@ -56,8 +76,10 @@ def edit_floor_descriptions(character, board):
 
 
 def main():
-    print("Hello World")
-    print(make_board(5, 5, 3))
+    """
+    Drive the program.
+    """
+    print(make_board(2, 2, 2))
 
 
 if __name__ == "__main__":
