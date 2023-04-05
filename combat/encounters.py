@@ -1,5 +1,4 @@
 import random
-import utilities.game_checks
 from character import leveling
 from combat import combat, afflictions
 import time
@@ -27,7 +26,6 @@ def guessing_game(current_character: dict) -> None:
 
 
 def engage_combat(character, creep):
-    # utilities.game_checks.check_character_under_level(character, creep)
     if random.randint(1, 2) == 1:
         character['Turn'] = True
     else:
@@ -44,20 +42,12 @@ def engage_combat(character, creep):
         encounter_victory(character, creep)
 
 
-    # while character['HP'] > 0 and creep['HP'] > 0:
-    #     afflictions.check_for_creep_afflictions(creep=creep, character=character)
-    #     if character['Turn']:
-    #         combat.character_attack(character=character, creep=creep)
-    #     else:
-    #         combat.creep_attack(character=character, creep=creep)
-
-
 def spawn_monster():
     slime = {'Name': 'Slime', 'HP': 50, 'ATK': 10, 'Affliction': None, 'EXP': 5}
     bigger_slime = {'Name': 'Slime\'s bigger brother', 'HP': 60, 'ATK': 15, 'Affliction': None, 'EXP': 10,
                     'Turn': False}
     zombie = {'Name': 'Zombie', 'HP': 75, 'ATK': 25, 'Affliction': None, 'EXP': 15, 'Turn': False}
-    wormie = {'Name': 'Worm', 'HP': 1, 'ATK': 5, 'Affliction': None, 'EXP': 10, 'Turn': False}
+    wormie = {'Name': 'Worm', 'HP': 20, 'ATK': 5, 'Affliction': None, 'EXP': 10, 'Turn': False}
     alaskan_bullworm = {'Name': 'THE ALASKAN BULLWORM', 'HP': 75, 'ATK': 30, 'Affliction': None, 'EXP': 30,
                         'Turn': False}
     mob_spawner = (slime, bigger_slime, zombie, wormie, alaskan_bullworm)
@@ -81,15 +71,14 @@ def check_for_victory(character, creep):
 
 def encounter_victory(character, creep):
     if character['HP'] > 0 >= creep['HP']:
-        leveling.gain_experience(character, creep)
+        leveling.gain_experience(current_char=character, creep=creep)
+        leveling.level_up(current_char=character)
         character['HP'] += 20
         # character['HP'] += creep['EXP']
         character['MP'] += 30
-    print(f"{creep['Name']} has been slain.")
     time.sleep(3)
     print(f"You have healed for 20 HP.")
     print(f"You have regenerated 30 mana.")
-    print(f"You have gained {creep['EXP']} EXP!")
     print(f"You have slain {creep['Name']}!")
     time.sleep(3)
 
@@ -99,9 +88,12 @@ def defeat():
 
 
 def spawn_boss(character):
-    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 2, 'ATK': 50, 'Affliction': None, 'Turn': False, 'EXP': 50}
-    floor_two_boss = {'Name': 'MIMIC', 'Level': 3, 'HP': 300, 'ATK': 100, 'Affliction': None, 'Turn': False, 'EXP': 100}
-    floor_three_boss = {'Name': 'ZAKUM', 'Level': 4, 'HP': 500, 'ATK': 200, 'Affliction': None, 'Turn': False, 'EXP': 200}
+    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'HP': 150, 'ATK': 25, 'Affliction': None, 'Turn': False,
+                      'EXP': 100}
+    floor_two_boss = {'Name': 'MIMIC', 'HP': 300, 'ATK': 50, 'Affliction': None, 'Turn': False,
+                      'EXP': 200}
+    floor_three_boss = {'Name': 'ZAKUM', 'HP': 500, 'ATK': 75, 'Affliction': None, 'Turn': False,
+                        'EXP': 300}
     if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 0:
         return floor_one_boss
     elif character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 1:
@@ -115,8 +107,6 @@ def main():
 
     :return:
     """
-    print(decide_encounter({'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, 'Y-coord': 0,
-                 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}))
 
 
 if __name__ == "__main__":

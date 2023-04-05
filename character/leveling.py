@@ -1,21 +1,38 @@
-from character import LEVEL_TWO, LEVEL_THREE
+import character
 
 
-def gain_experience(character, creep):
-    character['EXP'] += creep['EXP']
-    if LEVEL_THREE > character['EXP'] > LEVEL_TWO and character['Level'] == 1:
-        level_up(character)
-    elif character['EXP'] > LEVEL_THREE and character['EXP'] == 2:
-        level_up(character)
+def gain_experience(current_char, creep):
+    current_char['EXP'] += creep['EXP']
+    # if character.LEVEL_THREE_REQ > current_char['EXP'] > character.LEVEL_TWO_REQ and current_char['Level'] == 1:
+    #     level_up(current_char)
+    # elif current_char['EXP'] > character.LEVEL_THREE_REQ and current_char['EXP'] == 2:
+    #     level_up(current_char)
+    # else:
+    #     print(f"{creep['EXP']} experience points gained.")
+    print(f"{creep['EXP']} experience points gained.")
+
+
+def level_up(current_char):
+    print('level up', current_char['EXP'])
+    if character.LEVEL_THREE_REQ >= current_char['EXP'] >= character.LEVEL_TWO_REQ and current_char['Level'] == 1:
+        current_char['Attack'] += character.LEVEL_TWO_ATK
+        current_char['HP'] += character.LEVEL_TWO_HP
+        current_char['MP'] += character.LEVEL_TWO_MP
+    elif current_char['EXP'] >= character.LEVEL_THREE_REQ and current_char['EXP'] == 2:
+        current_char['Attack'] += character.LEVEL_THREE_ATK
+        current_char['HP'] += character.LEVEL_THREE_HP
+        current_char['MP'] += character.LEVEL_THREE_MP
     else:
-        print(f"{creep['EXP']} experience points gained.")
-
-
-def level_up(character):
-    character['Level'] += 1
-    character['Attack'] += 20
-    character['HP'] = 150
-    character['MP'] = 150
+        return
+    current_char['Level'] += 1
+    # if current_char['Level'] == 1:
+    #     current_char['Attack'] += character.LEVEL_TWO_ATK
+    #     current_char['HP'] += character.LEVEL_TWO_HP
+    #     current_char['MP'] += character.LEVEL_TWO_MP
+    # if current_char['Level'] == 2:
+    #     current_char['Attack'] += character.LEVEL_THREE_ATK
+    #     current_char['HP'] += character.LEVEL_THREE_HP
+    #     current_char['MP'] += character.LEVEL_THREE_MP
     print(f"You have leveled up!")
 
 
