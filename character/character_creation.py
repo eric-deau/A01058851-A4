@@ -77,7 +77,7 @@ def get_skill(char_class):
     """
     if type(char_class) != str:
         raise TypeError("Must pass a string as an argument.")
-    elif char_class != 'Mage' or char_class != 'Warrior' or char_class != 'Thief':
+    elif char_class != 'Mage' and char_class != 'Warrior' and char_class != 'Thief':
         raise ValueError("Must pass a valid character class as an argument.")
     else:
         if char_class == 'Warrior':
@@ -118,11 +118,12 @@ def determine_stats(character):
     >>> test_char_two['MP']
     50
     """
+    print(character['Class'])
     if type(character) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
     elif 'Class' not in character:
         raise KeyError("'Class' does not exist in dictionary.")
-    elif character['Class'] != 'Warrior' or character['Class'] != 'Mage' or character['Class'] != 'Thief':
+    elif character['Class'] != 'Warrior' and character['Class'] != 'Mage' and character['Class'] != 'Thief':
         raise ValueError("'Class' key must be paired with a value of 'Warrior', 'Mage', or 'Thief'.")
     else:
         def warrior_stats(warrior_char):
@@ -188,7 +189,11 @@ def main():
     """
     Drive the program
     """
-
+    # print(make_character())
+    character = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None, 'X-coord': 3,
+                 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, 'Turn': False,
+                 'Affliction': None}
+    determine_stats(character)
 
 if __name__ == "__main__":
     main()
