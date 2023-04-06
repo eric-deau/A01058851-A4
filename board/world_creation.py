@@ -18,9 +18,9 @@ def make_board(rows: int, columns: int, floors: int) -> dict:
     :raises: ValueError: if rows, columns is not a positive integer more than or equal to two
     :raises: ValueError: if floors is not a positive integer more than or equal to one
     """
-    if type(rows) or type(columns) or type(floors) is not int:
+    if type(rows) is not int or type(columns) is not int or type(floors) is not int:
         raise TypeError("Board can't be initialized. Arguments should be an integer.")
-    elif rows or columns < 2:
+    elif rows < 2 or columns < 2:
         raise ValueError("Board can't be initialized. Rows and columns must be more than or equal to 2.")
     elif floors < 1:
         raise ValueError("Board can't be initialized. Floors must be more than or equal to 1.")
@@ -106,7 +106,6 @@ def main():
     """
     Drive the program.
     """
-    print(make_board(2, 2, 2))
 
 
 if __name__ == "__main__":
