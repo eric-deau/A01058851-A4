@@ -9,30 +9,36 @@ def make_board(rows, columns, floors):
     :param rows: a positive integer more than or equal to two
     :param columns: a positive integer more than or equal to two
     :param floors: a positive integer more than or equal to one
-    :precondition:
-    :precondition:
-    :precondition:
-    :postcondition:
-    :return:
+    :precondition: rows must be a positive integer more than or equal to two
+    :precondition: columns must be a positive integer more than or equal to two
+    :precondition: floors must be a positive integer more than or equal to two
+    :postcondition: creates a dictionary representing a square leveled playing board with
+    :return: a dictionary that represents a playing board
+    :raises: TypeError: if rows, columns, or floors is not an integer
+    :raises: ValueError: if rows, columns is not a positive integer more than or equal to two
+    :raises: ValueError: if floors is not a positive integer more than or equal to one
     """
-    list_of_descriptions = ["The air in the room is clear but cold. The room smells dank or moldy."
-                            " A faint chanting noise can be heard.",
-                            "Roughly chiseled into the corner of one wall are 42 small tally marks. "
-                            "A desiccated naked human male corpse lies in one corner.",
-                            "The air in the room is clear and warm. The room smells stale."
-                            " A faint banging noise can be heard.",
-                            "Painted with white, green, and black pigments is a well-drawn picture of two trolls"
-                            " wielding large spiked maces. Five bodies lay fallen in a pile near one corner; two "
-                            "human males, one female, a male dwarf, and a female elf. They appear to have died in the "
-                            "last hour and have been thoroughly looted except for their clothes."]
-    board = list(product(range(rows), range(columns), range(floors)))
-    board = {index: list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)] for index in board}
-    # board = {(row, column, floor): list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)]
-    #          for row in range(rows) for column in range(columns) for floor in range(floors)}
-    # board = {(row, column, floor): 'Test'
-    #          for row in range(rows) for column in range(columns) for floor in range(floors)}
-    add_bosses(board, rows, columns, floors)
-    return board
+    if type(rows) or type(columns) or type(floors) is not int:
+        raise TypeError("Board can't be initialized. Arguments should be an integer.")
+    elif rows or columns < 2:
+        raise ValueError("Board can't be initialized. Rows and columns must be more than or equal to 2.")
+    elif floors < 1:
+        raise ValueError("Board can't be initialized. Floors must be more than or equal to 1.")
+    else:
+        list_of_descriptions = ["The air in the room is clear but cold. The room smells dank or moldy."
+                                " A faint chanting noise can be heard.",
+                                "Roughly chiseled into the corner of one wall are 42 small tally marks. "
+                                "A desiccated naked human male corpse lies in one corner.",
+                                "The air in the room is clear and warm. The room smells stale."
+                                " A faint banging noise can be heard.",
+                                "Painted with white, green, and black pigments is a well-drawn picture of two trolls"
+                                " wielding large spiked maces. Five bodies lay fallen in a pile near one corner; two "
+                                "human males, one female, a male dwarf, and a female elf. They appear to have died "
+                                "in the ""last hour and have been thoroughly looted except for their clothes."]
+        board = list(product(range(rows), range(columns), range(floors)))
+        board = {index: list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)] for index in board}
+        add_bosses(board, rows, columns, floors)
+        return board
 
 
 # def first_floor_descriptions(board):
