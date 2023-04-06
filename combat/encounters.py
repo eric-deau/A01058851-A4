@@ -1,14 +1,14 @@
 import random
-from character import leveling
-from combat import combat, afflictions
 import time
+from character import leveling
+from combat import game_combat, afflictions
 
 
 def guessing_game(current_character: dict) -> None:
     """
     Initialize a number guessing mini-game for the user to play.
 
-    :param current_character: a dictionary containing keys 'X-coordinates', 'Y-coordinates', and 'HP'
+    :param current_character: a dictionary containing 'HP' as a key
     :precondition: current_character 'HP' key value must be a positive integer more than 0
     :postcondition: modifies 'HP' key value in current_character and print a prompt as a side effect
     """
@@ -18,28 +18,37 @@ def guessing_game(current_character: dict) -> None:
     if guess == secret_number:
         print("THAT WAS A LUCKY GUESS PUNK")
     elif not guess.isdigit():
-        current_character['HP'] -= 1
+        current_character['HP'] -= 10
         print(f"Seriously, that isn't even a number. Take some damage. HP is now at {current_character['HP']}")
     else:
-        current_character['HP'] -= 1
+        current_character['HP'] -= 10
         print(f"WRONG. DAMAGE TAKEN. Number was {secret_number}. HP is now at {current_character['HP']}")
 
 
 def engage_combat(character, creep):
+    determine_first_engage(character=character, creep=creep)
+    while character['HP'] > 0 and creep['HP'] > 0 and character['Affliction'] != 'Coward':
+        afflictions.check_for_creep_afflictions(creep=creep, character=character)
+        check_for_turn(character, creep)
+    if character['Affliction'] == 'Coward':
+        guessing_game(current_character=character)
+        return
+    if check_for_victory(character, creep):
+        encounter_victory(character, creep)
+
+
+def check_for_turn(character, creep):
+    if character['Turn']:
+        game_combat.character_attack(character=character, creep=creep)
+    else:
+        game_combat.creep_attack(character=character, creep=creep)
+
+
+def determine_first_engage(character, creep):
     if random.randint(1, 2) == 1:
         character['Turn'] = True
     else:
         creep['Turn'] = True
-    while character['HP'] > 0 and creep['HP'] > 0 and character['Affliction'] != 'Coward':
-        afflictions.check_for_creep_afflictions(creep=creep, character=character)
-        if character['Turn']:
-            combat.character_attack(character=character, creep=creep)
-        else:
-            combat.creep_attack(character=character, creep=creep)
-    if character['Affliction'] == 'Coward':
-        return
-    if check_for_victory(character, creep):
-        encounter_victory(character, creep)
 
 
 def spawn_monster():
@@ -88,12 +97,12 @@ def defeat():
 
 
 def spawn_boss(character):
-    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'HP': 150, 'ATK': 25, 'Affliction': None, 'Turn': False,
-                      'EXP': 100}
-    floor_two_boss = {'Name': 'MIMIC', 'HP': 300, 'ATK': 50, 'Affliction': None, 'Turn': False,
-                      'EXP': 200}
-    floor_three_boss = {'Name': 'ZAKUM', 'HP': 500, 'ATK': 75, 'Affliction': None, 'Turn': False,
-                        'EXP': 300}
+    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'HP': 1, 'ATK': 25, 'Affliction': None, 'Turn': False,
+                      'EXP': 100} # 150
+    floor_two_boss = {'Name': 'MIMIC', 'HP': 1, 'ATK': 50, 'Affliction': None, 'Turn': False,
+                      'EXP': 200} # 300
+    floor_three_boss = {'Name': 'ZAKUM', 'HP': 1, 'ATK': 75, 'Affliction': None, 'Turn': False,
+                        'EXP': 300} # 500
     if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 0:
         return floor_one_boss
     elif character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] == 1:
