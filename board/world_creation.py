@@ -2,7 +2,7 @@ import random
 from itertools import product
 
 
-def make_board(rows, columns, floors):
+def make_board(rows: int, columns: int, floors: int) -> dict:
     """
     Initialize a playing board for a game.
 
@@ -58,7 +58,7 @@ def make_board(rows, columns, floors):
 #     board[(4, 3, 2)] = "You feel an ominous presence coming from the door to the south.."
 
 
-def add_bosses(board, rows, columns, floors):
+def add_bosses(board: dict, rows: int, columns: int, floors: int) -> None:
     """
     Add bosses to the last room of each floor in board.
 
