@@ -1,7 +1,16 @@
 import random
+from itertools import product
 
 
 def make_board(rows, columns, floors):
+    """
+
+
+    :param rows:
+    :param columns:
+    :param floors:
+    :return:
+    """
     list_of_descriptions = ["The air in the room is clear but cold. The room smells dank or moldy."
                             " A faint chanting noise can be heard.",
                             "Roughly chiseled into the corner of one wall are 42 small tally marks. "
@@ -12,10 +21,13 @@ def make_board(rows, columns, floors):
                             " wielding large spiked maces. Five bodies lay fallen in a pile near one corner; two "
                             "human males, one female, a male dwarf, and a female elf. They appear to have died in the "
                             "last hour and have been thoroughly looted except for their clothes."]
-    board = {(row, column, floor): list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)]
-             for row in range(rows) for column in range(columns) for floor in range(floors)}
+    board = list(product(range(rows), range(columns), range(floors)))
+    board = {index: list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)] for index in board}
+    # board = {(row, column, floor): list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)]
+    #          for row in range(rows) for column in range(columns) for floor in range(floors)}
     # board = {(row, column, floor): 'Test'
     #          for row in range(rows) for column in range(columns) for floor in range(floors)}
+    print(type(rows), type(columns), type(floors))
     add_bosses(board, rows, columns, floors)
     return board
 
@@ -56,11 +68,11 @@ def add_bosses(board, rows, columns, floors):
     """
     if type(board) is not dict:
         raise TypeError("Must pass board as a dictionary.")
-    elif type(rows) or type(columns) or type(floors) is not int:
+    elif type(rows) is not int or type(columns) is not int or type(floors) is not int:
         raise TypeError("Must pass rows columns and floors as a positive integer.")
-    elif rows or columns < 2:
+    elif rows < 2 or columns < 2:
         raise ValueError("Rows and columns must be more than or equal to 2.")
-    elif board[(board[rows]-1, board[columns]-1, floors)] not in board:
+    elif (rows-1, columns-1, floors-1) not in board:
         raise KeyError("Coordinates must exist within board.")
     else:
         for floor in range(floors):
@@ -69,10 +81,16 @@ def add_bosses(board, rows, columns, floors):
             board[(rows-1, columns-2, floor)] = "You feel an ominous presence coming from the door to the south.."
 
 
-def edit_floor_descriptions(character, board):
-    board[(4, 4, character['Z-coord'])] = "This room is empty now.."
-    board[(3, 4, character['Z-coord'])] = "I've been here before. The door to my east leads upstairs."
-    board[(4, 3, character['Z-coord'])] = "I've been here before. The door to my south leads upstairs."
+# def edit_floor_descriptions(character, board):
+#     """
+#     Replace room descriptions to remind users that boss has been eliminated
+#     :param character:
+#     :param board:
+#     :return:
+#     """
+#     board[(4, 4, character['Z-coord'])] = "This room is empty now.."
+#     board[(3, 4, character['Z-coord'])] = "I've been here before. The door to my east leads upstairs."
+#     board[(4, 3, character['Z-coord'])] = "I've been here before. The door to my south leads upstairs."
 
 
 def main():
