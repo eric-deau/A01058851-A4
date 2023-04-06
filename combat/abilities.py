@@ -1,7 +1,9 @@
+import playsound as playsound
+
 import combat
 import time
 
-
+playsound()
 def run_away(character):
     character['Affliction'] = 'Coward'
     character['X-coord'] = 0

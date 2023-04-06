@@ -4,11 +4,15 @@ from itertools import product
 
 def make_board(rows, columns, floors):
     """
+    Initialize a playing board for a game.
 
-
-    :param rows:
-    :param columns:
-    :param floors:
+    :param rows: a positive integer more than or equal to two
+    :param columns: a positive integer more than or equal to two
+    :param floors: a positive integer more than or equal to one
+    :precondition:
+    :precondition:
+    :precondition:
+    :postcondition:
     :return:
     """
     list_of_descriptions = ["The air in the room is clear but cold. The room smells dank or moldy."
@@ -27,7 +31,6 @@ def make_board(rows, columns, floors):
     #          for row in range(rows) for column in range(columns) for floor in range(floors)}
     # board = {(row, column, floor): 'Test'
     #          for row in range(rows) for column in range(columns) for floor in range(floors)}
-    print(type(rows), type(columns), type(floors))
     add_bosses(board, rows, columns, floors)
     return board
 
