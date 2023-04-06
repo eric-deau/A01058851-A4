@@ -117,31 +117,35 @@ def determine_stats(character):
     110
     >>> test_char_two['MP']
     50
-
-
     """
-
-    def warrior_stats(warrior_char):
-        warrior_char['Attack'] = 50
-        warrior_char['HP'] = 110
-        warrior_char['MP'] = 50
-
-    def thief_stats(thief_char):
-        thief_char['Attack'] = 40
-        thief_char['HP'] = 90
-        thief_char['MP'] = 100
-
-    def mage_stats(mage_char):
-        mage_char['Attack'] = 30
-        mage_char['HP'] = 80
-        mage_char['MP'] = 150
-
-    if character['Class'] == 'Warrior':
-        warrior_stats(character)
-    elif character['Class'] == 'Mage':
-        mage_stats(character)
+    if type(character) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    elif 'Class' not in character:
+        raise KeyError("'Class' does not exist in dictionary.")
+    elif character['Class'] != 'Warrior' or character['Class'] != 'Mage' or character['Class'] != 'Thief':
+        raise ValueError("'Class' key must be paired with a value of 'Warrior', 'Mage', or 'Thief'.")
     else:
-        thief_stats(character)
+        def warrior_stats(warrior_char):
+            warrior_char['Attack'] = 50
+            warrior_char['HP'] = 110
+            warrior_char['MP'] = 50
+
+        def thief_stats(thief_char):
+            thief_char['Attack'] = 40
+            thief_char['HP'] = 90
+            thief_char['MP'] = 100
+
+        def mage_stats(mage_char):
+            mage_char['Attack'] = 30
+            mage_char['HP'] = 80
+            mage_char['MP'] = 150
+
+        if character['Class'] == 'Warrior':
+            warrior_stats(character)
+        elif character['Class'] == 'Mage':
+            mage_stats(character)
+        else:
+            thief_stats(character)
 
 
 # def warrior_stats(character):

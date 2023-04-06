@@ -1,13 +1,13 @@
 from combat import encounters
-import movement
-from board import world_creation, ROWS, COLUMNS, FLOORS
+from board import world_creation
 from movement import movement
 from utilities import game_checks
-from character import character_creation
+from character import character_creation, display_status
+import __init__
 
 
 def game():
-    world = world_creation.make_board(ROWS, COLUMNS, FLOORS)
+    world = world_creation.make_board(__init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
     character = character_creation.make_character()
     # print(character)
     # character = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None, 'X-coord': 3,
@@ -15,7 +15,7 @@ def game():
     # test_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 1, 'ATK': 50, 'Affliction': None, 'Turn': False, 'EXP': 50}
     achieved_goal = False
     while character['HP'] > 0 and not achieved_goal:
-        print("STATUS", character)
+        display_status.display_status(character)
         movement.check_for_floor_change(character)
         game_checks.reset_affliction(character)
         movement.describe_current_location(world, character)
@@ -32,7 +32,7 @@ def game():
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
                 encounters.engage_combat(character, encounters.spawn_boss(character))
                 # encounters.engage_combat(character, test_boss)
-                world_creation.edit_floor_descriptions(character=character, board=world)
+                # world_creation.edit_floor_descriptions(character=character, board=world)
             # elif game_checks.check_for_random_foes():
             #     encounters.decide_encounter(character)
             else:
