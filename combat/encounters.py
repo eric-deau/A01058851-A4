@@ -29,8 +29,8 @@ def engage_combat(current_char, creep):
     determine_first_engage(current_char=current_char, creep=creep)
     while current_char['HP'] > 0 and creep['HP'] > 0 and current_char['Affliction'] != 'Coward':
         # afflictions.check_for_creep_afflictions(creep=creep, character=current_char)
-        afflictions.check_for_creep_afflictions(creep=creep)
         check_for_turn(current_char, creep)
+        afflictions.check_for_creep_afflictions(creep=creep)
         # check_for_turn(current_char, creep)
     if current_char['Affliction'] == 'Coward':
         guessing_game(current_char=current_char)
