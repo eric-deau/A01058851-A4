@@ -106,23 +106,25 @@ def earthquake_chain(character, creep):
     >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
                       'EXP': 100}
     >>> earthquake_chain(test_char_one, test_creep_one)
+    EYE OF CTHULHU has been afflicted with Stunned!
     >>> test_creep_one['HP']
     -16.0
     >>> test_creep_one['Affliction']
     'Stunned'
 
-    >>> test_char = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 100, 'Spell': 'Earthquake Chain', \
+    >>> test_char_two = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 100, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 2, \
                      'Turn': False, 'Affliction': None}
-    >>> test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
+    >>> test_creep_two = {'Name': 'EYE OF CTHULHU', 'HP': 150, 'ATK': 25, 'Affliction': None, 'Turn': False, \
                       'EXP': 100}
-    >>> earthquake_chain(test_char_one, test_creep_one)
-    >>> test_creep_one['HP']
-    -16.0
-    >>> test_creep_one['Affliction']
+    >>> earthquake_chain(test_char_two, test_creep_two)
+    EYE OF CTHULHU has been afflicted with Stunned!
+    >>> test_creep_two['HP']
+    100.0
+    >>> test_creep_two['Affliction']
     'Stunned'
     """
-    creep['HP'] -= combat.EARTHQUAKE_CHAIN_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
+    creep['HP'] -= combat.EARTHQUAKE_CHAIN_FLAT_DMG + character['Attack']*combat.ATK_MULTIPLIER
     creep['Affliction'] = 'Stunned'
     print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
     # character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST

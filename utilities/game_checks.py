@@ -1,5 +1,5 @@
 import random
-import board
+import __init__
 
 
 def check_if_goal_attained(current_char: dict) -> bool:
@@ -23,8 +23,8 @@ def check_if_goal_attained(current_char: dict) -> bool:
     >>> check_if_goal_attained(test_char_two)
     True
     """
-    if current_char["X-coord"] == board.ROWS-1 and current_char["Y-coord"] == board.COLUMNS-1 and \
-            current_char['Z-coord'] == board.FLOORS-1 and current_char['HP'] > 0:
+    if current_char["X-coord"] == __init__.ROWS-1 and current_char["Y-coord"] == __init__.COLUMNS-1 and \
+            current_char['Z-coord'] == __init__.FLOORS-1 and current_char['HP'] > 0:
         return True
     return False
 
@@ -55,7 +55,7 @@ def check_for_boss(current_char, current_board):
 
     >>> char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'HP': 2}
     >>> board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Test', (0, 0, 2): 'Test',\
-     (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
+      (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
       (0, 2, 2): 'Test', (0, 3, 0): 'Test', (0, 3, 1): 'Test', (0, 3, 2): 'Test', (0, 4, 0): 'Test', \
       (0, 4, 1): 'Test', (0, 4, 2): 'Test', (1, 0, 0): 'Test', (1, 0, 1): 'Test', (1, 0, 2): 'Test', \
       (1, 1, 0): 'Test', (1, 1, 1): 'Test', (1, 1, 2): 'Test', (1, 2, 0): 'Test', (1, 2, 1): 'Test', \
@@ -75,7 +75,7 @@ def check_for_boss(current_char, current_board):
 
     >>> char_two = {'X-coord': 4, 'Y-coord': 4, 'Z-coord': 0, 'HP': 2}
     >>> board_two = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Test', (0, 0, 2): 'Test',\
-     (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
+      (0, 1, 0): 'Test', (0, 1, 1): 'Test', (0, 1, 2): 'Test', (0, 2, 0): 'Test', (0, 2, 1): 'Test', \
       (0, 2, 2): 'Test', (0, 3, 0): 'Test', (0, 3, 1): 'Test', (0, 3, 2): 'Test', (0, 4, 0): 'Test', \
       (0, 4, 1): 'Test', (0, 4, 2): 'Test', (1, 0, 0): 'Test', (1, 0, 1): 'Test', (1, 0, 2): 'Test', \
       (1, 1, 0): 'Test', (1, 1, 1): 'Test', (1, 1, 2): 'Test', (1, 2, 0): 'Test', (1, 2, 1): 'Test', \
@@ -113,9 +113,9 @@ def check_for_boss(current_char, current_board):
     >>> check_for_boss(char_three, board_three)
     True
     """
-    if current_char['X-coord'] == board.ROWS-1 and current_char['Y-coord'] == board.COLUMNS-1:
-        for floors in range(board.FLOORS):
-            if current_board[(board.ROWS-1, board.COLUMNS-1, floors)] == "BOSS HERE":
+    if current_char['X-coord'] == __init__.ROWS-1 and current_char['Y-coord'] == __init__.COLUMNS-1:
+        for floors in range(__init__.FLOORS):
+            if current_board[(__init__.ROWS-1, __init__.COLUMNS-1, floors)] == "BOSS HERE":
                 return True
             else:
                 return False

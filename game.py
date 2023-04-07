@@ -9,10 +9,6 @@ import __init__
 def game():
     world = world_creation.make_board(__init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
     character = character_creation.make_character()
-    # print(character)
-    # character = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None, 'X-coord': 3,
-    #              'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, 'Turn': False, 'Affliction': None}
-    # test_boss = {'Name': 'EYE OF CTHULHU', 'Level': 2, 'HP': 1, 'ATK': 50, 'Affliction': None, 'Turn': False, 'EXP': 50}
     achieved_goal = False
     while character['HP'] > 0 and not achieved_goal:
         display_status.display_status(character)
@@ -41,7 +37,8 @@ def game():
         else:
             print("\"That door seems to be locked\"")
     if achieved_goal:
-        game_checks.victory()
+        # game_checks.victory()
+        print("Victory!")
     if character['HP'] <= 0:
         print("YOU DIED.")
 
