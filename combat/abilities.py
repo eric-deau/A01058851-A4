@@ -1,8 +1,5 @@
-import playsound as playsound
-
 import combat
 import time
-# playsound()
 
 
 def run_away(character):
@@ -38,14 +35,16 @@ def run_away(character):
 
 def doomsday(character, creep):
     """
-    Cast doomsday spell on creep
+    Cast doomsday ability on creep
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key and a positive integer as the value
+    :precondition: character must have 'Attack' as a key with a positive integer as the value
     :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
     :postcondition: modifies the status of creep
-
+    :raises: TypeError: if character and creep are not dictionaries
+    :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
     >>> test_char = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, \
                      'Turn': False, 'Affliction': None}
@@ -57,21 +56,32 @@ def doomsday(character, creep):
     >>> test_creep['Affliction']
     'Burn'
     """
-    creep['HP'] -= combat.DOOMSDAY_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
-    creep['Affliction'] = 'Burn'
-    print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-    # character['MP'] -= combat.DOOMSDAY_MP_COST
+    if type(character) is not dict or type(creep) is not dict:
+        raise TypeError("Arguments must be a dictionary.")
+    elif 'Affliction' not in creep or 'HP' not in creep or 'Attack' not in character:
+        raise KeyError("'Affliction' and 'HP' keys must be in creep dictionary"
+                       "and 'Attack' key must be in character dictionary.")
+    elif character['Attack'] < 0 or creep['HP'] < 0:
+        raise ValueError("Character's 'Attack' and Creep's 'HP' keys must be a positive integer.")
+    else:
+        creep['HP'] -= combat.DOOMSDAY_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
+        creep['Affliction'] = 'Burn'
+        print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
+        # character['MP'] -= combat.DOOMSDAY_MP_COST
 
 
 def stab(character, creep):
     """
-    Cast stab spell on creep
+    Cast stab ability on creep
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key and a positive integer as the value
+    :precondition: character must have 'Attack' as a key with a positive integer as the value
     :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
     :postcondition: modifies the status of creep
+    :raises: TypeError: if character and creep are not dictionaries
+    :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
 
     >>> test_char = {'Name': 'RAKSHASA', 'Class': 'Thief', 'Attack': 30, 'Spell': 'Stab', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, \
@@ -84,21 +94,32 @@ def stab(character, creep):
     >>> test_creep['Affliction']
     'Bleed'
     """
-    creep['HP'] -= combat.STAB_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
-    creep['Affliction'] = 'Bleed'
-    print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-    # character['MP'] -= combat.STAB_MP_COST
+    if type(character) is not dict or type(creep) is not dict:
+        raise TypeError("Arguments must be a dictionary.")
+    elif 'Affliction' not in creep or 'HP' not in creep or 'Attack' not in character:
+        raise KeyError("'Affliction' and 'HP' keys must be in creep dictionary"
+                       "and 'Attack' key must be in character dictionary.")
+    elif character['Attack'] < 0 or creep['HP'] < 0:
+        raise ValueError("Character's 'Attack' and Creep's 'HP' keys must be a positive integer.")
+    else:
+        creep['HP'] -= combat.STAB_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
+        creep['Affliction'] = 'Bleed'
+        print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
+        # character['MP'] -= combat.STAB_MP_COST
 
 
 def earthquake_chain(character, creep):
     """
-    Cast earthquake_chain spell on creep
+    Cast earthquake_chain ability on creep
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key and a positive integer as the value
+    :precondition: character must have 'Attack' as a key with a positive integer as the value
     :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
     :postcondition: modifies the status of creep
+    :raises: TypeError: if character and creep are not dictionaries
+    :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
 
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
@@ -124,10 +145,18 @@ def earthquake_chain(character, creep):
     >>> test_creep_two['Affliction']
     'Stunned'
     """
-    creep['HP'] -= combat.EARTHQUAKE_CHAIN_FLAT_DMG + character['Attack']*combat.ATK_MULTIPLIER
-    creep['Affliction'] = 'Stunned'
-    print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-    # character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
+    if type(character) is not dict or type(creep) is not dict:
+        raise TypeError("Arguments must be a dictionary.")
+    elif 'Affliction' not in creep or 'HP' not in creep or 'Attack' not in character:
+        raise KeyError("'Affliction' and 'HP' keys must be in creep dictionary"
+                       "and 'Attack' key must be in character dictionary.")
+    elif character['Attack'] < 0 or creep['HP'] < 0:
+        raise ValueError("Character's 'Attack' and Creep's 'HP' keys must be a positive integer.")
+    else:
+        creep['HP'] -= combat.EARTHQUAKE_CHAIN_FLAT_DMG + character['Attack']*combat.ATK_MULTIPLIER
+        creep['Affliction'] = 'Stunned'
+        print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
+        # character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
 
 
 def regular_attack(character, creep):
@@ -136,9 +165,12 @@ def regular_attack(character, creep):
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' as a key
-    :precondition: character must be a dictionary containing 'Attack' as a key and a positive integer as the value
-    :precondition: creep must be a dictionary containing 'HP' as a key and a positive integer as the value
+    :precondition: character must be a dictionary containing 'Attack' as a key with a positive integer as the value
+    :precondition: creep must be a dictionary containing 'HP' as a key with a positive integer as the value
     :postcondition: modifies the status of creep
+    :raises: TypeError: if character and creep are not dictionaries
+    :raises: KeyError: if 'HP' is not in creep dictionary as a key or 'Attack' not in character dictionary as a key
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
 
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
@@ -160,45 +192,96 @@ def regular_attack(character, creep):
     >>> test_creep_two['HP']
     40
     """
-    creep['HP'] -= character['Attack']
-    print(f"{creep['Name']} has been hit for {character['Attack']} damage!")
-    time.sleep(2)
+    if type(character) is not dict or type(creep) is not dict:
+        raise TypeError("Arguments must be a dictionary.")
+    elif 'HP' not in creep or 'Attack' not in character:
+        raise KeyError("'HP' keys must be in creep dictionary and 'Attack' key must be in character dictionary.")
+    elif character['Attack'] < 0 or creep['HP'] < 0:
+        raise ValueError("Character's 'Attack' and Creep's 'HP' keys must be a positive integer.")
+    else:
+        creep['HP'] -= character['Attack']
+        print(f"{creep['Name']} has been hit for {character['Attack']} damage!")
+        time.sleep(2)
 
 
 def cast_spell(character, creep):
+    """
+    Cast an ability depending on what the character's spell is.
+
+    :param character: a dictionary with 'MP' as a key with a positive integer as the value, and 'Spell' as a key with
+                      a string as the value
+    :param creep: a dictionary with 'HP' as a key with a positive integer as the value
+    :precondition: character must be a dictionary containing 'MP' as a key with a positive integer as the value
+    :precondition: character must be a dictionary containing 'Spell' as a key with 'Earthquake Chain', 'Doomsday',
+                   or 'Stab' as the value
+    :precondition: creep must be a dictionary containing 'HP' as a key with a positive integer as the value
+    :raises: TypeError: if character and creep are not dictionaries
+    :raises: KeyError: if 'HP' is not in creep dictionary as a key or 'Spell' not in character dictionary as a key
+    :raises: ValueError: if character 'Spell' key is not 'Earthquake Chain', 'Stab', or 'Doomsday'
+                         and creep 'HP' key is not a positive integer
+    """
     skillset = {'Earthquake Chain': earthquake_chain, 'Doomsday': doomsday, 'Stab': stab}
-    for key in skillset:
-        if character['Spell'] == key:
-            print(f"Casting {character['Spell']}...")
-            skillset[key](character, creep)
-            decrement_mana(character)
-    # print(f"Casting {character['Spell']}...")
-    # if character['Spell'] == 'Earthquake Chain':
-    #     earthquake_chain(character=character, creep=creep)
-    #     character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
-    # elif character['Spell'] == 'Doomsday':
-    #     doomsday(character=character, creep=creep)
-    #     character['MP'] -= combat.DOOMSDAY_MP_COST
-    # else:
-    #     stab(character=character, creep=creep)
-    #     character['MP'] -= combat.STAB_MP_COST
-    # print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-    time.sleep(2)
+    if type(character) is not dict or type(creep) is not dict:
+        raise TypeError("Arguments must be a dictionary.")
+    elif 'HP' not in creep or 'Spell' not in character:
+        raise KeyError("'HP' keys must be in creep dictionary and 'Attack' key must be in character dictionary.")
+    elif character['Spell'] not in skillset or creep['HP'] < 0:
+        raise ValueError("Character must contain a spell called 'Earthquake Chain', 'Stab', or 'Doomsday',"
+                         " and Creep's 'HP' keys must be a positive integer.")
+    else:
+        for key in skillset:
+            if character['Spell'] == key:
+                print(f"Casting {character['Spell']}...")
+                skillset[key](character, creep)
+                decrement_mana(character)
+        # print(f"Casting {character['Spell']}...")
+        # if character['Spell'] == 'Earthquake Chain':
+        #     earthquake_chain(character=character, creep=creep)
+        #     character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
+        # elif character['Spell'] == 'Doomsday':
+        #     doomsday(character=character, creep=creep)
+        #     character['MP'] -= combat.DOOMSDAY_MP_COST
+        # else:
+        #     stab(character=character, creep=creep)
+        #     character['MP'] -= combat.STAB_MP_COST
+        # print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
+        time.sleep(2)
 
 
 def decrement_mana(character):
+    """
+    Decrease the mana of a character based on the skill used.
+
+    :param character: a dictionary with 'MP' as a key with a positive integer as the value, and 'Spell' as a key with
+                      a string as the value
+    :precondition: character must be a dictionary with 'MP' and 'Spell' as a key
+    :precondition: character 'MP' key must have a positive integer as a value
+    :precondition: character 'Spell' key must contain 'Earthquake Chain', 'Stab', or 'Doomsday' as a value
+    :postcondition: modifies character 'MP' key
+    :raises: TypeError: if character is not a dictionary
+    :raises: KeyError: if 'MP' or 'Spell' do not exist in character dictionary
+    :raises: ValueError: if character 'MP' key is less than zero or character 'Spell' key does not have a value of
+                         'Earthquake Chain', 'Stab' or 'Doomsday'
+    """
     skillset = {'Earthquake Chain': combat.EARTHQUAKE_CHAIN_MP_COST, 'Doomsday': combat.DOOMSDAY_MP_COST,
                 'Stab': combat.STAB_MP_COST}
-    for key in skillset:
-        if character['Spell'] == key:
-            character['MP'] -= skillset[key]
-            print(f"You lost {character['MP']} MP.")
+    if type(character) is not dict:
+        raise TypeError("Argument must be a dictionary.")
+    elif 'MP' not in character or 'Spell' not in character:
+        raise KeyError("'HP' and 'Spell' must be in character as a key.")
+    elif character['Spell'] not in skillset or character['MP'] < skillset[character['Spell']]:
+        raise ValueError("Character must contain a spell called 'Earthquake Chain', 'Stab', or 'Doomsday' and character"
+                         "'MP' must be more than 0.")
+    else:
+        for key in skillset:
+            if character['Spell'] == key:
+                character['MP'] -= skillset[key]
+                print(f"You lost {skillset[key]} MP.")
 
 
 def main():
     """
-    
-    :return: 
+    Drive the program.
     """
 
 

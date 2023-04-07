@@ -29,8 +29,8 @@ def game():
                 encounters.engage_combat(character, encounters.spawn_boss(character))
                 # encounters.engage_combat(character, test_boss)
                 # world_creation.edit_floor_descriptions(character=character, board=world)
-            # elif game_checks.check_for_random_foes():
-            #     encounters.decide_encounter(character)
+            elif game_checks.check_for_random_foes():
+                encounters.decide_encounter(character)
             else:
                 pass
             achieved_goal = game_checks.check_if_goal_attained(character)
