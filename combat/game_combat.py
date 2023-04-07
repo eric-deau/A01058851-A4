@@ -11,7 +11,8 @@ def character_attack(character, creep):
         determine_attack(attack_choice=choices[attack_choice], character=character, creep=creep)
         creep['Turn'] = True
         character['Turn'] = False
-        print(f"Opponent health is now at: {creep['HP']}")
+        print(f"Opponent health is now at: 0") if creep['HP'] <= 0 \
+            else print(f"Opponent health is now at: {creep['HP']}")
         time.sleep(3)
     else:
         abilities.run_away(character)
@@ -57,14 +58,22 @@ def check_for_mana(character):
     #     return False
 
 
+def check_for_stun(creep):
+    return creep['Affliction'] == 'Stunned'
+
+
 def creep_attack(character, creep):
-    print(f"{creep['Name']} is about to attack!")
-    time.sleep(2)
-    character['HP'] -= creep['ATK']
-    creep['Turn'] = False
-    character['Turn'] = True
-    print(f"Your health is now at: {character['HP']}")
-    time.sleep(2)
+    if not check_for_stun(creep):
+        print(f"{creep['Name']} is about to attack!")
+        time.sleep(2)
+        character['HP'] -= creep['ATK']
+        creep['Turn'] = False
+        character['Turn'] = True
+        print(f"Your health is now at: {character['HP']}")
+        time.sleep(2)
+    else:
+        character['Turn'] = True
+        print(f"{creep['Name']} is afflicted with {creep['Affliction']}! They can't move!")
 
 
 def get_attack_choice(character):
