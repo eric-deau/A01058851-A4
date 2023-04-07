@@ -229,11 +229,14 @@ def cast_spell(character, creep):
         raise ValueError("Character must contain a spell called 'Earthquake Chain', 'Stab', or 'Doomsday',"
                          " and Creep's 'HP' keys must be a positive integer.")
     else:
-        for key in skillset:
-            if character['Spell'] == key:
-                print(f"Casting {character['Spell']}...")
-                skillset[key](character, creep)
-                decrement_mana(character)
+        print(f"Casting {character['Spell']}...")
+        skillset[character['Spell']](character=character, creep=creep)
+        decrement_mana(character)
+        # for key in skillset:
+        #     if character['Spell'] == key:
+        #         print(f"Casting {character['Spell']}...")
+        #         skillset[key](character, creep)
+        #         decrement_mana(character)
         # print(f"Casting {character['Spell']}...")
         # if character['Spell'] == 'Earthquake Chain':
         #     earthquake_chain(character=character, creep=creep)
@@ -273,10 +276,12 @@ def decrement_mana(character):
         raise ValueError("Character must contain a spell called 'Earthquake Chain', 'Stab', or 'Doomsday' and character"
                          "'MP' must be more than 0.")
     else:
-        for key in skillset:
-            if character['Spell'] == key:
-                character['MP'] -= skillset[key]
-                print(f"You lost {skillset[key]} MP.")
+        character['MP'] -= skillset[character['Spell']]
+        print(f"You lost {skillset[character['Spell']]} MP.")
+        # for key in skillset:
+        #     if character['Spell'] == key:
+        #         character['MP'] -= skillset[key]
+        #         print(f"You lost {skillset[key]} MP.")
 
 
 def main():
