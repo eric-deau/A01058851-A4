@@ -135,7 +135,11 @@ def engage_combat(current_char: dict, creep: dict) -> None:
     """
     determine_first_engage(current_char=current_char, creep=creep)
     while current_char['HP'] > 0 and creep['HP'] > 0 and current_char['Affliction'] != 'Coward':
-        check_for_turn(current_char, creep)
+        check_player_turn = check_for_turn(current_char)
+        if check_player_turn:
+            game_combat.character_attack(character=current_char, creep=creep)
+        else:
+            game_combat.creep_attack(character=current_char, creep=creep)
         afflictions.check_for_creep_afflictions(creep=creep)
     if current_char['Affliction'] == 'Coward':
         guessing_game(current_char=current_char)
@@ -144,12 +148,11 @@ def engage_combat(current_char: dict, creep: dict) -> None:
         encounter_victory(current_char=current_char, creep=creep)
 
 
-def check_for_turn(current_char: dict, creep: dict) -> None:
+def check_for_turn(current_char: dict) -> bool:
     """
     Determine the current turn in the engagement.
 
     :param current_char: a dictionary
-    :param creep: a dictionary
     :precondition: current_char must contain 'Name' as a key and a string as a value
     :precondition: current_char must contain 'Class' as a key and a string as a value
     :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
@@ -157,14 +160,22 @@ def check_for_turn(current_char: dict, creep: dict) -> None:
                    as values
     :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
     :precondition: current_char must contain 'Spell' as a key and a string as the value
-    :precondition: creep must contain 'Name' as a key and a string as the value
-    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
-    :precondition: creep must contain 'Affliction' as a key
-    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
     :postcondition: determines which entity can take an action in the fight
     :raises: TypeError: if current_char is not a dictionary
     :raises: KeyError: if current_char does not contain 'Turn' as a key
     :raises: TypeError: if current_char 'Turn' key is not a boolean
+
+    >>> test_char_one = {'Name': 'Bobby', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3, \
+                         'Y-coord': 3, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> check_for_turn(test_char_one)
+    False
+
+    >>> test_char_two = {'Name': 'Bobby', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3, \
+                         'Y-coord': 3, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': True, \
+                         'Affliction': None}
+    >>> check_for_turn(test_char_two)
+    True
     """
     if type(current_char) is not dict:
         raise TypeError("A dictionary must be passed as an argument.")
@@ -173,10 +184,7 @@ def check_for_turn(current_char: dict, creep: dict) -> None:
     elif type(current_char['Turn']) is not bool:
         raise TypeError("Dictionary key 'Turn' must be a boolean value.")
     else:
-        if current_char['Turn']:
-            game_combat.character_attack(character=current_char, creep=creep)
-        else:
-            game_combat.creep_attack(character=current_char, creep=creep)
+        return True if current_char['Turn'] else False
 
 
 def determine_first_engage(current_char: dict, creep: dict) -> None:
