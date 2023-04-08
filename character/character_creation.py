@@ -95,7 +95,9 @@ def determine_stats(character):
     :param character: a dictionary containing 'HP', 'MP', and 'Attack' keys
     :precondition: character must be a dictionary containing 'HP', 'MP', and 'Attack' keys
     :postcondition: determines the character's stats based off of the selected character class
-
+    :raises: TypeError: if character is not a dictionary
+    :raises: KeyError: if 'Class' is not a key existing in dictionary
+    :raises: ValueError: if 'Class' value is not 'Warrior', 'Mage', or 'Thief'
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': None, 'Spell': 'Doomsday', 'MP Cost': None, \
                         'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, \
                         'Turn': False, 'Affliction': None}
@@ -118,7 +120,6 @@ def determine_stats(character):
     >>> test_char_two['MP']
     50
     """
-    print(character['Class'])
     if type(character) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
     elif 'Class' not in character:
@@ -126,21 +127,6 @@ def determine_stats(character):
     elif character['Class'] != 'Warrior' and character['Class'] != 'Mage' and character['Class'] != 'Thief':
         raise ValueError("'Class' key must be paired with a value of 'Warrior', 'Mage', or 'Thief'.")
     else:
-        def warrior_stats(warrior_char):
-            warrior_char['Attack'] = 50
-            warrior_char['HP'] = 110
-            warrior_char['MP'] = 50
-
-        def thief_stats(thief_char):
-            thief_char['Attack'] = 40
-            thief_char['HP'] = 90
-            thief_char['MP'] = 100
-
-        def mage_stats(mage_char):
-            mage_char['Attack'] = 30
-            mage_char['HP'] = 80
-            mage_char['MP'] = 150
-
         if character['Class'] == 'Warrior':
             warrior_stats(character)
         elif character['Class'] == 'Mage':
@@ -149,22 +135,55 @@ def determine_stats(character):
             thief_stats(character)
 
 
-# def warrior_stats(character):
-#     character['Attack'] = 50
-#     character['HP'] = 110
-#     character['MP'] = 50
+def warrior_stats(character):
+    """
+    Apply the warrior base stats to character.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary passed by determine_stats function
+    :postcondition: applies warrior base stats to character
+    :raises: TypeError: if character is not a dictionary
+    """
+    if type(character) is not dict:
+        raise TypeError("A dictionary must be passed as an argument.")
+    else:
+        character['Attack'] = 50
+        character['HP'] = 110
+        character['MP'] = 50
 
 
-# def thief_stats(character):
-#     character['Attack'] = 40
-#     character['HP'] = 90
-#     character['MP'] = 100
+def thief_stats(character):
+    """
+    Apply the thief base stats to character.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary passed by determine_stats function
+    :postcondition: applies thief base stats to character
+    :raises: TypeError: if character is not a dictionary
+    """
+    if type(character) is not dict:
+        raise TypeError("A dictionary must be passed as an argument.")
+    else:
+        character['Attack'] = 40
+        character['HP'] = 90
+        character['MP'] = 100
 
 
-# def mage_stats(character):
-#     character['Attack'] = 30
-#     character['HP'] = 80
-#     character['MP'] = 150
+def mage_stats(character):
+    """
+    Apply the mage base stats to character.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary passed by determine_stats function
+    :postcondition: applies mage base stats to character
+    :raises: TypeError: if character is not a dictionary
+    """
+    if type(character) is not dict:
+        raise TypeError("A dictionary must be passed as an argument.")
+    else:
+        character['Attack'] = 30
+        character['HP'] = 80
+        character['MP'] = 150
 
 
 def valid_selection(selection, classes):
@@ -177,23 +196,27 @@ def valid_selection(selection, classes):
     :precondition: classes must contain keys '1', '2' and '3'
     :postcondition: determines the user's selected class
     :return: a string representing the class selected by the user
+    :raises: TypeError: if selection is not a str and classes is not a dict
+    :raises: KeyError: if classes does not contain '1', '2' and '3' as keys
     """
-    user_input = selection
-    while user_input not in classes:
-        print("\"Is that even a class? Let's try again.\"")
-        user_input = input("Type in a number from 1-3 to pick a class: ")
-    return classes[user_input]
+    if type(selection) is not str:
+        raise TypeError("Must pass a selection as a string.")
+    elif type(classes) is not dict:
+        raise TypeError("Must pass classes as a dictionary.")
+    elif '1' not in classes or '2' not in classes or '3' not in classes:
+        raise KeyError("'1', '2' and '3' keys do not exist in dictionary.")
+    else:
+        user_input = selection
+        while user_input not in classes:
+            print("\"Is that even a class? Let's try again.\"")
+            user_input = input("Type in a number from 1-3 to pick a class: ")
+        return classes[user_input]
 
 
 def main():
     """
     Drive the program
     """
-    # print(make_character())
-    character = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None, 'X-coord': 3,
-                 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, 'Turn': False,
-                 'Affliction': None}
-    determine_stats(character)
 
 
 if __name__ == "__main__":
