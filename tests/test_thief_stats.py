@@ -13,6 +13,6 @@ class TestThiefStats(TestCase):
                     'Turn': False, 'Affliction': None}
         self.assertEqual(expected, test_char_three)
 
-    def test_warrior_stats_incorrect_type(self):
+    def test_thief_stats_incorrect_type(self):
         with self.assertRaises(TypeError):
             thief_stats("Not a dictionary")
