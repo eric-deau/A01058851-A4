@@ -20,7 +20,7 @@ def character_attack(character: dict, creep: dict) -> None:
     :precondition: creep must contain 'Affliction' as a key
     :precondition: creep must contain 'Turn' as a key and a boolean value as the value
     :postcondition: modifies creep dictionary
-    :return: None if the character runs away
+    :return: None
     """
     choices = {'1': 'Attack', '2': 'Spell', '3': 'Run away'}
     attack_choice = get_attack_choice(character)
