@@ -27,3 +27,10 @@ class TestSpawnBoss(TestCase):
             test_file_content = spawn_boss(test_char_one)
             expected = {"Name": "Banana", "HP": 40, "ATK": 25, "Affliction": None, "Turn": False, "EXP": 100}
             self.assertEqual(expected, test_file_content)
+
+        def test_spawn_boss_file_not_found(self):
+            test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 4,
+                             'Y-coord': 4, 'Z-coord': 1, 'HP': 300, 'MP': 200, 'EXP': 50, 'Level': 1, 'Turn': False,
+                             'Affliction': None}
+            with self.assertRaises(FileNotFoundError):
+                spawn_boss(test_char_one)
