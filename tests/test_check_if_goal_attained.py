@@ -18,4 +18,3 @@ class TestCheckIfGoalAttained(TestCase):
     def test_check_if_goal_attained_hp_zero_incorrect_coordinates(self):
         example_char_four = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, "HP": 0}
         self.assertEqual(False, check_if_goal_attained(example_char_four, 4, 4, 3))
-

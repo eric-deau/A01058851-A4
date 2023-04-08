@@ -119,9 +119,8 @@ def check_for_boss(current_char: dict, current_board: dict) -> bool:
     >>> check_for_boss(char_three, board_three)
     True
     """
-    if current_char['X-coord'] == __init__.ROWS-1 and current_char['Y-coord'] == __init__.COLUMNS-1:
-        for floors in range(__init__.FLOORS):
-            return True if current_board[(__init__.ROWS-1, __init__.COLUMNS-1, floors)] == "BOSS HERE" else False
+    if current_board[(current_char['X-coord'], current_char['Y-coord'], current_char['Z-coord'])] == "BOSS HERE":
+        return True
     else:
         return False
 
