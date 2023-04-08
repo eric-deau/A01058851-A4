@@ -10,6 +10,9 @@ def gain_experience(current_char, creep):
     :precondition: current_char must be a dictionary containing 'EXP' as a key and a positive integer as a value
     :precondition: creep must be a dictionary containing 'EXP' as a key and a positive integer as a value
     :postcondition: modifies character EXP
+    :raises: TypeError: if current_char or creep is not a dictionary
+    :raises: KeyError: if 'EXP' is not a key in current_char or creep
+    :raises: ValueError: if current_char 'EXP' or creep 'EXP' is less than 0
 
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, \
                         'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
@@ -36,6 +39,8 @@ def level_up(current_char):
     :precondition: current_char must be a dictionary containing 'EXP', 'Attack', 'HP', 'MP' as keys and
                    positive integers as values
     :postcondition: determines the level of a character
+    :raises: TypeError: if current_char is not a dictionary
+    :raises: KeyError: if current_char does not contain 'Level' and 'EXP' as keys
 
     >>> char_one = {'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, 'Y-coord': 0,\
                     'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 100, 'Level': 1, 'Turn': False}
@@ -51,13 +56,18 @@ def level_up(current_char):
                       'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 150, 'Level': 2, 'Turn': False}
     >>> level_up(char_three)
     """
-    if character.LEVEL_THREE_REQ > current_char['EXP'] >= character.LEVEL_TWO_REQ and current_char['Level'] == 1:
-        level_two(current_char=current_char)
-    elif current_char['EXP'] >= character.LEVEL_THREE_REQ and current_char['Level'] == 2:
-        level_three(current_char=current_char)
+    if type(current_char) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    elif 'Level' not in current_char or 'EXP' not in current_char:
+        raise KeyError("Dictionary must contain 'Level' and 'EXP' as keys.")
     else:
-        return
-    print(f"You have leveled up! You are now level {current_char['Level']}")
+        if character.LEVEL_THREE_REQ > current_char['EXP'] >= character.LEVEL_TWO_REQ and current_char['Level'] == 1:
+            level_two(current_char=current_char)
+        elif current_char['EXP'] >= character.LEVEL_THREE_REQ and current_char['Level'] == 2:
+            level_three(current_char=current_char)
+        else:
+            return
+        print(f"You have leveled up! You are now level {current_char['Level']}")
 
 
 def level_two(current_char):
