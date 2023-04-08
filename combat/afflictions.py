@@ -84,16 +84,20 @@ def stun(creep):
     :postcondition: modifies creep 'Turn' key if stunned
     :raises: TypeError: if creep is not a dictionary
     :raises: KeyError: if 'HP' not in creep
+    :raises: ValueError: if creep 'Affliction' is not 'Stunned'
 
-    >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Burn', 'Turn': True, \
+    >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': True, \
                           'EXP': 100}
     >>> stun(test_creep_one)
+    >>> test_creep_one
     {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False, 'EXP': 100}
     """
     if type(creep) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
-    elif 'Turn' not in creep:
+    elif 'Turn' not in creep or 'Affliction' not in creep:
         raise KeyError("Dictionary must contain 'Turn' as a key.")
+    elif creep['Affliction'] != 'Stunned':
+        raise ValueError("Dictionary 'Affliction' key must be 'Stunned'.")
     else:
         creep['Turn'] = False
 
