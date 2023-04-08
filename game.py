@@ -16,7 +16,7 @@ def game():
         movement.check_for_floor_change(character)
         game_checks.reset_affliction(character)
         movement.describe_current_location(world, character)
-        direction = movement.get_user_choice()
+        direction = movement.get_user_move()
         valid_move = movement.validate_move(world, character, direction)
         if valid_move:
             movement.move_character(character, direction)

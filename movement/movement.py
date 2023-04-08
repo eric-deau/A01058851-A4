@@ -45,7 +45,7 @@ def describe_current_location(board: dict, current_char: dict) -> None:
         print(f"You are currently in: {floors[current_char['Z-coord'] + 1]}")
 
 
-def get_user_choice() -> str:
+def get_user_move() -> str:
     """
     Determine the choice of the user.
 
