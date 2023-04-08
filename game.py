@@ -26,7 +26,10 @@ def game():
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
                 encounters.engage_combat(character, boss)
             elif game_checks.check_for_random_foes():
-                encounters.decide_encounter(character)
+                if encounters.decide_encounter():
+                    encounters.engage_combat(current_char=character, creep=encounters.spawn_monster())
+                else:
+                    encounters.guessing_game(current_char=character)
             else:
                 pass
             achieved_goal = game_checks.check_if_goal_attained(character)

@@ -238,26 +238,18 @@ def spawn_monster() -> dict:
     return mob
 
 
-def decide_encounter(current_char: dict) -> None:
+def decide_encounter() -> bool:
     """
     Determine the type of encounter the character will come across.
 
-    :param current_char: a dictionary
-    :precondition: current_char must contain 'Name' as a key and a string as a value
-    :precondition: current_char must contain 'Class' as a key and a string as a value
-    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
-    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
-                   as values
-    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
-    :precondition: current_char must contain 'Spell' as a key and a string as the value
-    :postcondition: dictates the encounter that current_char will be in
-    :return: a function representing the type of encounter that the player engages in
+    :postcondition: dictates the encounter that will occur
+    :return: a boolean value representing the type of encounter a character will engage in
     """
-    encounter = random.choices([engage_combat, guessing_game])
-    if engage_combat in encounter:
-        return engage_combat(current_char, spawn_monster())
+    encounter = [engage_combat, guessing_game]
+    if engage_combat is encounter[random.randint(0, len(encounter)-1)]:
+        return True
     else:
-        return guessing_game(current_char)
+        return False
 
 
 def check_for_victory(current_char: dict, creep: dict) -> bool:
