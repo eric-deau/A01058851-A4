@@ -219,6 +219,26 @@ def cast_spell(character, creep):
     :raises: KeyError: if 'HP' is not in creep dictionary as a key or 'Spell' not in character dictionary as a key
     :raises: ValueError: if character 'Spell' key is not 'Earthquake Chain', 'Stab', or 'Doomsday'
                          and creep 'HP' key is not a positive number
+
+    >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
+                     'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
+                     'Turn': False, 'Affliction': None}
+    >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
+                      'EXP': 100}
+    >>> cast_spell(test_char_one, test_creep_one)
+    Casting Earthquake Chain...
+    EYE OF CTHULHU has been afflicted with Stunned!
+    You lost 30 MP.
+
+    >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', \
+                     'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
+                     'Turn': False, 'Affliction': None}
+    >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
+                      'EXP': 100}
+    >>> cast_spell(test_char_one, test_creep_one)
+    Casting Doomsday...
+    EYE OF CTHULHU has been afflicted with Burn!
+    You lost 50 MP.
     """
     skillset = {'Earthquake Chain': earthquake_chain, 'Doomsday': doomsday, 'Stab': stab}
     if type(character) is not dict or type(creep) is not dict:
@@ -249,13 +269,29 @@ def decrement_mana(character):
     :raises: KeyError: if 'MP' or 'Spell' do not exist in character dictionary
     :raises: ValueError: if character 'MP' key is less than zero or character 'Spell' key does not have a value of
                          'Earthquake Chain', 'Stab' or 'Doomsday'
+
+    >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', \
+                     'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
+                     'Turn': False, 'Affliction': None}
+    >>> decrement_mana(test_char_one)
+    You lost 50 MP.
+    >>> test_char_one['MP']
+    30
+
+    >>> test_char_two = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
+                     'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
+                     'Turn': False, 'Affliction': None}
+    >>> decrement_mana(test_char_two)
+    You lost 30 MP.
+    >>> test_char_two['MP']
+    50
     """
     skillset = {'Earthquake Chain': combat.EARTHQUAKE_CHAIN_MP_COST, 'Doomsday': combat.DOOMSDAY_MP_COST,
                 'Stab': combat.STAB_MP_COST}
     if type(character) is not dict:
         raise TypeError("Argument must be a dictionary.")
     elif 'MP' not in character or 'Spell' not in character:
-        raise KeyError("'HP' and 'Spell' must be in character as a key.")
+        raise KeyError("'MP' and 'Spell' must be in character as a key.")
     elif character['Spell'] not in skillset or character['MP'] < skillset[character['Spell']]:
         raise ValueError("Character must contain a spell called 'Earthquake Chain', 'Stab', or 'Doomsday' and character"
                          "'MP' must be more than 0.")
