@@ -36,6 +36,7 @@ def game():
         else:
             print("\"That door seems to be locked\"")
     if character['HP'] <= 0:
+        # game_checks.defeat()
         print("YOU DIED.")
     if achieved_goal:
         # game_checks.victory()
