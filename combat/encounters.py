@@ -348,6 +348,7 @@ def spawn_boss(current_char: dict) -> dict:
     :precondition: current_char must contain 'Spell' as a key and a string as the value
     :postcondition: determines the boss spawned in an encounter
     :return: a dictionary representing a boss
+    :raises: FileNotFoundError: if bosses.json does not exist in a directory named combat
     """
     with open('combat/bosses.json', 'r') as file_object:
         bosses = json.load(file_object)
