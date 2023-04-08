@@ -2,16 +2,22 @@ import random
 import __init__
 
 
-def check_if_goal_attained(current_char: dict) -> bool:
+def check_if_goal_attained(current_char: dict, rows: int, columns: int, floors: int) -> bool:
     """
     Check if a character meets the win condition of the game.
 
     :param current_char: a dictionary containing keys 'X-coord', 'Y-coord', 'Z-coord' and 'HP'
+    :param rows: a positive integer
+    :param columns: a positive integer
+    :param floors: a positive integer
     :precondition: current_char must contain keys 'X-coord','Y-coord', 'Z-coord' and 'HP'
     :precondition: current_char key 'HP' value must be a positive integer more than 0
     :precondition: current_char keys 'X-coord' value must be a positive integer more than 0
     :precondition: current_char keys 'Y-coord' value must be a positive integer more than 0
     :precondition: current_char keys 'Z-coord' value must be a positive integer more than 0
+    :precondition: rows must be a positive integer more than or equal to 2
+    :precondition: columns must be a positive integer more than or equal to 2
+    :precondition: floors must be a positive integer more than or equal to 1
     :postcondition: determines if current_character meets the win condition of the game
     :return: a boolean value representing the win condition of the character
 
@@ -23,8 +29,8 @@ def check_if_goal_attained(current_char: dict) -> bool:
     >>> check_if_goal_attained(test_char_two)
     True
     """
-    if current_char["X-coord"] == __init__.ROWS-1 and current_char["Y-coord"] == __init__.COLUMNS-1 and \
-            current_char['Z-coord'] == __init__.FLOORS-1 and current_char['HP'] > 0:
+    if current_char["X-coord"] == rows-1 and current_char["Y-coord"] == columns-1 and \
+            current_char['Z-coord'] == floors-1 and current_char['HP'] > 0:
         return True
     return False
 

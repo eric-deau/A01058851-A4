@@ -32,7 +32,8 @@ def game():
                     encounters.guessing_game(current_char=character)
             else:
                 pass
-            achieved_goal = game_checks.check_if_goal_attained(character)
+            achieved_goal = game_checks.check_if_goal_attained(character, rows=__init__.ROWS,
+                                                               columns=__init__.COLUMNS, floors=__init__.FLOORS)
         else:
             print("\"That door seems to be locked\"")
     if character['HP'] <= 0:
