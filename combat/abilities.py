@@ -232,22 +232,6 @@ def cast_spell(character, creep):
         print(f"Casting {character['Spell']}...")
         skillset[character['Spell']](character=character, creep=creep)
         decrement_mana(character)
-        # for key in skillset:
-        #     if character['Spell'] == key:
-        #         print(f"Casting {character['Spell']}...")
-        #         skillset[key](character, creep)
-        #         decrement_mana(character)
-        # print(f"Casting {character['Spell']}...")
-        # if character['Spell'] == 'Earthquake Chain':
-        #     earthquake_chain(character=character, creep=creep)
-        #     character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
-        # elif character['Spell'] == 'Doomsday':
-        #     doomsday(character=character, creep=creep)
-        #     character['MP'] -= combat.DOOMSDAY_MP_COST
-        # else:
-        #     stab(character=character, creep=creep)
-        #     character['MP'] -= combat.STAB_MP_COST
-        # print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
         time.sleep(2)
 
 
@@ -278,10 +262,6 @@ def decrement_mana(character):
     else:
         character['MP'] -= skillset[character['Spell']]
         print(f"You lost {skillset[character['Spell']]} MP.")
-        # for key in skillset:
-        #     if character['Spell'] == key:
-        #         character['MP'] -= skillset[key]
-        #         print(f"You lost {skillset[key]} MP.")
 
 
 def main():
