@@ -7,7 +7,7 @@ def check_for_creep_afflictions(creep):
 
     :param creep: a dictionary containing 'HP', 'Turn' and 'Affliction' as keys
     :precondition: creep must be a dictionary containing 'HP', 'Turn', and 'Affliction' as keys
-    :precondition: creep 'HP' must be a positive integer
+    :precondition: creep 'HP' must be a positive number
     :postcondition: applies affliction status to creep if creep has an affliction
     :raises: TypeError: if creep is not a dictionary
     :raises: KeyError: if 'HP', 'Turn' or 'Affliction' not in creep
@@ -45,7 +45,7 @@ def damage_over_time(creep):
 
     :param creep: a dictionary containing 'HP'
     :precondition: creep must be a dictionary containing 'HP'
-    :precondition: creep 'HP' must be a positive integer
+    :precondition: creep 'HP' must be a positive number
     :postcondition: decrements creep 'HP' key
     :raises: TypeError: if creep is not a dictionary
     :raises: KeyError: if 'HP' not in creep

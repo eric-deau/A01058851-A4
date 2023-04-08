@@ -1,5 +1,6 @@
 import random
 import time
+import json
 from character import leveling
 from combat import game_combat, afflictions
 
@@ -8,30 +9,134 @@ def guessing_game(current_char: dict) -> None:
     """
     Initialize a number guessing mini-game for the user to play.
 
-    :param current_char: a dictionary containing 'HP' as a key
-    :precondition: current_char 'HP' key value must be a positive integer more than 0
-    :postcondition: modifies 'HP' key value in current_character and print a prompt as a side effect
+    :param current_char: a dictionary containing 'HP', 'MP' and 'Name' as a key
+    :precondition: current_char 'Name', 'HP' and 'MP' key value must be a positive number more than 0
+    :postcondition: modifies 'HP' and 'MP' key value in current_char
     """
-    secret_number = str(random.randint(1, 5))
-    print("AHAHAHAHAHHAHA CAN'T ESCAPE RNG.")
-    guess = input("Enter a number between 1 and 5 inclusive: ")
-    if guess == secret_number:
-        print("THAT WAS A LUCKY GUESS PUNK")
-    elif not guess.isdigit():
-        current_char['HP'] -= 10
-        print(f"Seriously, that isn't even a number. Take some damage. HP is now at {current_char['HP']}")
+    if type(current_char) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    elif 'HP' not in current_char:
+        raise KeyError("'HP' must exist in dictionary as a key.")
+    elif current_char['HP'] < 0:
+        raise ValueError("HP must be a number more than 0.")
     else:
-        current_char['HP'] -= 10
-        print(f"WRONG. DAMAGE TAKEN. Number was {secret_number}. HP is now at {current_char['HP']}")
+        print(f"Welcome to the funhouse, {current_char['Name']}..")
+        time.sleep(2)
+        secret_number = str(random.randint(1, 5))
+        guess = input("Enter a number between 1 and 5 inclusive: ")
+        if guess == secret_number:
+            win_guessing_game(current_char=current_char)
+        else:
+            lose_guessing_game(current_char=current_char, guess=guess, secret_number=secret_number)
 
 
-def engage_combat(current_char, creep):
+def lose_guessing_game(current_char: dict, guess: str, secret_number: str) -> None:
+    """
+    Decrement character's HP values by 10% for losing the guessing game.
+
+    :param current_char: a dictionary with 'Affliction', 'Name' and 'HP' as keys
+    :param guess: a string
+    :param secret_number: a numeric character as a string
+    :precondition: current_char must be a dictionary with 'Affliction', 'Name', 'HP', and 'MP' as keys
+    :precondition: guess must be a string
+    :precondition: secret_number must be a string containing a numeric character
+    :postcondition: modifies current_char 'HP' key
+    :raises: TypeError: if current_char is not a dictionary or guess and secret_number is not a string
+    :raises: ValueError: if secret_number is not a numeric character
+
+    >>> test_char_one = {'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0, \
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> test_secret_num = "5"
+    >>> lose_guessing_game(test_char_one, "The guess that gods are disappointed with.", "3")
+    The gods are disappointed with your answer. Lose 30.0 HP.
+    >>> test_char_one['HP']
+    270.0
+
+    >>> test_char_two = {'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0, \
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> test_secret_num = "5"
+    >>> lose_guessing_game(test_char_two, "4", "5")
+    The gods are pleased with your answer, but they are not on your side today. Correct number was 5. Lose 30.0 HP.
+    >>> test_char_two['HP']
+    270.0
+    """
+    if type(current_char) is not dict:
+        raise TypeError("current_char must be a dictionary.")
+    elif type(guess) is not str or type(secret_number) is not str:
+        raise TypeError("guess and secret_number must be a string.")
+    elif not secret_number.isdigit():
+        raise ValueError("secret_number must be a numeric character.")
+    else:
+        if current_char['Affliction'] == 'Coward':
+            print(f"You have committed sacrilege by running away from a fight, {current_char['Name']}")
+        if not guess.isdigit():
+            print(f"The gods are disappointed with your answer. Lose {current_char['HP']*0.1} HP.")
+        else:
+            print(f"The gods are pleased with your answer, but they are not on your side today."
+                  f" Correct number was {secret_number}. Lose {current_char['HP']*0.1} HP.")
+        current_char['HP'] -= current_char['HP'] * 0.1
+
+
+def win_guessing_game(current_char: dict) -> None:
+    """
+    Increment a character's HP and MP by their own HP and MP plus 10%.
+
+    :param current_char: a dictionary that has 'Name', 'HP' and 'MP' keys
+    :precondition: current_char 'HP' and 'MP' must be more than 0
+    :postcondition: modifies current_char 'HP' and 'MP' keys
+    :raises: TypeError: if current_char is not a dictionary
+    :raises: KeyError: if current_char does not contain 'HP', 'MP', and 'Name' as keys
+    :raises: ValueError: if current_char 'HP' and 'MP' values are less than zero
+
+    >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0, \
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> win_guessing_game(test_char_one)
+    The gods have blessed you, RAKSHASA..
+    You have healed for 30.0 HP.
+    You have gained 20.0 MP.
+    """
+    if type(current_char) is not dict:
+        raise TypeError("A dictionary must be passed.")
+    elif 'HP' not in current_char or 'MP' not in current_char:
+        raise KeyError("'Name', 'HP' and 'MP' must be keys in the dictionary.")
+    elif current_char['HP'] < 0 or current_char['MP'] < 0:
+        raise ValueError("Dictionary keys 'HP' and 'MP' must be more than or equal to 0.")
+    else:
+        print(f"The gods have blessed you, {current_char['Name']}..")
+        time.sleep(2)
+        print(f"You have healed for {current_char['HP'] * 0.1} HP.")
+        print(f"You have gained {current_char['MP'] * 0.1} MP.")
+        current_char['HP'] += current_char['HP'] * 0.1
+        current_char['MP'] += current_char['MP'] * 0.1
+        time.sleep(2)
+
+
+def engage_combat(current_char: dict, creep: dict) -> None:
+    """
+    Dictate the occurring events in the battle between current_char and creep.
+
+    :param current_char: a dictionary
+    :param creep: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :precondition: creep must contain 'Name' as a key and a string as the value
+    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
+    :precondition: creep must contain 'Affliction' as a key
+    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
+    :postcondition: determines the events occurring in a fight between current_char and creep
+    """
     determine_first_engage(current_char=current_char, creep=creep)
     while current_char['HP'] > 0 and creep['HP'] > 0 and current_char['Affliction'] != 'Coward':
-        # afflictions.check_for_creep_afflictions(creep=creep, character=current_char)
         check_for_turn(current_char, creep)
         afflictions.check_for_creep_afflictions(creep=creep)
-        # check_for_turn(current_char, creep)
     if current_char['Affliction'] == 'Coward':
         guessing_game(current_char=current_char)
         return
@@ -40,32 +145,106 @@ def engage_combat(current_char, creep):
 
 
 def check_for_turn(current_char, creep):
-    if current_char['Turn']:
-        game_combat.character_attack(character=current_char, creep=creep)
+    """
+    Determine the current turn in the engagement.
+
+    :param current_char: a dictionary
+    :param creep: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :precondition: creep must contain 'Name' as a key and a string as the value
+    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
+    :precondition: creep must contain 'Affliction' as a key
+    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
+    :postcondition: determines which entity can take an action in the fight
+    :raises: TypeError: if current_char is not a dictionary
+    :raises: KeyError: if current_char does not contain 'Turn' as a key
+    :raises: TypeError: if current_char 'Turn' key is not a boolean
+    """
+    if type(current_char) is not dict:
+        raise TypeError("A dictionary must be passed as an argument.")
+    elif 'Turn' not in current_char:
+        raise KeyError("'Turn' must be a key in the dictionary.")
+    elif type(current_char['Turn']) is not bool:
+        raise TypeError("Dictionary key 'Turn' must be a boolean value.")
     else:
-        game_combat.creep_attack(character=current_char, creep=creep)
+        if current_char['Turn']:
+            game_combat.character_attack(character=current_char, creep=creep)
+        else:
+            game_combat.creep_attack(character=current_char, creep=creep)
 
 
 def determine_first_engage(current_char, creep):
-    if random.randint(1, 2) == 1:
-        current_char['Turn'] = True
+    """
+    Dictate the first turn in an engagement.
+
+    :param current_char: a dictionary
+    :param creep: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :precondition: creep must contain 'Name' as a key and a string as the value
+    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
+    :precondition: creep must contain 'Affliction' as a key
+    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
+    :postcondition: determines the events occurring in a fight between current_char and creep
+    :raises: TypeError: if current_char or creep is not a dictionary
+    :raises: KeyError: if current_char or creep does not contain 'Turn' as a key
+    :raises: TypeError: if current_char or creep 'Turn' key is not a boolean
+    """
+    if type(current_char) is not dict or type(creep) is not dict:
+        raise TypeError("A dictionary must be passed as an argument.")
+    elif type(current_char['Turn']) is not bool or type(creep['Turn']) is not bool:
+        raise TypeError("Dictionary key 'Turn' must be a boolean value.")
+    elif 'Turn' not in current_char or 'Turn' not in creep:
+        raise KeyError("'Turn' must be a key in the dictionary.")
     else:
-        creep['Turn'] = True
+        if random.randint(1, 2) == 1:
+            current_char['Turn'] = True
+        else:
+            creep['Turn'] = True
 
 
-def spawn_monster():
-    slime = {'Name': 'Slime', 'HP': 50, 'ATK': 10, 'Affliction': None, 'EXP': 5}
-    bigger_slime = {'Name': 'Slime\'s bigger brother', 'HP': 60, 'ATK': 15, 'Affliction': None, 'EXP': 10,
-                    'Turn': False}
-    zombie = {'Name': 'Zombie', 'HP': 75, 'ATK': 25, 'Affliction': None, 'EXP': 15, 'Turn': False}
-    wormie = {'Name': 'Worm', 'HP': 20, 'ATK': 5, 'Affliction': None, 'EXP': 10, 'Turn': False}
-    alaskan_bullworm = {'Name': 'THE ALASKAN BULLWORM', 'HP': 75, 'ATK': 30, 'Affliction': None, 'EXP': 30,
-                        'Turn': False}
-    mob_spawner = (slime, bigger_slime, zombie, wormie, alaskan_bullworm)
-    return mob_spawner[random.randint(0, len(mob_spawner)-1)]
+def spawn_monster() -> dict:
+    """
+    Spawn a monster for the character to fight.
+
+    :precondition: mobs.json must be a file existing in directory named combat
+    :postcondition: determines the monster spawned
+    :return: a dictionary representing a monster
+    :raises: FileNotFoundError: if mobs.json does not exist in directory called combat
+    """
+    with open('combat/mobs.json', 'r') as file_object:
+        list_of_mobs = json.load(file_object)
+    mob = list_of_mobs[random.randint(0, len(list_of_mobs))]
+    mob['HP'] = random.randint(mob['HP'], mob['HP']+50)
+    return mob
 
 
-def decide_encounter(current_char):
+def decide_encounter(current_char: dict) -> None:
+    """
+    Determine the type of encounter the character will come across.
+
+    :param current_char: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :postcondition: dictates the encounter that current_char will be in
+    :return: a function representing the type of encounter that the player engages in
+    """
     encounter = random.choices([engage_combat, guessing_game])
     if engage_combat in encounter:
         return engage_combat(current_char, spawn_monster())
@@ -73,25 +252,82 @@ def decide_encounter(current_char):
         return guessing_game(current_char)
 
 
-def check_for_victory(current_char, creep):
+def check_for_victory(current_char: dict, creep: dict) -> bool:
+    """
+    Determine if a character has won an encounter or not.
+
+    :param current_char: a dictionary
+    :param creep: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :precondition: creep must contain 'Name' as a key and a string as the value
+    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
+    :precondition: creep must contain 'Affliction' as a key
+    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
+    :postcondition: determines if current_char has obtained victory in an encounter
+    :return: a boolean value representing if current_char has won an encounter
+
+    >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0, \
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Bleed', 'Turn': False, \
+                          'EXP': 100}
+    >>> check_for_victory(test_char_one, test_creep_one)
+    False
+
+    >>> test_char_two = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0, \
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False, \
+                         'Affliction': None}
+    >>> test_creep_two = {'Name': 'EYE OF CTHULHU', 'HP': 0, 'ATK': 25, 'Affliction': 'Bleed', 'Turn': False, \
+                          'EXP': 100}
+    >>> check_for_victory(test_char_two, test_creep_two)
+    True
+    """
     if current_char['HP'] > 0 >= creep['HP']:
         return True
     else:
         return False
 
 
-def encounter_victory(current_char, creep):
-    if current_char['HP'] > 0 >= creep['HP']:
+def encounter_victory(current_char: dict, creep: dict) -> None:
+    """
+    Modify a character's statistics after winning an encounter.
+
+    :param current_char: a dictionary
+    :param creep: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :precondition: creep must contain 'Name' as a key and a string as the value
+    :precondition: creep must contain 'HP', 'ATK' and 'EXP' as keys with positive numbers as the value
+    :precondition: creep must contain 'Affliction' as a key
+    :precondition: creep must contain 'Turn' as a key and a boolean value as the value
+    :postcondition: modifies the stats of current_char
+    :raises: TypeError: if current_char or creep is not a dictionary
+    """
+    if type(current_char) is not dict or type(creep) is not dict:
+        raise TypeError("Must pass dictionaries as arguments.")
+    else:
+        heal = random.randint(30, 50)
+        mp = random.randint(30, 50)
         leveling.gain_experience(current_char=current_char, creep=creep)
         leveling.level_up(current_char=current_char)
-        current_char['HP'] += 20
-        # character['HP'] += creep['EXP']
-        current_char['MP'] += 30
-    print(f"You have slain {creep['Name']}!")
-    time.sleep(2)
-    print(f"You have healed for 20 HP.")
-    print(f"You have regenerated 30 mana.")
-    time.sleep(2)
+        current_char['HP'] += heal
+        current_char['MP'] += mp
+        print(f"You have slain {creep['Name']}!")
+        time.sleep(2)
+        print(f"You have healed for {heal} HP.")
+        print(f"You have regenerated {mp} mana.")
+        time.sleep(2)
 
 
 def defeat():
@@ -99,24 +335,33 @@ def defeat():
 
 
 def spawn_boss(current_char):
-    floor_one_boss = {'Name': 'EYE OF CTHULHU', 'HP': 1, 'ATK': 25, 'Affliction': None, 'Turn': False,
-                      'EXP': 100} # 150
-    floor_two_boss = {'Name': 'MIMIC', 'HP': 1, 'ATK': 50, 'Affliction': None, 'Turn': False,
-                      'EXP': 200} # 300
-    floor_three_boss = {'Name': 'ZAKUM', 'HP': 1, 'ATK': 75, 'Affliction': None, 'Turn': False,
-                        'EXP': 300} # 500
+    """
+    Summon a boss when the player reaches the last coordinate on the floor.
+
+    :param current_char: a dictionary
+    :precondition: current_char must contain 'Name' as a key and a string as a value
+    :precondition: current_char must contain 'Class' as a key and a string as a value
+    :precondition: current_char must contain 'HP', 'MP', 'EXP' and 'Attack' as keys with a positive number as the value
+    :precondition: current_char must contain 'X-coord', 'Y-coord', 'Z-coord' and 'Level' as keys with positive integers
+                   as values
+    :precondition: current_char must contain 'Turn' as a key and a boolean value as the value
+    :precondition: current_char must contain 'Spell' as a key and a string as the value
+    :postcondition: determines the boss spawned in an encounter
+    :return: a dictionary representing a boss
+    """
+    with open('combat/bosses.json', 'r') as file_object:
+        bosses = json.load(file_object)
     if current_char['X-coord'] == 4 and current_char['Y-coord'] == 4 and current_char['Z-coord'] == 0:
-        return floor_one_boss
+        return bosses[0]
     elif current_char['X-coord'] == 4 and current_char['Y-coord'] == 4 and current_char['Z-coord'] == 1:
-        return floor_two_boss
+        return bosses[1]
     else:
-        return floor_three_boss
+        return bosses[2]
 
 
 def main():
     """
-
-    :return:
+    Drive the program.
     """
 
 

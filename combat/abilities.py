@@ -39,12 +39,12 @@ def doomsday(character, creep):
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key with a positive integer as the value
-    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
+    :precondition: character must have 'Attack' as a key with a positive number as the value
+    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive number
     :postcondition: modifies the status of creep
     :raises: TypeError: if character and creep are not dictionaries
     :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
-    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive number
     >>> test_char = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, \
                      'Turn': False, 'Affliction': None}
@@ -76,12 +76,12 @@ def stab(character, creep):
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key with a positive integer as the value
-    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
+    :precondition: character must have 'Attack' as a key with a positive number as the value
+    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive number
     :postcondition: modifies the status of creep
     :raises: TypeError: if character and creep are not dictionaries
     :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
-    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive number
 
     >>> test_char = {'Name': 'RAKSHASA', 'Class': 'Thief', 'Attack': 30, 'Spell': 'Stab', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, \
@@ -114,12 +114,12 @@ def earthquake_chain(character, creep):
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' and 'Affliction' as a key
-    :precondition: character must have 'Attack' as a key with a positive integer as the value
-    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive integer
+    :precondition: character must have 'Attack' as a key with a positive number as the value
+    :precondition: creep must have 'HP' and 'Affliction' as a key and 'HP' must be a positive number
     :postcondition: modifies the status of creep
     :raises: TypeError: if character and creep are not dictionaries
     :raises: KeyError: if 'Affliction and 'HP' are not in creep dictionary or 'Attack' not in character dictionary
-    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive number
 
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
@@ -165,12 +165,12 @@ def regular_attack(character, creep):
 
     :param character: a dictionary containing 'Attack' as a key
     :param creep: a dictionary containing 'HP' as a key
-    :precondition: character must be a dictionary containing 'Attack' as a key with a positive integer as the value
-    :precondition: creep must be a dictionary containing 'HP' as a key with a positive integer as the value
+    :precondition: character must be a dictionary containing 'Attack' as a key with a positive number as the value
+    :precondition: creep must be a dictionary containing 'HP' as a key with a positive number as the value
     :postcondition: modifies the status of creep
     :raises: TypeError: if character and creep are not dictionaries
     :raises: KeyError: if 'HP' is not in creep dictionary as a key or 'Attack' not in character dictionary as a key
-    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive integer
+    :raises: ValueError: if character 'Attack' key or creep 'HP' key is not a positive number
 
     >>> test_char_one = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
@@ -208,17 +208,17 @@ def cast_spell(character, creep):
     """
     Cast an ability depending on what the character's spell is.
 
-    :param character: a dictionary with 'MP' as a key with a positive integer as the value, and 'Spell' as a key with
+    :param character: a dictionary with 'MP' as a key with a positive number as the value, and 'Spell' as a key with
                       a string as the value
-    :param creep: a dictionary with 'HP' as a key with a positive integer as the value
-    :precondition: character must be a dictionary containing 'MP' as a key with a positive integer as the value
+    :param creep: a dictionary with 'HP' as a key with a positive number as the value
+    :precondition: character must be a dictionary containing 'MP' as a key with a positive number as the value
     :precondition: character must be a dictionary containing 'Spell' as a key with 'Earthquake Chain', 'Doomsday',
                    or 'Stab' as the value
-    :precondition: creep must be a dictionary containing 'HP' as a key with a positive integer as the value
+    :precondition: creep must be a dictionary containing 'HP' as a key with a positive number as the value
     :raises: TypeError: if character and creep are not dictionaries
     :raises: KeyError: if 'HP' is not in creep dictionary as a key or 'Spell' not in character dictionary as a key
     :raises: ValueError: if character 'Spell' key is not 'Earthquake Chain', 'Stab', or 'Doomsday'
-                         and creep 'HP' key is not a positive integer
+                         and creep 'HP' key is not a positive number
     """
     skillset = {'Earthquake Chain': earthquake_chain, 'Doomsday': doomsday, 'Stab': stab}
     if type(character) is not dict or type(creep) is not dict:
@@ -255,10 +255,10 @@ def decrement_mana(character):
     """
     Decrease the mana of a character based on the skill used.
 
-    :param character: a dictionary with 'MP' as a key with a positive integer as the value, and 'Spell' as a key with
+    :param character: a dictionary with 'MP' as a key with a positive number as the value, and 'Spell' as a key with
                       a string as the value
     :precondition: character must be a dictionary with 'MP' and 'Spell' as a key
-    :precondition: character 'MP' key must have a positive integer as a value
+    :precondition: character 'MP' key must have a positive number as a value
     :precondition: character 'Spell' key must contain 'Earthquake Chain', 'Stab', or 'Doomsday' as a value
     :postcondition: modifies character 'MP' key
     :raises: TypeError: if character is not a dictionary

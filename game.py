@@ -1,3 +1,5 @@
+import json
+
 from combat import encounters
 from board import world_creation
 from movement import movement
@@ -26,7 +28,7 @@ def game():
             if boss_check:
                 boss = encounters.spawn_boss(character)
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
-                encounters.engage_combat(character, encounters.spawn_boss(character))
+                encounters.engage_combat(character, boss)
                 # encounters.engage_combat(character, test_boss)
                 # world_creation.edit_floor_descriptions(character=character, board=world)
             elif game_checks.check_for_random_foes():
