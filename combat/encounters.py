@@ -288,10 +288,16 @@ def check_for_victory(current_char: dict, creep: dict) -> bool:
     >>> check_for_victory(test_char_two, test_creep_two)
     True
     """
-    if current_char['HP'] > 0 >= creep['HP']:
-        return True
+    if type(current_char) is not dict or type(creep) is not dict:
+        raise TypeError("Must pass dictionaries as an argument.")
+    elif 'HP' not in current_char or 'HP' not in creep:
+        raise KeyError("'HP' key must exist in both dictionaries.")
     else:
-        return False
+        return True if current_char['HP'] > 0 >= creep['HP'] else False
+        # if current_char['HP'] > 0 >= creep['HP']:
+        #     return True
+        # else:
+        #     return False
 
 
 def encounter_victory(current_char: dict, creep: dict) -> None:
