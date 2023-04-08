@@ -1,0 +1,20 @@
+[
+  {"Name": "EYE OF CTHULHU",
+    "HP": 150,
+    "ATK": 25,
+    "Affliction": null,
+    "Turn": false,
+    "EXP": 100},
+  {"Name": "BALROG",
+    "HP": 300,
+    "ATK": 50,
+    "Affliction": null,
+    "Turn": false,
+    "EXP": 200},
+  {"Name": "ZAKUM",
+    "HP": 500,
+    "ATK": 75,
+    "Affliction": null,
+    "Turn": false,
+    "EXP": 300}
+]
