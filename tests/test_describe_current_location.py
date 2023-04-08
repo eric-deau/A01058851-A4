@@ -19,7 +19,7 @@ class TestDescribeCurrentLocation(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_describe_current_location_last_x_y_coordinate(self, mock_output):
         char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 0, "HP": 2}
-        board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One',
+        board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description Uno',
                      (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four',
                      (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
         describe_current_location(current_char=char_one, board=board_one)
@@ -30,7 +30,7 @@ class TestDescribeCurrentLocation(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_describe_current_location_different_floor(self, mock_output):
         char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, "HP": 2}
-        board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One',
+        board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Desc One',
                      (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four',
                      (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
         describe_current_location(current_char=char_one, board=board_one)
@@ -41,7 +41,7 @@ class TestDescribeCurrentLocation(TestCase):
     def test_describe_current_location_incorrect_coordinates(self):
         with self.assertRaises(KeyError):
             char_one = {'X-coord': -1, 'Y-coord': 1, 'Z-coord': 0, "HP": 2}
-            board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One',
+            board_one = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description 1',
                          (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four',
                          (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
             describe_current_location(current_char=char_one, board=board_one)
