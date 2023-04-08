@@ -144,7 +144,7 @@ def engage_combat(current_char: dict, creep: dict) -> None:
         encounter_victory(current_char=current_char, creep=creep)
 
 
-def check_for_turn(current_char, creep):
+def check_for_turn(current_char: dict, creep: dict) -> None:
     """
     Determine the current turn in the engagement.
 
@@ -179,7 +179,7 @@ def check_for_turn(current_char, creep):
             game_combat.creep_attack(character=current_char, creep=creep)
 
 
-def determine_first_engage(current_char, creep):
+def determine_first_engage(current_char: dict, creep: dict) -> None:
     """
     Dictate the first turn in an engagement.
 
@@ -334,7 +334,7 @@ def defeat():
     pass
 
 
-def spawn_boss(current_char):
+def spawn_boss(current_char: dict) -> dict:
     """
     Summon a boss when the player reaches the last coordinate on the floor.
 
