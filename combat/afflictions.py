@@ -66,8 +66,8 @@ def damage_over_time(creep):
     """
     if type(creep) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
-    elif 'HP' not in creep:
-        raise KeyError("Dictionary must contain 'HP' as a key.")
+    elif 'HP' not in creep or 'Affliction' not in creep:
+        raise KeyError("Dictionary must contain 'HP' and 'Affliction' as keys.")
     else:
         skill_damage = {'Burn': BURNING_DMG, 'Bleed': BLEED_DMG}
         creep['HP'] -= skill_damage[creep['Affliction']]

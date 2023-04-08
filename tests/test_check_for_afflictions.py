@@ -37,3 +37,7 @@ class TestCheckForAfflictions(TestCase):
     def test_check_for_afflictions_nonexistent_key(self):
         with self.assertRaises(KeyError):
             check_for_creep_afflictions({"NotAffliction": 123})
+
+    def test_check_for_afflictions_hp_no_affliction(self):
+        with self.assertRaises(KeyError):
+            check_for_creep_afflictions({"NotAffliction": 123, 'HP': 50})
