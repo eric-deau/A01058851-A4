@@ -13,7 +13,7 @@ def game():
     while character['HP'] > 0 and not achieved_goal:
         # status_check = input("Would you like to see your status? Type 'Y' to check, else input anything to proceed.")
         display_status.display_status(character)
-        movement.check_for_floor_change(character)
+        movement.check_for_floor_change(character, __init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
         game_checks.reset_affliction(character)
         movement.describe_current_location(world, character)
         direction = movement.get_user_move()

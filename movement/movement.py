@@ -145,22 +145,34 @@ def move_character(current_character: dict, current_direction: str) -> None:
         current_character['X-coord'] += choices[current_direction]
 
 
-def check_for_floor_change(character):
+def check_for_floor_change(character, rows, columns, floors):
     """
     Move the character to the next floor.
 
     :param character: a dictionary
+    :param rows: a positive integer
+    :param columns: a positive integer
+    :param floors: a positive integer
     :precondition: character must be a dictionary passed from game.py module
+    :precondition: rows must be a positive integer more than or equal to 2
+    :precondition: columns must be a positive integer more than or equal to 2
+    :precondition: floors must be a positive integer more than or equal to 1
     :postcondition: modifies the coordinates of character
-    :raises: TypeError: if character is not a dictionary
+    :raises: TypeError: if character is not a dictionary, or if rows, columns, and floors are not integers
+    :raises: ValueError: if rows, columns is less than 2, or if floors is less than 1
     """
     if type(character) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
-    if character['X-coord'] == __init__.ROWS-1 and character['Y-coord'] == __init__.COLUMNS-1 and \
-            character['Z-coord'] < __init__.FLOORS-1:
-        character['X-coord'] = 0
-        character['Y-coord'] = 0
-        character['Z-coord'] += 1
+    elif type(rows) is not int or type(columns) is not int or type(floors) is not int:
+        raise TypeError("rows, columns, and floors must be an integer.")
+    elif rows < 2 or columns < 2 or floors < 1:
+        raise ValueError("rows and columns must be more than or equal to 2,"
+                         " and floors must be more than or equal to 1.")
+    else:
+        if character['X-coord'] == rows-1 and character['Y-coord'] == columns-1 and character['Z-coord'] < floors-1:
+            character['X-coord'] = 0
+            character['Y-coord'] = 0
+            character['Z-coord'] += 1
         # print(f"The roof is collapsing..")
         # time.sleep(2)
 
