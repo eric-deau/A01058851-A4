@@ -17,15 +17,15 @@ class TestCheckForTurn(TestCase):
         expected = True
         self.assertEqual(expected, check_for_turn(test_char_one))
 
-    def test_check_invalid_data_type(self):
+    def test_check_for_turn_invalid_data_type(self):
         with self.assertRaises(TypeError):
             check_for_turn("Not a dictionary.")
 
-    def test_check_no_turn_key(self):
+    def test_check_for_turn_no_turn_key(self):
         with self.assertRaises(KeyError):
             check_for_turn({"NotTurn": False})
 
-    def test_check_invalid_value(self):
+    def test_check_for_turn_invalid_key_value_type(self):
         with self.assertRaises(TypeError):
             check_for_turn({"Turn": None})
 
