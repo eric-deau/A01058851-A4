@@ -23,3 +23,7 @@ class TestSpawnMonster(TestCase):
         test_file_content = spawn_monster()
         expected = {"Name": "Banana", "HP": 40, "ATK": 25, "Affliction": None, "Turn": False, "EXP": 100}
         self.assertEqual(expected, test_file_content)
+
+    def test_spawn_monster_file_not_found(self):
+        with self.assertRaises(FileNotFoundError):
+            spawn_monster()
