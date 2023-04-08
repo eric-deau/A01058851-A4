@@ -53,6 +53,7 @@ def choose_class():
     confirm_class = input("Are you sure? Enter \'Y\' to confirm: ")
     while confirm_class.lower() != 'y':
         char_class = input("Choose a class by selecting the number: ")
+        print(f"You have selected: {char_class}")
         char_class = valid_selection(selection=char_class, classes=classes)
         confirm_class = input("Are you sure? Enter \'Y\' to confirm: ")
     return char_class
