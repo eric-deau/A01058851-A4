@@ -29,7 +29,7 @@ def choose_name():
         elif 3 < name_count < 10:
             name = input("Do you need suggestions on a name? Enter a name: ")
         else:
-            name = "Amanda Hugginkiss"
+            name = "Indecisive Player727"
             print(f"Okay, that is enough. Your name is now: {name}")
             break
         confirm_name = input("Are you sure? Enter \'Y\' to confirm: ")
@@ -194,6 +194,7 @@ def main():
                  'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1, 'Turn': False,
                  'Affliction': None}
     determine_stats(character)
+
 
 if __name__ == "__main__":
     main()

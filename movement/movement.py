@@ -1,3 +1,6 @@
+import __init__
+
+
 def describe_current_location(board: dict, current_char: dict) -> None:
     """
     Describe the current environment of a character.
@@ -19,7 +22,7 @@ def describe_current_location(board: dict, current_char: dict) -> None:
                      (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
     >>> describe_current_location(board_one, char_one)
     Looks like this is my starting point.
-    You are currently on floor: 1
+    You are currently in: Hell
 
 
     >>> char_two = {"X-coord": 0, "Y-coord": 0, "Z-coord": 1,"HP": 2}
@@ -29,16 +32,17 @@ def describe_current_location(board: dict, current_char: dict) -> None:
 
     >>> describe_current_location(board_two, char_two)
     Description One
-    You are currently on floor: 2
+    You are currently in: Earth
     """
     if (current_char['X-coord'], current_char['Y-coord'], current_char['Z-coord']) \
             not in board:
         raise KeyError("Coordinates do not exist within the board.")
     else:
+        floors = {1: "Hell", 2: "Earth", 3: "Heaven"}
         current_location = (current_char['X-coord'], current_char['Y-coord'],
                             current_char['Z-coord'])
         print(board[current_location])
-        print(f"You are currently on floor: {current_char['Z-coord'] + 1}")
+        print(f"You are currently in: {floors[current_char['Z-coord'] + 1]}")
 
 
 def get_user_choice() -> str:
@@ -142,34 +146,28 @@ def move_character(current_character: dict, current_direction: str) -> None:
 
 
 def check_for_floor_change(character):
-    if character['X-coord'] == 4 and character['Y-coord'] == 4 and character['Z-coord'] < 2:
+    """
+    Move the character to the next floor.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary passed from game.py module
+    :postcondition: modifies the coordinates of character
+    :raises: TypeError: if character is not a dictionary
+    """
+    if type(character) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    if character['X-coord'] == __init__.ROWS-1 and character['Y-coord'] == __init__.COLUMNS-1 and \
+            character['Z-coord'] < __init__.FLOORS-1:
         character['X-coord'] = 0
         character['Y-coord'] = 0
         character['Z-coord'] += 1
-        print(f"Changed floors")
-    # if character['X-coord'] and character['Y-coord'] == 4:
-    #     character['X-coord'] = 1
-    #     character['Y-coord'] = 0
-    #     character['Z-coord'] += 1
-    #     print("went upstairs")
-    # elif character['X-coord'] and character['Y-coord'] == 0 and character['Z-coord'] != 0:
-    #     character['X-coord'] = 3
-    #     character['Y-coord'] = 4
-    #     character['Z-coord'] -= 1
-    #     print("went downstairs")
-    # else:
-    #     pass
-
-
-# def change_floor(character, board):
-#     if (character['X-coord'], character['Y-coord'], character['Z-coord']) in board:
-#         character['Z-coord'] -= 1
+        # print(f"The roof is collapsing..")
+        # time.sleep(2)
 
 
 def main():
     """
-
-    :return:
+    Drive the program.
     """
 
 

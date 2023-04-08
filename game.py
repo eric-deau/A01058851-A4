@@ -1,5 +1,3 @@
-import json
-
 from combat import encounters
 from board import world_creation
 from movement import movement
@@ -13,24 +11,20 @@ def game():
     character = character_creation.make_character()
     achieved_goal = False
     while character['HP'] > 0 and not achieved_goal:
+        # status_check = input("Would you like to see your status? Type 'Y' to check, else input anything to proceed.")
         display_status.display_status(character)
         movement.check_for_floor_change(character)
         game_checks.reset_affliction(character)
         movement.describe_current_location(world, character)
-        print("coordinates", character['X-coord'], character['Y-coord'], character['Z-coord'])
         direction = movement.get_user_choice()
         valid_move = movement.validate_move(world, character, direction)
         if valid_move:
             movement.move_character(character, direction)
-            # print(character['X-coord'], character['Y-coord'])
             boss_check = game_checks.check_for_boss(character, world)
-            # print(boss_check)
             if boss_check:
                 boss = encounters.spawn_boss(character)
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
                 encounters.engage_combat(character, boss)
-                # encounters.engage_combat(character, test_boss)
-                # world_creation.edit_floor_descriptions(character=character, board=world)
             elif game_checks.check_for_random_foes():
                 encounters.decide_encounter(character)
             else:
@@ -38,11 +32,11 @@ def game():
             achieved_goal = game_checks.check_if_goal_attained(character)
         else:
             print("\"That door seems to be locked\"")
+    if character['HP'] <= 0:
+        print("YOU DIED.")
     if achieved_goal:
         # game_checks.victory()
         print("Victory!")
-    if character['HP'] <= 0:
-        print("YOU DIED.")
 
 
 def main():

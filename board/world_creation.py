@@ -12,7 +12,7 @@ def make_board(rows: int, columns: int, floors: int) -> dict:
     :precondition: rows must be a positive integer more than or equal to two
     :precondition: columns must be a positive integer more than or equal to two
     :precondition: floors must be a positive integer more than or equal to two
-    :postcondition: creates a dictionary representing a square leveled playing board with
+    :postcondition: creates a dictionary representing a playing board
     :return: a dictionary that represents a playing board
     :raises: TypeError: if rows, columns, or floors is not an integer
     :raises: ValueError: if rows, columns is not a positive integer more than or equal to two
@@ -39,23 +39,6 @@ def make_board(rows: int, columns: int, floors: int) -> dict:
         board = {index: list_of_descriptions[random.randint(0, len(list_of_descriptions)-1)] for index in board}
         add_bosses(board, rows, columns, floors)
         return board
-
-
-# def first_floor_descriptions(board):
-#     board[(0, 0, 0)] = "Looks like this is my starting point."
-#     board[(3, 4, 0)] = "You feel an evil presence watching you.."
-#     board[(4, 3, 0)] = "The air is getting colder around you.."
-#
-#
-# def second_floor_descriptions(board):
-#     board[(1, 0, 1)] = "The starting point from the second floor. The door to the west leads back down."
-#     board[(3, 4, 1)] = "There is noise coming from the door to the east.."
-#     board[(4, 3, 1)] = "There is noise coming from the door to the south.."
-#
-#
-# def third_floor_descriptions(board):
-#     board[(3, 4, 2)] = "You feel an ominous presence coming from the door to the east.."
-#     board[(4, 3, 2)] = "You feel an ominous presence coming from the door to the south.."
 
 
 def add_bosses(board: dict, rows: int, columns: int, floors: int) -> None:
@@ -90,22 +73,11 @@ def add_bosses(board: dict, rows: int, columns: int, floors: int) -> None:
             board[(rows-1, columns-2, floor)] = "You feel an ominous presence coming from the door to the south.."
 
 
-# def edit_floor_descriptions(character, board):
-#     """
-#     Replace room descriptions to remind users that boss has been eliminated
-#     :param character:
-#     :param board:
-#     :return:
-#     """
-#     board[(4, 4, character['Z-coord'])] = "This room is empty now.."
-#     board[(3, 4, character['Z-coord'])] = "I've been here before. The door to my east leads upstairs."
-#     board[(4, 3, character['Z-coord'])] = "I've been here before. The door to my south leads upstairs."
-
-
 def main():
     """
     Drive the program.
     """
+    print(make_board(4, 4, 2))
 
 
 if __name__ == "__main__":

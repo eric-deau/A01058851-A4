@@ -39,7 +39,7 @@ def check_for_random_foes() -> int:
     return random.randint(1, 4) == 1
 
 
-def check_for_boss(current_char, current_board):
+def check_for_boss(current_char: dict, current_board: dict) -> bool:
     """
     Determine if a character will have an encounter with a boss on the playing board.
 
@@ -115,10 +115,7 @@ def check_for_boss(current_char, current_board):
     """
     if current_char['X-coord'] == __init__.ROWS-1 and current_char['Y-coord'] == __init__.COLUMNS-1:
         for floors in range(__init__.FLOORS):
-            if current_board[(__init__.ROWS-1, __init__.COLUMNS-1, floors)] == "BOSS HERE":
-                return True
-            else:
-                return False
+            return True if current_board[(__init__.ROWS-1, __init__.COLUMNS-1, floors)] == "BOSS HERE" else False
     else:
         return False
 
@@ -138,14 +135,7 @@ def reset_affliction(current_char):
     """
     if current_char['Affliction']:
         current_char['Affliction'] = None
-        # character['Affliction'] = None
 
-
-# def check_character_under_level(character, creep):
-#     if character['Level'] < creep['Level']:
-#         creep['ATK'] += 30
-#     else:
-#         creep['ATK'] -= 10
 
 def victory():
     pass
@@ -153,8 +143,7 @@ def victory():
 
 def main():
     """
-
-    :return:
+    Drive the program.
     """
 
 
