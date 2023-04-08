@@ -225,7 +225,7 @@ def spawn_monster() -> dict:
     """
     with open('combat/mobs.json', 'r') as file_object:
         list_of_mobs = json.load(file_object)
-    mob = list_of_mobs[random.randint(0, len(list_of_mobs))]
+    mob = list_of_mobs[random.randint(0, len(list_of_mobs)-1)]
     mob['HP'] = random.randint(mob['HP'], mob['HP']+50)
     return mob
 
