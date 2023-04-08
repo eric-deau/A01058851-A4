@@ -86,7 +86,7 @@ def validate_move(board: dict, current_char: dict, current_dir: str) -> bool:
     >>> validate_move(board_one, char_one, "North Door")
     False
 
-   >>> char_two = {"X-coord": 0, "Y-coord": 0, "Z-coord": 0,"HP": 2}
+    >>> char_two = {"X-coord": 0, "Y-coord": 0, "Z-coord": 0,"HP": 2}
     >>> board_two = {(0, 0, 0): 'Looks like this is my starting point.', (0, 0, 1): 'Description One', \
                      (0, 1, 0): 'Description Two', (0, 1, 1): 'Description Three', (1, 0, 0): 'Description Four', \
                      (1, 0, 1): 'Description Five', (1, 1, 0): 'Description Six', (1, 1, 1): 'Description Seven'}
