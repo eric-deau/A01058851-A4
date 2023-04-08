@@ -1,6 +1,3 @@
-import __init__
-
-
 def describe_current_location(board: dict, current_char: dict) -> None:
     """
     Describe the current environment of a character.
@@ -145,7 +142,7 @@ def move_character(current_character: dict, current_direction: str) -> None:
         current_character['X-coord'] += choices[current_direction]
 
 
-def check_for_floor_change(character, rows, columns, floors):
+def check_for_floor_change(character: dict, rows: int, columns: int, floors: int) -> None:
     """
     Move the character to the next floor.
 
