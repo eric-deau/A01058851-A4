@@ -91,8 +91,15 @@ def check_for_stun(creep: dict) -> bool:
     :precondition: creep must be a dictionary passed from creep_attack
     :postcondition: determines if a creep is afflicted with a stun effect
     :return: a boolean value representing if a creep is stunned
+    :raises: TypeError: if creep is not a dictionary
+    :raises: KeyError: if 'Affliction' is not an existing key in creep
     """
-    return creep['Affliction'] == 'Stunned'
+    if type(creep) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    elif 'Affliction' not in creep:
+        raise KeyError("'Affliction' must be an existing key in dictionary.")
+    else:
+        return creep['Affliction'] == 'Stunned'
 
 
 def creep_attack(character: dict, creep: dict) -> None:
