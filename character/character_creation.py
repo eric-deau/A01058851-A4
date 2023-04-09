@@ -165,8 +165,8 @@ def thief_stats(character):
     if type(character) is not dict:
         raise TypeError("A dictionary must be passed as an argument.")
     else:
-        character['Attack'] = 40
-        character['HP'] = 90
+        character['Attack'] = 60
+        character['HP'] = 110
         character['MP'] = 100
 
 
@@ -182,8 +182,8 @@ def mage_stats(character):
     if type(character) is not dict:
         raise TypeError("A dictionary must be passed as an argument.")
     else:
-        character['Attack'] = 30
-        character['HP'] = 80
+        character['Attack'] = 35
+        character['HP'] = 100
         character['MP'] = 150
 
 
