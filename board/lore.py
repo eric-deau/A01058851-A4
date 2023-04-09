@@ -11,7 +11,7 @@ def slow_rolling_text_printer(input_file):
     with open(input_file, 'r') as file_object:
         content = file_object.read()
     for line in content:
-        print(line, end="")
+        print(f"{line}", end="")
         time.sleep(.10)
     print()
 
