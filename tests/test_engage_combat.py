@@ -10,7 +10,7 @@ class TestEngageCombat(TestCase):
         test_char_one = {'Name': 'Bob', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3,
                          'Y-coord': 3, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False,
                          'Affliction': None}
-        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None,
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
                           'Turn': False, 'EXP': 100}
         engage_combat(test_char_one, test_creep_one)
         expected = {'Name': 'Bob', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 0,
@@ -24,7 +24,7 @@ class TestEngageCombat(TestCase):
         test_char_one = {'Name': 'Someone', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3,
                          'Y-coord': 3, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False,
                          'Affliction': None}
-        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None,
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
                           'Turn': False, 'EXP': 100}
         engage_combat(test_char_one, test_creep_one)
         expected = {'Name': 'Someone', 'Class': 'Mage', 'Attack': 110, 'Spell': 'Doomsday', 'X-coord': 3,
@@ -38,7 +38,7 @@ class TestEngageCombat(TestCase):
         test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3,
                          'Y-coord': 3, 'Z-coord': 0, 'HP': 300, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False,
                          'Affliction': None}
-        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None,
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
                           'Turn': False, 'EXP': 100}
         engage_combat(test_char_one, test_creep_one)
         expected = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 110, 'Spell': 'Doomsday', 'X-coord': 3,
@@ -52,7 +52,7 @@ class TestEngageCombat(TestCase):
         test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3,
                          'Y-coord': 3, 'Z-coord': 0, 'HP': 20, 'MP': 200, 'EXP': 222, 'Level': 2, 'Turn': False,
                          'Affliction': None}
-        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 230, 'ATK': 25, 'Affliction': None,
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 230, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
                           'Turn': False, 'EXP': 100}
         engage_combat(test_char_one, test_creep_one)
         expected = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 70, 'Spell': 'Doomsday', 'X-coord': 3,
