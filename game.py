@@ -26,7 +26,11 @@ def game():
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
                 encounters.engage_combat(character, boss)
                 if boss['HP'] <= 0 and boss['Name'] == "EYE OF CTHULHU":
-                    lore.slow_rolling_text_printer('board/eye_of_cthulhu.txt')
+                    lore.slow_rolling_text_printer('board/defeat_of_eye_of_cthulhu.txt')
+                if boss['HP'] <= 0 and boss['Name'] == "MIMIC":
+                    lore.slow_rolling_text_printer('board/defeat_of_mimic.txt')
+                if boss['HP'] <= 0 and boss['Name'] == "ZAKUM":
+                    lore.slow_rolling_text_printer('board/defeat_of_zakum.txt')
             elif game_checks.check_for_random_foes():
                 if encounters.decide_encounter():
                     encounters.engage_combat(current_char=character, creep=encounters.spawn_monster())
