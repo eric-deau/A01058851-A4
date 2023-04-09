@@ -4,30 +4,43 @@ from combat.afflictions import check_for_creep_afflictions
 
 class TestCheckForAfflictions(TestCase):
     def test_check_for_creep_afflictions_no_affliction(self):
-        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, 'EXP': 100}
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
+                          'Turn': False, 'EXP': 100}
         check_for_creep_afflictions(test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
+                    'Turn': False, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
     def test_check_for_creep_afflictions_burn(self):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Burn',
-                          'Turn': False, 'EXP': 100}
+                          'Turn Count': 0, 'Turn': False, 'EXP': 100}
         check_for_creep_afflictions(test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': 25, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 25, 'ATK': 25, 'Affliction': 'Burn', 'Turn Count': 1,
+                    'Turn': False, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
     def test_check_for_creep_afflictions_bleed(self):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Bleed',
-                          'Turn': False, 'EXP': 100}
+                          'Turn Count': 0, 'Turn': False, 'EXP': 100}
         check_for_creep_afflictions(test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': 15, 'ATK': 25, 'Affliction': 'Bleed', 'Turn': False, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 15, 'ATK': 25, 'Affliction': 'Bleed', 'Turn Count': 1,
+                    'Turn': False, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
     def test_check_for_creep_afflictions_stun(self):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned',
-                          'Turn': True, 'EXP': 100}
+                          'Turn Count': 0, 'Turn': True, 'EXP': 100}
         check_for_creep_afflictions(test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn Count': 1,
+                    'Turn': False, 'EXP': 100}
+        self.assertEqual(expected, test_creep_one)
+
+    def test_check_for_creep_affliction_worn_off(self):
+        test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned',
+                          'Turn Count': 3, 'Turn': True, 'EXP': 100}
+        check_for_creep_afflictions(test_creep_one)
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn Count': 0,
+                    'Turn': False, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
     def test_check_for_afflictions_invalid_data_type(self):
