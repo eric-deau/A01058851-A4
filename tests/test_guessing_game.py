@@ -7,11 +7,11 @@ class TestGuessingGame(TestCase):
     @patch('builtins.input', return_value="4")
     @patch('random.randint', side_effect=[2])
     def test_guessing_game_incorrect_answer_number(self, _, __):
-        test_char = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday',
+        test_char = {'Name': 'Bob', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday',
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1,
                      'Turn': False, 'Affliction': None}
         guessing_game(test_char)
-        expected = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday',
+        expected = {'Name': 'Bob', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday',
                     'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 72.0, 'MP': 150, 'EXP': 0, 'Level': 1,
                     'Turn': False, 'Affliction': None}
         self.assertEqual(expected, test_char)
