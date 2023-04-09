@@ -1,7 +1,7 @@
 from combat import BURNING_DMG, BLEED_DMG
 
 
-def check_for_creep_afflictions(creep):
+def check_for_creep_afflictions(creep: dict) -> None:
     """
     Determine creep affliction status.
 
@@ -44,7 +44,7 @@ def check_for_creep_afflictions(creep):
             creep['Affliction'] = None
 
 
-def damage_over_time(creep):
+def damage_over_time(creep: dict) -> None:
     """
     Decrement the health of creep.
 
@@ -80,7 +80,7 @@ def damage_over_time(creep):
               f" They have taken {skill_damage[creep['Affliction']]} damage.")
 
 
-def stun(creep):
+def stun(creep: dict) -> None:
     """
     Apply stun effects to creep
 
