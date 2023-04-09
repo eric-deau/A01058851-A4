@@ -23,12 +23,13 @@ def game():
             boss_check = game_checks.check_for_boss(character, world)
             if boss_check:
                 boss = encounters.spawn_boss(character)
-                if boss['HP'] <= 0 and boss['Name'] == "EYE OF CTHULHU":
+                if boss['Name'] == "EYE OF CTHULHU":
                     lore.slow_rolling_text_printer('board/eye_of_cthulhu.txt')
-                if boss['HP'] <= 0 and boss['Name'] == "MIMIC":
+                if boss['Name'] == "MIMIC":
                     lore.slow_rolling_text_printer('board/mimic.txt')
-                if boss['HP'] <= 0 and boss['Name'] == "ZAKUM":
+                if boss['Name'] == "ZAKUM":
                     lore.slow_rolling_text_printer('board/zakum.txt')
+                print(f"YOU HAVE ENCOUNTERED {boss['Name']}!")
                 encounters.engage_combat(character, boss)
                 if boss['HP'] <= 0 and boss['Name'] == "EYE OF CTHULHU":
                     lore.slow_rolling_text_printer('board/defeat_of_eye_of_cthulhu.txt')
