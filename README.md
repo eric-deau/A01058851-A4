@@ -12,5 +12,8 @@ A01058851
 ## Your GitHub account ID:
 eric-deau
 ## Any important comments you'd like to make about your work:
-Play Warrior class to breeze through the game, play Mage and Thief if you
-would like to potentially lose.
+If played on command line, you will have to be more patient with
+the printing, as time.sleep does not work properly on CMD. Also do not
+press enter too quicky, or else the Quick Time Events might accidentally
+register an unwanted action. Play Warrior or Thief to breeze through the
+game, and play Mage for a slightly more challenging run. 
