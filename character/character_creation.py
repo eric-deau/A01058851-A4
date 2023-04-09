@@ -21,15 +21,15 @@ def choose_name():
     :return: a string presenting the name of a character
     """
     name_count = 0
-    name = input("Enter a name: ")
+    name = input("What is your name?: ")
     confirm_name = input("Are you sure? Enter \'Y\' to confirm: ")
     while confirm_name.lower() != 'y':
         if name_count < 3:
-            name = input("Okay, let's try this again. Enter a name: ")
+            name = input("Okay, let's try this again.\nWhat is your name?: ")
         elif 3 < name_count < 10:
             name = input("Do you need suggestions on a name? Enter a name: ")
         else:
-            name = "Indecisive Player727"
+            name = "IndecisivePlayer727"
             print(f"Okay, that is enough. Your name is now: {name}")
             break
         confirm_name = input("Are you sure? Enter \'Y\' to confirm: ")
