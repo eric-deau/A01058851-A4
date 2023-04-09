@@ -2,7 +2,7 @@ import combat
 import time
 
 
-def run_away(character):
+def run_away(character: dict) -> None:
     """
     Perform the run away ability on character.
 
@@ -33,7 +33,7 @@ def run_away(character):
         character['Y-coord'] = 0
 
 
-def doomsday(character, creep):
+def doomsday(character: dict, creep: dict) -> None:
     """
     Cast doomsday ability on creep
 
@@ -67,10 +67,9 @@ def doomsday(character, creep):
         creep['HP'] -= combat.DOOMSDAY_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
         creep['Affliction'] = 'Burn'
         print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-        # character['MP'] -= combat.DOOMSDAY_MP_COST
 
 
-def stab(character, creep):
+def stab(character: dict, creep: dict) -> None:
     """
     Cast stab ability on creep
 
@@ -105,10 +104,9 @@ def stab(character, creep):
         creep['HP'] -= combat.STAB_FLAT_DMG + (character['Attack']*combat.ATK_MULTIPLIER)
         creep['Affliction'] = 'Bleed'
         print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-        # character['MP'] -= combat.STAB_MP_COST
 
 
-def earthquake_chain(character, creep):
+def earthquake_chain(character: dict, creep: dict) -> None:
     """
     Cast earthquake_chain ability on creep
 
@@ -156,10 +154,9 @@ def earthquake_chain(character, creep):
         creep['HP'] -= combat.EARTHQUAKE_CHAIN_FLAT_DMG + character['Attack']*combat.ATK_MULTIPLIER
         creep['Affliction'] = 'Stunned'
         print(f"{creep['Name']} has been afflicted with {creep['Affliction']}!")
-        # character['MP'] -= combat.EARTHQUAKE_CHAIN_MP_COST
 
 
-def regular_attack(character, creep):
+def regular_attack(character: dict, creep: dict) -> None:
     """
     Perform an attack on creep.
 
@@ -204,7 +201,7 @@ def regular_attack(character, creep):
         time.sleep(2)
 
 
-def cast_spell(character, creep):
+def cast_spell(character: dict, creep: dict) -> None:
     """
     Cast an ability depending on what the character's spell is.
 
@@ -255,7 +252,7 @@ def cast_spell(character, creep):
         time.sleep(2)
 
 
-def decrement_mana(character):
+def decrement_mana(character: dict) -> None:
     """
     Decrease the mana of a character based on the skill used.
 
