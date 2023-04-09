@@ -133,6 +133,8 @@ def engage_combat(current_char: dict, creep: dict) -> None:
     :precondition: creep must contain 'Turn' as a key and a boolean value as the value
     :postcondition: determines the events occurring in a fight between current_char and creep
     """
+    print(f"YOU HAVE ENCOUNTERED {creep['Name']}!")
+    time.sleep(2)
     determine_first_engage(current_char=current_char, creep=creep)
     while current_char['HP'] > 0 and creep['HP'] > 0 and current_char['Affliction'] != 'Coward':
         check_player_turn = check_for_turn(current_char)

@@ -30,7 +30,6 @@ def game():
                         lore.slow_rolling_text_printer('board/mimic.txt')
                     if boss['Name'] == "ZAKUM":
                         lore.slow_rolling_text_printer('board/zakum.txt')
-                    print(f"YOU HAVE ENCOUNTERED {boss['Name']}!")
                     encounters.engage_combat(character, boss)
                     if boss['HP'] <= 0 and boss['Name'] == "EYE OF CTHULHU":
                         lore.slow_rolling_text_printer('board/defeat_of_eye_of_cthulhu.txt')
