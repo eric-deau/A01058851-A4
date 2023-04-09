@@ -1,5 +1,4 @@
 import random
-import __init__
 
 
 def check_if_goal_attained(current_char: dict, rows: int, columns: int, floors: int) -> bool:
@@ -132,14 +131,21 @@ def reset_affliction(current_char):
     :param current_char: a dictionary containing 'Affliction' as a key
     :precondition: current_char must be a dictionary containing a key named 'Affliction'
     :postcondition: modifies current_char key 'Affliction' value to be None
+    :raises: TypeError: if current_char is not a dictionary
+    :raises: KeyError: if 'Affliction' is not a key existing in current_char
 
     >>> char_one = {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'Affliction': 'Run Away', 'HP': 2}
     >>> reset_affliction(char_one)
     >>> char_one
     {'X-coord': 1, 'Y-coord': 1, 'Z-coord': 1, 'Affliction': None, 'HP': 2}
     """
-    if current_char['Affliction']:
-        current_char['Affliction'] = None
+    if type(current_char) is not dict:
+        raise TypeError("Must pass a dictionary as an argument.")
+    elif 'Affliction' not in current_char:
+        raise KeyError("'Affliction' must exist in dictionary as a key.")
+    else:
+        if current_char['Affliction']:
+            current_char['Affliction'] = None
 
 
 def victory():
