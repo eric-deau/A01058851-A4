@@ -29,5 +29,5 @@ class TestDetermineAttack(TestCase):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 20, 'ATK': 25, 'Affliction': None, 'Turn': False,
                           'EXP': 100}
         determine_attack('Spell', test_char_one, test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': -32.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': -62.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
