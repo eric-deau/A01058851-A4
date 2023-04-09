@@ -1,7 +1,7 @@
 import character
 
 
-def gain_experience(current_char, creep):
+def gain_experience(current_char: dict, creep: dict) -> None:
     """
     Determine the EXP gain of a character after a successful battle.
 
@@ -31,7 +31,7 @@ def gain_experience(current_char, creep):
         print(f"{creep['EXP']} experience points gained.")
 
 
-def level_up(current_char):
+def level_up(current_char: dict) -> None:
     """
     Level up a character if they meet EXP requirements.
 
@@ -70,7 +70,7 @@ def level_up(current_char):
         print(f"You have leveled up! You are now level {current_char['Level']}")
 
 
-def level_two(current_char):
+def level_two(current_char: dict) -> None:
     """
     Increase current_char stats to match with level two stats.
 
@@ -109,7 +109,7 @@ def level_two(current_char):
         current_char['MP'] += character.LEVEL_TWO_MP
 
 
-def level_three(current_char):
+def level_three(current_char: dict) -> None:
     """
     Increase current_char stats to match with level three stats.
 
@@ -150,12 +150,8 @@ def level_three(current_char):
 
 def main():
     """
-
-    :return:
+    Drive the program.
     """
-    # character = {'name': 'RAKSHASA', 'class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0, 'Y-coord': 0,
-    #              'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 200, 'Level': 2, 'Turn': False}
-    # level_up(character)
 
 
 if __name__ == "__main__":
