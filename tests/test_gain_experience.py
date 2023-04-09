@@ -17,14 +17,14 @@ class TestGainExperience(TestCase):
 
     def test_gain_experience_zero_exp(self):
         test_char_one = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0,
-                              'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1, 'Turn': False}
         test_mob_one = {'Name': 'Slime', 'HP': 0, 'ATK': 10, 'Affliction': None, 'EXP': 10}
         gain_experience(test_char_one, test_mob_one)
         self.assertEqual(10, test_char_one['EXP'])
 
     def test_gain_experience_some_exp(self):
         test_char_two = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 50, 'Spell': 'Doomsday', 'X-coord': 0,
-                              'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 50, 'Level': 1, 'Turn': False}
+                         'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 50, 'Level': 1, 'Turn': False}
         test_mob_two = {'Name': 'Slime', 'HP': 10, 'ATK': 10, 'Affliction': None, 'EXP': 30}
         gain_experience(test_char_two, test_mob_two)
         self.assertEqual(80, test_char_two['EXP'])

@@ -25,5 +25,3 @@ class TestGetSkill(TestCase):
     def test_get_skill_incorrect_value(self):
         with self.assertRaises(ValueError):
             get_skill("Rogue")
-
-
