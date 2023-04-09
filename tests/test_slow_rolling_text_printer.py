@@ -1,6 +1,6 @@
 from unittest import TestCase
 from unittest.mock import patch
-from board.lore import slow_rolling_text_printer
+from utilities.lore import slow_rolling_text_printer
 import io
 
 

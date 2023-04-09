@@ -1,7 +1,7 @@
 from combat import encounters
-from board import world_creation, lore
+from board import world_creation
 from movement import movement
-from utilities import game_checks
+from utilities import game_checks, lore
 from character import character_creation, display_status
 import __init__
 
@@ -49,9 +49,8 @@ def game():
                                                                    columns=__init__.COLUMNS, floors=__init__.FLOORS)
             else:
                 print("\"That door seems to be locked\"")
-        if achieved_goal:
-            # game_checks.victory()
-            print("Victory!")
+        if achieved_goal and character['HP'] > 0:
+            game_checks.victory()
         if character['HP'] <= 0:
             lore.slow_rolling_text_printer('utilities/defeat.txt')
             game_checks.defeat('utilities/defeat_ascii.txt')
