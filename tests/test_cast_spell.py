@@ -24,7 +24,7 @@ class TestCastSpell(TestCase):
         test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 100, 'ATK': 25, 'Affliction': None, 'Turn': False,
                       'EXP': 100}
         cast_spell(test_char, test_creep)
-        expected = "Casting Doomsday...\nEYE OF CTHULHU has been afflicted with Burn!\nYou lost 50 MP.\n"
+        expected = "Casting Doomsday...\nEYE OF CTHULHU has been afflicted with Burn!\nYou lost 60 MP.\n"
         self.assertEqual(mock_output.getvalue(), expected)
 
     @patch('sys.stdout', new_callable=io.StringIO)

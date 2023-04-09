@@ -23,7 +23,7 @@ class TestCharacterAttack(TestCase):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 20, 'ATK': 25, 'Affliction': None, 'Turn': False,
                           'EXP': 100}
         character_attack(test_char_one, test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': -62.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': True, 'EXP': 100}
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': -32.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': True, 'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
     @patch('builtins.input', side_effect=['3'])
