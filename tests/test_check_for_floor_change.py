@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import patch
 from movement.movement import check_for_floor_change
 
 
@@ -9,10 +10,11 @@ class TestCheckForFloorChange(TestCase):
         expected = {"X-coord": 1, "Y-coord": 0, "Z-coord": 0, "HP": 2}
         self.assertEqual(expected, example_character_one)
 
-    def test_check_for_floor_change_change_level(self):
+    @patch('random.randint', side_effect=[2, 1])
+    def test_check_for_floor_change_change_level(self, _):
         example_character_one = {"X-coord": 2, "Y-coord": 2, "Z-coord": 0, "HP": 2}
         check_for_floor_change(example_character_one, 3, 3, 3)
-        expected = {"X-coord": 0, "Y-coord": 0, "Z-coord": 1, "HP": 2}
+        expected = {"X-coord": 2, "Y-coord": 1, "Z-coord": 1, "HP": 2}
         self.assertEqual(expected, example_character_one)
 
     def test_check_for_floor_no_dictionary(self):
