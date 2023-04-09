@@ -1,3 +1,6 @@
+import random
+
+
 def describe_current_location(board: dict, current_char: dict) -> None:
     """
     Describe the current environment of a character.
@@ -167,11 +170,9 @@ def check_for_floor_change(character: dict, rows: int, columns: int, floors: int
                          " and floors must be more than or equal to 1.")
     else:
         if character['X-coord'] == rows-1 and character['Y-coord'] == columns-1 and character['Z-coord'] < floors-1:
-            character['X-coord'] = 0
-            character['Y-coord'] = 0
+            character['X-coord'] = random.randint(0, rows-2)
+            character['Y-coord'] = random.randint(0, columns-2)
             character['Z-coord'] += 1
-        # print(f"The roof is collapsing..")
-        # time.sleep(2)
 
 
 def main():
