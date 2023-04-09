@@ -152,6 +152,10 @@ def victory():
     pass
 
 
+def defeat():
+    pass
+
+
 def main():
     """
     Drive the program.

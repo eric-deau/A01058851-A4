@@ -1,5 +1,5 @@
 from combat import encounters
-from board import world_creation
+from board import world_creation, lore
 from movement import movement
 from utilities import game_checks
 from character import character_creation, display_status
@@ -7,11 +7,11 @@ import __init__
 
 
 def game():
+    lore.beginning_of_game()
     world = world_creation.make_board(__init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
     character = character_creation.make_character()
     achieved_goal = False
     while character['HP'] > 0 and not achieved_goal:
-        # status_check = input("Would you like to see your status? Type 'Y' to check, else input anything to proceed.")
         display_status.display_status(character)
         movement.check_for_floor_change(character, __init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
         game_checks.reset_affliction(character)
