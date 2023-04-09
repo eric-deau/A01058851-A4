@@ -171,7 +171,6 @@ def main():
     """
     Drive the program.
     """
-    slow_print_by_line('ending.txt')
 
 
 if __name__ == "__main__":
