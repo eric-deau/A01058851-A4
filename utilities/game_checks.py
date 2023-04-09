@@ -149,11 +149,7 @@ def reset_affliction(current_char: dict) -> None:
             current_char['Affliction'] = None
 
 
-def victory():
-    pass
-
-
-def defeat(input_file):
+def slow_print_by_line(input_file):
     """
     Display ascii art that indicates to users that they have lost.
 
@@ -175,7 +171,7 @@ def main():
     """
     Drive the program.
     """
-    defeat('defeat_ascii.txt')
+    slow_print_by_line('ending.txt')
 
 
 if __name__ == "__main__":

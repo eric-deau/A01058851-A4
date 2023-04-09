@@ -50,10 +50,11 @@ def game():
             else:
                 print("\"That door seems to be locked\"")
         if achieved_goal and character['HP'] > 0:
-            game_checks.victory()
+            lore.slow_rolling_text_printer('utilities/victory.txt')
+            game_checks.slow_print_by_line('utilities/ending.txt')
         if character['HP'] <= 0:
             lore.slow_rolling_text_printer('utilities/defeat.txt')
-            game_checks.defeat('utilities/defeat_ascii.txt')
+            game_checks.slow_print_by_line('utilities/defeat_ascii.txt')
         user_input = input("Would you like to restart? Type Y to restart, else type anything to exit.")
         if user_input.lower() == 'y':
             continue

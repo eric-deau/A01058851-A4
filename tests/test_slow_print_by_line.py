@@ -1,18 +1,18 @@
 from unittest import TestCase
 from unittest.mock import patch
-from utilities.game_checks import defeat
+from utilities.game_checks import slow_print_by_line
 import io
 
 
-class TestDefeat(TestCase):
+class TestSlowPrintByLine(TestCase):
 
-    def test_defeat_file_non_existent(self):
+    def test_slow_print_by_line_file_non_existent(self):
         with self.assertRaises(FileNotFoundError):
-            defeat("not a file")
+            slow_print_by_line("not a file")
 
     @patch('builtins.open', return_value=io.StringIO('Hello'))
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_beginning_of_game(self, mock_output, _):
-        defeat('test_slow_rolling_text_printer.py')
+    def test_slow_print_by_line(self, mock_output, _):
+        slow_print_by_line('test_slow_rolling_text_printer.py')
         expected = 'Hello\n'
         self.assertEqual(mock_output.getvalue(), expected)
