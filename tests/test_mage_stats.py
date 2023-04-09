@@ -8,8 +8,8 @@ class TestMageStats(TestCase):
                            'X-coord': 0, 'Y-coord': 0, 'Z-coord': 0, 'HP': 100, 'MP': 100, 'EXP': 0, 'Level': 1,
                            'Turn': False, 'Affliction': None}
         mage_stats(test_char_three)
-        expected = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 30, 'Spell': 'Doomsday', 'MP Cost': None,
-                    'X-coord': 0, 'Y-coord': 0, 'Z-coord': 0, 'HP': 80, 'MP': 150, 'EXP': 0, 'Level': 1,
+        expected = {'Name': 'RAKSHASA', 'Class': 'Mage', 'Attack': 35, 'Spell': 'Doomsday', 'MP Cost': None,
+                    'X-coord': 0, 'Y-coord': 0, 'Z-coord': 0, 'HP': 90, 'MP': 150, 'EXP': 0, 'Level': 1,
                     'Turn': False, 'Affliction': None}
         self.assertEqual(expected, test_char_three)
 
