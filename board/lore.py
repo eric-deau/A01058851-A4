@@ -1,14 +1,14 @@
 import time
 
 
-def beginning_of_game():
+def slow_rolling_text_printer(input_file):
     """
     Print the starting lore of the game in a rolling text.
 
     :postcondition: displays a slow rolling text in the console to users
     :raises: FileNotFoundError: if file does not exist in directory named board
     """
-    with open('board/beginning.txt', 'r') as file_object:
+    with open(input_file, 'r') as file_object:
         content = file_object.read()
     for line in content:
         print(line, end="")
@@ -17,7 +17,9 @@ def beginning_of_game():
 
 
 def main():
-    beginning_of_game()
+    """
+    Drive the program.
+    """
 
 
 if __name__ == "__main__":

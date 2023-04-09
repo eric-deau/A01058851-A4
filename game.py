@@ -7,7 +7,7 @@ import __init__
 
 
 def game():
-    lore.beginning_of_game()
+    lore.slow_rolling_text_printer('board/beginning.txt')
     world = world_creation.make_board(__init__.ROWS, __init__.COLUMNS, __init__.FLOORS)
     character = character_creation.make_character()
     achieved_goal = False
@@ -25,6 +25,8 @@ def game():
                 boss = encounters.spawn_boss(character)
                 print(f"YOU HAVE ENCOUNTERED {boss['Name']}.")
                 encounters.engage_combat(character, boss)
+                if boss['HP'] <= 0 and boss['Name'] == "EYE OF CTHULHU":
+                    lore.slow_rolling_text_printer('board/eye_of_cthulhu.txt')
             elif game_checks.check_for_random_foes():
                 if encounters.decide_encounter():
                     encounters.engage_combat(current_char=character, creep=encounters.spawn_monster())
