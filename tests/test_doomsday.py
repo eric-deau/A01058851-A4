@@ -10,7 +10,7 @@ class TestDoomsday(TestCase):
         test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False,
                       'EXP': 100}
         doomsday(test_char, test_creep)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': -26.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False,
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': -56.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False,
                     'EXP': 100}
         self.assertEqual(expected, test_creep)
 
@@ -21,7 +21,7 @@ class TestDoomsday(TestCase):
         test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 100, 'ATK': 25, 'Affliction': None, 'Turn': False,
                       'EXP': 100}
         doomsday(test_char, test_creep)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': 44.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False,
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 14.0, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False,
                     'EXP': 100}
         self.assertEqual(expected, test_creep)
 
