@@ -7,7 +7,7 @@ class TestMakeCharacter(TestCase):
     @patch('builtins.input', side_effect=["Bobby B", "Y", "2", "Y"])
     def test_make_character_all_correct_inputs(self, _):
         actual = make_character()
-        expected = {'Affliction': None, 'Attack': 30, 'Class': 'Mage', 'EXP': 0, 'HP': 80, 'Level': 1, 'MP': 150,
+        expected = {'Affliction': None, 'Attack': 35, 'Class': 'Mage', 'EXP': 0, 'HP': 90, 'Level': 1, 'MP': 150,
                     'MP Cost': None, 'Name': 'Bobby B', 'Spell': 'Doomsday', 'Turn': False, 'X-coord': 0, 'Y-coord': 0,
                     'Z-coord': 0}
         self.assertEqual(expected, actual)
