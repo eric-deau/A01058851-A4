@@ -1,7 +1,7 @@
 import time
 
 
-def display_status(character):
+def display_status(character: dict) -> None:
     """
     Display the characteristics of a character.
 
