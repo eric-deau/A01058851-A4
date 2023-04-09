@@ -296,10 +296,6 @@ def check_for_victory(current_char: dict, creep: dict) -> bool:
         raise KeyError("'HP' key must exist in both dictionaries.")
     else:
         return True if current_char['HP'] > 0 >= creep['HP'] else False
-        # if current_char['HP'] > 0 >= creep['HP']:
-        #     return True
-        # else:
-        #     return False
 
 
 def encounter_victory(current_char: dict, creep: dict) -> None:
@@ -336,10 +332,6 @@ def encounter_victory(current_char: dict, creep: dict) -> None:
         print(f"You have healed for {heal} HP.")
         print(f"You have regenerated {mp} mana.")
         time.sleep(2)
-
-
-def defeat():
-    pass
 
 
 def spawn_boss(current_char: dict) -> dict:
