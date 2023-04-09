@@ -77,7 +77,6 @@ def main():
     """
     Drive the program.
     """
-    print(make_board(4, 4, 2))
 
 
 if __name__ == "__main__":
