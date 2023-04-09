@@ -154,6 +154,15 @@ def victory():
 
 
 def defeat(input_file):
+    """
+    Display ascii art that indicates to users that they have lost.
+
+    :param input_file: a string representing the name of a file
+    :precondition: input_file must be a plain text file
+    :precondition: input_file must be an existing file
+    :postcondition: displays an ascii art that tells users they died
+    :raises: FileNotFoundError: if input_file does not exist in the directory
+    """
     with open(input_file, 'r') as file_object:
         content = file_object.readlines()
     for line in content:
