@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def check_if_goal_attained(current_char: dict, rows: int, columns: int, floors: int) -> bool:
@@ -124,7 +125,7 @@ def check_for_boss(current_char: dict, current_board: dict) -> bool:
         return False
 
 
-def reset_affliction(current_char):
+def reset_affliction(current_char: dict) -> None:
     """
     Reset the affliction on current_char after an encounter is over.
 
@@ -152,14 +153,20 @@ def victory():
     pass
 
 
-def defeat():
-    pass
+def defeat(input_file):
+    with open(input_file, 'r') as file_object:
+        content = file_object.readlines()
+    for line in content:
+        print(f'{line}', end="")
+        time.sleep(0.25)
+    print()
 
 
 def main():
     """
     Drive the program.
     """
+    defeat('defeat_ascii.txt')
 
 
 if __name__ == "__main__":
