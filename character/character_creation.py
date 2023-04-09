@@ -13,7 +13,7 @@ def make_character() -> dict:
     return create_char
 
 
-def choose_name():
+def choose_name() -> str:
     """
     Determine a character's name.
 
@@ -37,7 +37,7 @@ def choose_name():
     return name
 
 
-def choose_class():
+def choose_class() -> str:
     """
     Determine the class of a character
 
@@ -59,7 +59,7 @@ def choose_class():
     return char_class
 
 
-def get_skill(char_class):
+def get_skill(char_class) -> str:
     """
     Determine the ability of one of the three classes.
 
@@ -89,7 +89,7 @@ def get_skill(char_class):
             return 'Stab'
 
 
-def determine_stats(character):
+def determine_stats(character: dict) -> None:
     """
     Determine a character's stats based off of a selected character class.
 
@@ -136,7 +136,7 @@ def determine_stats(character):
             thief_stats(character)
 
 
-def warrior_stats(character):
+def warrior_stats(character: dict) -> None:
     """
     Apply the warrior base stats to character.
 
@@ -153,7 +153,7 @@ def warrior_stats(character):
         character['MP'] = 50
 
 
-def thief_stats(character):
+def thief_stats(character: dict) -> None:
     """
     Apply the thief base stats to character.
 
@@ -170,7 +170,7 @@ def thief_stats(character):
         character['MP'] = 100
 
 
-def mage_stats(character):
+def mage_stats(character: dict) -> None:
     """
     Apply the mage base stats to character.
 
@@ -187,7 +187,7 @@ def mage_stats(character):
         character['MP'] = 150
 
 
-def valid_selection(selection, classes):
+def valid_selection(selection: str, classes: dict) -> str:
     """
     Verify user selection for a class.
 
