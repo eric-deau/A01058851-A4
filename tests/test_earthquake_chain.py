@@ -21,7 +21,7 @@ class TestEarthquakeChain(TestCase):
         test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 100, 'ATK': 25, 'Affliction': None, 'Turn': False,
                           'EXP': 100}
         earthquake_chain(test_char_one, test_creep_one)
-        expected = {'Name': 'EYE OF CTHULHU', 'HP': -54.0, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False,
+        expected = {'Name': 'EYE OF CTHULHU', 'HP': 54.0, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False,
                     'EXP': 100}
         self.assertEqual(expected, test_creep_one)
 
