@@ -6,6 +6,7 @@ def beginning_of_game():
     Print the starting lore of the game in a rolling text.
 
     :postcondition: displays a slow rolling text in the console to users
+    :raises: FileNotFoundError: if file does not exist in directory named board
     """
     with open('board/beginning.txt', 'r') as file_object:
         content = file_object.read()
