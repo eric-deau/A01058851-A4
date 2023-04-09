@@ -6,37 +6,42 @@ def check_for_creep_afflictions(creep):
     Determine creep affliction status.
 
     :param creep: a dictionary containing 'HP', 'Turn' and 'Affliction' as keys
-    :precondition: creep must be a dictionary containing 'HP', 'Turn', and 'Affliction' as keys
+    :precondition: creep must be a dictionary containing 'HP', 'Turn', 'Affliction' and 'Affliction Count' as keys
     :precondition: creep 'HP' must be a positive number
     :postcondition: applies affliction status to creep if creep has an affliction
     :raises: TypeError: if creep is not a dictionary
     :raises: KeyError: if 'HP', 'Turn' or 'Affliction' not in creep
 
     >>> test_creep_one = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
-                      'EXP': 100}
+                      'Turn Count': 0, 'EXP': 100}
     >>> check_for_creep_afflictions(test_creep_one)
     
     >>> test_creep_two = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, \
-                      'EXP': 100}
+                      'Turn Count': 0, 'EXP': 100}
     >>> check_for_creep_afflictions(test_creep_two)
     EYE OF CTHULHU is afflicted with Burn! They have taken 5 damage.
     >>> test_creep_two
-    {'Name': 'EYE OF CTHULHU', 'HP': 25, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, 'EXP': 100}
+    {'Name': 'EYE OF CTHULHU', 'HP': 25, 'ATK': 25, 'Affliction': 'Burn', 'Turn': False, 'Turn Count': 1, 'EXP': 100}
 
     >>> test_creep_three = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': True, \
-                      'EXP': 100}
+                      'Turn Count': 0, 'EXP': 100}
     >>> check_for_creep_afflictions(test_creep_three)
     >>> test_creep_three
-    {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False, 'EXP': 100}
+    {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': 'Stunned', 'Turn': False, 'Turn Count': 1, 'EXP': 100}
     """
     if type(creep) is not dict:
         raise TypeError("Must pass a dictionary as an argument.")
-    elif 'HP' not in creep or 'Turn' not in creep or 'Affliction' not in creep:
-        raise KeyError("Dictionary must contain 'HP', 'Turn' and 'Affliction' as keys.")
+    elif 'HP' not in creep or 'Turn' not in creep or 'Affliction' not in creep or 'Turn Count' not in creep:
+        raise KeyError("Dictionary must contain 'HP', 'Turn', 'Affliction', and 'Turn Count' as keys.")
     else:
         afflictions = {'Burn': damage_over_time, 'Bleed': damage_over_time, 'Stunned': stun}
         if creep['Affliction'] in afflictions:
             afflictions[creep['Affliction']](creep)
+            creep['Turn Count'] += 1
+        if creep['Turn Count'] >= 3:
+            creep['Turn Count'] = 0
+            print(f"{creep['Name']} is no longer suffering from {creep['Affliction']}")
+            creep['Affliction'] = None
 
 
 def damage_over_time(creep):

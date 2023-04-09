@@ -1,9 +1,9 @@
 [
-  {"Name": "Slime", "HP": 30, "ATK": 15, "Affliction": null, "EXP": 10, "Turn": false},
-  {"Name": "The Big Bad SLIME", "HP": 60, "ATK": 15, "Affliction": null, "EXP": 10, "Turn": false},
-  {"Name": "Zombie", "HP": 55, "ATK": 25, "Affliction": null, "EXP": 15, "Turn": false},
-  {"Name": "Worm", "HP": 20, "ATK": 5, "Affliction": null, "EXP": 10, "Turn": false},
-  {"Name": "THE ALASKAN BULLWORM", "HP": 75, "ATK": 30, "Affliction": null, "EXP": 40, "Turn": false},
-  {"Name": "Wisp", "HP": 50, "ATK": 20, "Affliction": null, "EXP": 35, "Turn": false},
-  {"Name": "False Knight", "HP": 100, "ATK": 30, "Affliction": null, "EXP": 50, "Turn": false}
+  {"Name": "Slime", "HP": 30, "ATK": 15, "Affliction": null, "Turn Count": 0, "EXP": 10, "Turn": false},
+  {"Name": "The Big Bad SLIME", "HP": 60, "ATK": 15, "Affliction": null, "Turn Count": 0, "EXP": 10, "Turn": false},
+  {"Name": "Zombie", "HP": 55, "ATK": 25, "Affliction": null, "Turn Count": 0, "EXP": 15, "Turn": false},
+  {"Name": "Worm", "HP": 20, "ATK": 5, "Affliction": null, "Turn Count": 0, "EXP": 10, "Turn": false},
+  {"Name": "THE ALASKAN BULLWORM", "HP": 75, "ATK": 30, "Affliction": null, "Turn Count": 0, "EXP": 40, "Turn": false},
+  {"Name": "Wisp", "HP": 50, "ATK": 20, "Affliction": null, "Turn Count": 0, "EXP": 35, "Turn": false},
+  {"Name": "False Knight", "HP": 100, "ATK": 30, "Affliction": null, "Turn Count": 0, "EXP": 50, "Turn": false}
 ]
