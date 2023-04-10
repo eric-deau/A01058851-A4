@@ -20,7 +20,7 @@ def guessing_game(current_char: dict) -> None:
     elif current_char['HP'] < 0:
         raise ValueError("HP must be a number more than 0.")
     else:
-        print(f"Welcome to the funhouse, {current_char['Name']}..")
+        print(f"Lets play a little game, {current_char['Name']}..")
         time.sleep(2)
         secret_number = str(random.randint(1, 5))
         guess = input("Enter a number between 1 and 5 inclusive: ")
