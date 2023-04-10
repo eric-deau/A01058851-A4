@@ -17,3 +17,7 @@ the printing, as time.sleep does not work properly on CMD. Also do not
 press enter too quicky, or else the Quick Time Events might accidentally
 register an unwanted action. Play Warrior or Thief to breeze through the
 game, and play Mage for a slightly more challenging run. 
+
+Goal: Get to Heaven, and defeat ZAKUM, the cursed statue.
+
+How to play: Use the numbers given by the prompt to perform an action.
