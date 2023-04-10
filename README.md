@@ -38,7 +38,7 @@ How to play: Use the numbers given by the prompt to perform an action.
  | (l)          | world_creation.py     | 38   |
  | (m)          | encounters.py         | 238  |
 | (n)          | encounters.py         | 8    |
-| (o)          | encounters.py         | 117  |
+| (o)          | encounters.py         | 82   |
 | (p)          | encounters.py         | 136  |
 
 Requirements                                                                                                
