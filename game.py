@@ -69,6 +69,7 @@ def game():
                                                                    columns=__init__.COLUMNS, floors=__init__.FLOORS)
             else:
                 print("\"That door seems to be locked\"")
+        pygame.mixer.pause()
         if achieved_goal and character['HP'] > 0:
             victory_ending = pygame.mixer.Sound("sound/victory_end.mp3")
             victory_ending.set_volume(0.05)
