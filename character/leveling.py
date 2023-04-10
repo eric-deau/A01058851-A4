@@ -1,4 +1,5 @@
 import character
+from playsound import playsound
 
 
 def gain_experience(current_char: dict, creep: dict) -> None:
@@ -68,6 +69,7 @@ def level_up(current_char: dict) -> None:
         else:
             return
         print(f"You have leveled up! You are now level {current_char['Level']}")
+        playsound('sound/levelup.mp3')
 
 
 def level_two(current_char: dict) -> None:
