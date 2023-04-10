@@ -51,6 +51,7 @@ def doomsday(character: dict, creep: dict) -> None:
     >>> test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
                       'EXP': 100}
     >>> doomsday(test_char, test_creep)
+    EYE OF CTHULHU has been afflicted with Burn!
     >>> test_creep['HP']
     -26.0
     >>> test_creep['Affliction']
@@ -88,8 +89,9 @@ def stab(character: dict, creep: dict) -> None:
     >>> test_creep = {'Name': 'EYE OF CTHULHU', 'HP': 30, 'ATK': 25, 'Affliction': None, 'Turn': False, \
                       'EXP': 100}
     >>> stab(test_char, test_creep)
+    EYE OF CTHULHU has been afflicted with Bleed!
     >>> test_creep['HP']
-    -6.0
+    -26.0
     >>> test_creep['Affliction']
     'Bleed'
     """
@@ -235,7 +237,7 @@ def cast_spell(character: dict, creep: dict) -> None:
     >>> cast_spell(test_char_one, test_creep_one)
     Casting Doomsday...
     EYE OF CTHULHU has been afflicted with Burn!
-    You lost 50 MP.
+    You lost 60 MP.
     """
     skillset = {'Earthquake Chain': earthquake_chain, 'Doomsday': doomsday, 'Stab': stab}
     if type(character) is not dict or type(creep) is not dict:
@@ -271,9 +273,9 @@ def decrement_mana(character: dict) -> None:
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
                      'Turn': False, 'Affliction': None}
     >>> decrement_mana(test_char_one)
-    You lost 50 MP.
+    You lost 60 MP.
     >>> test_char_one['MP']
-    30
+    20
 
     >>> test_char_two = {'Name': 'RAKSHASA', 'Class': 'Warrior', 'Attack': 80, 'Spell': 'Earthquake Chain', \
                      'X-coord': 3, 'Y-coord': 3, 'Z-coord': 2, 'HP': 110, 'MP': 80, 'EXP': 0, 'Level': 1, \
